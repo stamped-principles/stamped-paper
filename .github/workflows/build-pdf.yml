@@ -54,7 +54,7 @@ jobs:
         id: diff
         run: |
           docker run --rm -v "$PWD:/work" ghcr.io/myyoda/diff-pdf:latest \
-            ./code/gh-pages-diff-pdf.sh \
+            bash ./code/gh-pages-diff-pdf.sh \
               main.pdf \
               "https://myyoda.github.io/principles-paper/main.pdf" \
               "gh-pages-pr-${{ github.event.pull_request.number }}" \
