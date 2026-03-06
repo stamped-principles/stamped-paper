@@ -7,6 +7,8 @@ Originating from the [YODA Principles](https://github.com/myyoda/poster/blob/mas
 
 **[View current PDF](https://myyoda.github.io/principles-paper/)** | [Download PDF](https://myyoda.github.io/principles-paper/main.pdf)
 
+Associated examples: https://github.com/myyoda/principles-examples rendered to https://myyoda.github.io/principles-examples .
+
 Target venue: **Nature Scientific Data** (Article format).
 
 See [CLAUDE.md](CLAUDE.md) for project conventions and file map.
