@@ -96,7 +96,24 @@ for ((i = 0; i < max_count; i++)); do
                 page_details+="- Page ${page_num} — unchanged\n"
             else
                 changed=$((changed + 1))
-                cp "${diff_pngs[$i]}" "diff-page-${padded}.png"
+                # Generate side-by-side: main (left) | PR with red highlights (right)
+                # compare -compose src overlays red on the second image where it differs
+                compare -fuzz 2% -highlight-color '#FF000060' \
+                    "${base_pngs[$i]}" "${pr_pngs[$i]}" \
+                    -compose src "diff-pages/highlighted-${padded}.png" 2>/dev/null || true
+                # Build 3-panel montage; try with labels, fall back to plain
+                montage_args=(-tile 3x1 -geometry '+4+4')
+                if ! montage \
+                        -font DejaVu-Sans \
+                        -label "main" "${base_pngs[$i]}" \
+                        -label "PR" "${pr_pngs[$i]}" \
+                        -label "changes" "diff-pages/highlighted-${padded}.png" \
+                        "${montage_args[@]}" "diff-page-${padded}.png" 2>/dev/null; then
+                    montage +label \
+                        "${base_pngs[$i]}" "${pr_pngs[$i]}" \
+                        "diff-pages/highlighted-${padded}.png" \
+                        "${montage_args[@]}" "diff-page-${padded}.png"
+                fi
                 diff_img_url="${raw_base}/diff-page-${padded}.png"
                 page_details+="<details><summary>Page ${page_num} — changed</summary>\n\n"
                 page_details+="![page ${page_num} diff](${diff_img_url})\n\n"

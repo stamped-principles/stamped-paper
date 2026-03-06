@@ -31,8 +31,8 @@ FAIR addresses findability, accessibility, interoperability, and reuse of digita
 
 Enhanced rigor, reproducibility, re-usability, efficiency, and translation across domains are all aspirational goals.
 Many researchers already employ practices toward these goals, but lack a common framework to evaluate or communicate their approach.
-Here we identify and codify these practices as the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable), originating from the YODA Principles % TODO: cite YODA
-, which characterize a well-formed research object.
+Here we identify and codify these practices as the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable), originating from the YODA Principles, % TODO: cite YODA
+which characterize a well-formed research object.
 STAMPED takes a pragmatic approach toward these goals in which each property is a spectrum, from practical minimums---often what researchers are already doing---to aspirational ideals.
 STAMPED complements formal computational workflow guidelines (e.g., FAIR4RS, RO-Crate) and facilitates the transition toward comprehensive workflow automation.
 
@@ -66,7 +66,7 @@ D & Distributability & All modules and procedures are shareable externally in a 
 \end{tabular}
 \end{table}
 
-The items containing keywords “MUST”, “SHALL”, “SHOULD”, and “MAY” in are to be interpreted as described in RFC 2119. % TODO: cite RFC
+The items containing keywords "MUST", "SHALL", "SHOULD", and "MAY" are to be interpreted as described in RFC 2119. % TODO: cite RFC
 
 
 
@@ -175,8 +175,8 @@ With advent of agentic AI systems, documentation alone often can provide actiona
 
 Monolithic structures present significant barriers to effective development, maintenance, and reuse.
 Managing such research objects as single, large units complicates incremental updates, obscures dependencies, remixing of components, and can be notably time-consuming.
-So rather than managing the research object as one indivisible whole, STAMPED promotes a compositional approach,structuring projects as assemblies of independently versioned and well-defined components.
-Defining a module as a separately distributable collection of components for our research object, **Modularity** is achieved when all modules of the research are independent and composable.
+So rather than managing the research object as one indivisible whole, STAMPED promotes a compositional approach, structuring projects as assemblies of independently versioned and well-defined components.
+Defining a module as a separately distributable collection of components for our research object, \textbf{Modularity} is achieved when all modules of the research are independent and composable.
 Individual parts—such as input and reference datasets, processing scripts, and computational environments—can be updated or replaced independently, thus minimizing disruption and maximizing reusability.
 
 The layout of these components plays a crucial role in enabling effective modularity:
@@ -189,7 +189,7 @@ The layout of these components plays a crucial role in enabling effective modula
   \item \textbf{results/}: explicitly identified outputs (e.g., figures, tables, derived datasets).
 \end{itemize}
 
-The intention of such organization clarifies how researchers to compose and recombine modules flexibly to produce varied outcomes.
+The intention of such organization clarifies for researchers how to compose and recombine modules flexibly to produce varied outcomes.
 
 The spectrum of modularity ranges from:
 At \textbf{minimum}, organize components into logical subdirectories---separate code from data, distinguish inputs from results, and document structure in a README.
@@ -197,7 +197,7 @@ At a \textbf{middle} level, formalize module boundaries using version control re
 At the \textbf{ideal} level, implement fully actionable composition with all dependencies as versioned submodules with automated module installation, allowing the entire workflow to be reassembled from a self-contained specification.
 
 Modularity ought to rely heavily on Tracking (module boundaries require independent versioning) and
-Self-containment (all independent modules required by the workflow ).
+Self-containment (all independent modules required by the workflow).
 It enhances Actionability by increasing the system reliability.
 Portability and Distributability are also easier to achieve since modules can themselves be ported and distributed separately from the integration in the whole.
 

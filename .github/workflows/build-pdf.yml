@@ -49,54 +49,53 @@ jobs:
         with:
           path: _site
 
-      # TODO: Re-enable once ghcr.io/myyoda/diff-pdf container is built
-      # - name: Generate PDF diff against main
-      #   if: github.event_name == 'pull_request'
-      #   id: diff
-      #   run: |
-      #     docker run --rm -v "$PWD:/work" ghcr.io/myyoda/diff-pdf:latest \
-      #       ./code/gh-pages-diff-pdf.sh \
-      #         main.pdf \
-      #         "https://myyoda.github.io/principles-paper/main.pdf" \
-      #         "gh-pages-pr-${{ github.event.pull_request.number }}" \
-      #         "${{ github.repository }}" \
-      #         "${{ github.server_url }}" \
-      #         "${{ github.event.pull_request.head.sha }}"
-      #     # Pass comment body to next step
-      #     {
-      #       echo 'body<<ENDOFCOMMENT'
-      #       cat pr-comment.md
-      #       echo 'ENDOFCOMMENT'
-      #     } >> "$GITHUB_OUTPUT"
-      #
-      # - name: Push PDF and diffs to PR preview branch
-      #   if: github.event_name == 'pull_request'
-      #   env:
-      #     PR_NUMBER: ${{ github.event.pull_request.number }}
-      #     HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-      #   run: |
-      #     git config user.name "github-actions[bot]"
-      #     git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      #     BRANCH="gh-pages-pr-${PR_NUMBER}"
-      #     git checkout --orphan "$BRANCH"
-      #     git rm -rf --cached .
-      #     git add -f main.pdf
-      #     # Add diff PDF and per-page diff images if generated
-      #     [ -f diff.pdf ] && git add -f diff.pdf
-      #     for f in diff-page-*.png; do
-      #       [ -f "$f" ] && git add -f "$f"
-      #     done
-      #     git commit -m "PDF preview for PR #${PR_NUMBER} (${HEAD_SHA:0:7})"
-      #     git push -f origin "$BRANCH"
-      #
-      # - name: Comment on PR with PDF link and diff
-      #   if: github.event_name == 'pull_request'
-      #   uses: peter-evans/create-or-update-comment@v4
-      #   with:
-      #     issue-number: ${{ github.event.pull_request.number }}
-      #     comment-author: 'github-actions[bot]'
-      #     body: ${{ steps.diff.outputs.body }}
-      #     edit-mode: replace
+      - name: Generate PDF diff against main
+        if: github.event_name == 'pull_request'
+        id: diff
+        run: |
+          docker run --rm -v "$PWD:/work" ghcr.io/myyoda/diff-pdf:latest \
+            ./code/gh-pages-diff-pdf.sh \
+              main.pdf \
+              "https://myyoda.github.io/principles-paper/main.pdf" \
+              "gh-pages-pr-${{ github.event.pull_request.number }}" \
+              "${{ github.repository }}" \
+              "${{ github.server_url }}" \
+              "${{ github.event.pull_request.head.sha }}"
+          # Pass comment body to next step
+          {
+            echo 'body<<ENDOFCOMMENT'
+            cat pr-comment.md
+            echo 'ENDOFCOMMENT'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Push PDF and diffs to PR preview branch
+        if: github.event_name == 'pull_request'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          BRANCH="gh-pages-pr-${PR_NUMBER}"
+          git checkout --orphan "$BRANCH"
+          git rm -rf --cached .
+          git add -f main.pdf
+          # Add diff PDF and per-page diff images if generated
+          [ -f diff.pdf ] && git add -f diff.pdf
+          for f in diff-page-*.png; do
+            [ -f "$f" ] && git add -f "$f"
+          done
+          git commit -m "PDF preview for PR #${PR_NUMBER} (${HEAD_SHA:0:7})"
+          git push -f origin "$BRANCH"
+
+      - name: Comment on PR with PDF link and diff
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body: ${{ steps.diff.outputs.body }}
+          edit-mode: replace
 
   deploy:
     if: github.ref == 'refs/heads/main'
