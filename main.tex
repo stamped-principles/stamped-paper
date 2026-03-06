@@ -429,10 +429,12 @@ This checklist provides such a guide for assessing compliance with STAMPED princ
 
 \subsection{Enabling tools}
 
-No single tool addresses all dimensions of reproducibility, but many tools contribute to multiple STAMPED properties simultaneously. For example, container technologies such as Docker and Singularity/Apptainer serve Portability by providing OS-level isolation from explicit environment specifications, Ephemerality by enabling disposable per-execution environments, and Distributability by producing frozen, shareable artifacts.
-Similarly, version control systems like Git underpin both Tracking (content-addressed identification and change history) and Self-containment (gathering all components under a single root), while extensions such as git-annex, DataLad, DVC, and Git LFS further extend these properties to large and binary data.
+No single tool addresses all the dimensions of scientific rigor described above, though many tools contribute to one or several properties simultaneously.
+For example, container technologies such as Docker or Singularity serve Portability by providing OS-level isolation from explicit environment specifications, enable Ephemerality by disposing per-execution environments, and facilitate Distributability by producing frozen, shareable artifacts.
+Similarly, version control systems such as \texttt{Git} underpin both Tracking (content-addressed identification and change history) and Self-containment (gathering all components under a single root), while extensions such as \texttt{git-annex}, \texttt{DataLad}, \texttt{DVC}, and \texttt{Git LFS} further extend these properties to large binary data.
 
-This overlap is not incidental — it reflects the interdependence of the STAMPED properties themselves. Achieving Ephemerality, for instance, inherently exercises Portability and Actionability: a disposable environment must be reconstituted from explicit specifications, and its setup must be automated end-to-end.
+This overlap is not incidental — it reflects the interdependence of the STAMPED properties themselves.
+Achieving Ephemerality, for instance, inherently exercises Portability and Actionability: a disposable environment must be reconstituted from explicit specifications, and its setup must be automated end-to-end.
 Likewise, Distributability builds on Self-containment and Tracking: a research object can only be shared in a consistent, retrievable state if its boundary is well-defined and all components are precisely identified.
 The tools that serve multiple properties do so precisely because they operationalize these connections.
 
@@ -441,9 +443,11 @@ The principle is tool-agnostic — any system that moves a property from documen
 Researchers should select tools based on their domain, infrastructure, and team familiarity, recognizing that the tools listed here are illustrative rather than prescriptive: what matters is that the underlying property is satisfied, not which specific tool achieves it.
 
 Where multiple tools serve the same STAMPED property, the choice between them often involves trade-offs between flexibility and simplicity.
-A representative example is the choice between \texttt{git-annex} and Git LFS for large-file tracking---both appear under Self-containment and Tracking in Table~\ref{tab:stamped-tools}, but they occupy different points on a complexity--flexibility spectrum.
-\texttt{git-annex} supports many remote types (SSH, S3, HTTP, local drives, offline USB archives) and integrates with DataLad's federated subdataset model, making it well-suited to multi-institutional collaboration and long-term archival where data sovereignty or offline access is required.
-Git LFS offers a simpler alternative: it is transparent to users, natively supported by GitHub and GitLab, and broadly adopted---but it is centralized (requiring an LFS server), lacks offline capability, and provides less flexible remote configurations.
+A representative example is the choice between \texttt{git-annex} and Git LFS for large-file tracking.
+Both appear under Self-containment and Tracking in Table~\ref{tab:stamped-tools}, but they occupy different points on a complexity-flexibility spectrum.
+\texttt{git-annex} supports many remote types (SSH, S3, HTTP, local drives, offline USB archives), making it well-suited to multi-institutional collaboration and long-term archival where data sovereignty or offline access is required.
+Git LFS offers a simpler alternative: it is transparent to users, natively supported by GitHub and GitLab, and broadly adopted.
+But it is centralized (requiring an LFS server), lacks offline capability, and provides less flexible remote configurations.
 Lightweight STAMPED implementations using Git LFS are entirely feasible for easier onboarding, trading federation flexibility for reduced operational overhead.
 The same pattern---flexibility versus simplicity---recurs across other tool choices in Table~\ref{tab:stamped-tools}: container-based versus package-based environment management, workflow engines versus shell scripts, and federated archives versus centralized platforms.
 
@@ -464,23 +468,23 @@ Gather all components (code, data, environments) under a single root via direct 
 Version control for code and data; content-addressed identification; provenance recording (e.g., \texttt{datalad run} for programmatic provenance capture) \\
 \hline
 \textbf{A — Actionability} &
-Make, Snakemake, Nextflow, CWL, \texttt{datalad run}, shell scripts &
+Make, Snakemake, Nextflow, CWL, \texttt{datalad run} &
 Define executable specifications for workflows; provide clear entry points for reproducing results \\
 \hline
 \textbf{M — Modularity} &
-\texttt{Git} submodules, DataLad subdatasets, Kedro, Cookiecutter Data Science &
+\texttt{Git} submodules, DataLad subdatasets, Kedro &
 Organize components into independently versioned, composable modules; provide project templates with logical directory separation \\
 \hline
 \textbf{P — Portability} &
-Docker, Singularity/Apptainer, Nix, Guix, conda, \texttt{pip} (\texttt{pyproject.toml}, \texttt{requirements.txt}) &
+Docker, Singularity, Nix, conda, \texttt{pip} (\texttt{pyproject.toml}, \texttt{requirements.txt}), Node &
 Explicitly specify and isolate computational environments; container-based (OS-level isolation) or package-based (declarative, reproducible builds) \\
 \hline
 \textbf{E — Ephemerality} &
-Docker, Singularity/Apptainer, \texttt{docker compose}, Slurm, cloud CI/CD (e.g., GitHub Actions) &
+Docker, Singularity, \texttt{docker compose}, Slurm, cloud deployments (e.g., AWS, GCP, Azure, GitHub Actions) &
 Spawn disposable, temporary environments per execution; validate that specifications are complete by reconstituting from scratch \\
 \hline
 \textbf{D — Distributability} &
-Zenodo, DANDI, PyPI, conda-forge, Docker Hub/registries, DataLad, RO-Crate, \texttt{npm ci}, \texttt{pip freeze} &
+Zenodo, PyPI, conda-forge, DockerHub/GHCR, RO-Crate, \texttt{npm ci}, \texttt{pip freeze}, executable compilers &
 Archive and persistently host frozen, versioned research objects and their components; enable retrieval by others in the intended state \\
 \hline
 \end{tabular}
