@@ -11,4 +11,4 @@ main.pdf: references.bib
 ZOTERO_GROUP_ID = 6197458
 
 references.bib:
-	curl -sf "https://api.zotero.org/groups/$(ZOTERO_GROUP_ID)/items?format=bibtex&limit=1000" -o $@
+	./code/fetch-zotero-bib.sh $(ZOTERO_GROUP_ID) $@
