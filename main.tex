@@ -2,6 +2,8 @@
 \usepackage{graphicx} % Required for inserting images
 \usepackage{enumitem} % Required for itemize options in normative table
 \usepackage{amssymb} % Required for \square symbol
+\usepackage[super,sort&compress]{natbib}
+\usepackage{url}  % handles special chars in URLs/DOIs in bibliography
 
 % Scientific Data: max 110 chars, no colons or parentheses, capitalize only first word + proper nouns
 \title{STAMPED properties for reproducible research objects}
@@ -19,22 +21,22 @@
 \section{Introduction}
 
 Managing data in modern scientific research presents unprecedented challenges due to rapidly expanding dataset scale, complexity, and interdependency.
-The FAIR (Findable, Accessible, Interoperable, Reusable) principles [cite] and FAIR4RS guidelines [cite] for research software provide structured guidance to ensure that digital objects are managed in ways that support reuse and reproducibility.
+The FAIR (Findable, Accessible, Interoperable, Reusable) principles\cite{wilkinson_fair_2016} and FAIR4RS guidelines\cite{barker_introducing_2022} for research software provide structured guidance to ensure that digital objects are managed in ways that support reuse and reproducibility.
 Here we adopt the term \textbf{research object} to be a collection of data, code, and metadata that together represent a complete unit of research output.
 Reproducibility of a research object's results requires specific versions of data, code, and computational environments, as well as detailed provenance of how they were used together.
 Currently it is most common for these aspects to be managed separately; this separation introduces complexity and undermines reproducibility, transparency, efficiency, and reliability.
 
-The Workflow Community Initiative’s FAIR Workflows Working Group (WCI-FW) [cite] defines a \textbf{workflow} as ``the formal specification of the data flow and execution control between executable components, the expected datasets, and parameter files.’’ % TODO: cite WCI-FW 2025 https://doi.org/10.1038/s41597-025-04451-9
-WCI-FW systematically mapped existing FAIR and FAIR4RS principles onto computational workflows, defining metrics for workflow FAIRness and recommendations for workflow developers and systems. % TODO: cite FAIR4RS
+The Workflow Community Initiative’s FAIR Workflows Working Group (WCI-FW)\cite{wilkinson_applying_2025} defines a \textbf{workflow} as ``the formal specification of the data flow and execution control between executable components, the expected datasets, and parameter files.’’
+WCI-FW systematically mapped existing FAIR and FAIR4RS principles onto computational workflows, defining metrics for workflow FAIRness and recommendations for workflow developers and systems.
 However, they explicitly chose not to define new principles for workflows, instead treating them as hybrid data/software objects and applying established FAIR guidelines directly.
 FAIR addresses findability, accessibility, interoperability, and reuse of digital objects, but does not address the operational properties---self-containment, provenance tracking, portability---that make a research object’s results actually reproducible.
 
 Enhanced rigor, reproducibility, re-usability, efficiency, and translation across domains are all aspirational goals.
 Many researchers already employ practices toward these goals, but lack a common framework to evaluate or communicate their approach.
-Here we identify and codify these practices as the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable), originating from the YODA Principles, % TODO: cite YODA
+Here we identify and codify these practices as the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable), originating from the YODA Principles\cite{hanke_yoda_2018},
 which characterize a well-formed research object.
 STAMPED takes a pragmatic approach toward these goals in which each property is a spectrum, from practical minimums---often what researchers are already doing---to aspirational ideals.
-STAMPED complements formal computational workflow guidelines (e.g., FAIR4RS, RO-Crate) and facilitates the transition toward comprehensive workflow automation.
+STAMPED complements formal computational workflow guidelines (e.g., FAIR4RS\cite{barker_introducing_2022}, RO-Crate) and facilitates the transition toward comprehensive workflow automation.
 
 % TODO: work term definitions (workflow, module, component, provenance) into Introduction — see proposals/stamped-acronym.md
 % Recycled prose:
@@ -66,7 +68,7 @@ D & Distributability & All modules and procedures are shareable externally in a 
 \end{tabular}
 \end{table}
 
-The items containing keywords "MUST", "SHALL", "SHOULD", and "MAY" are to be interpreted as described in RFC 2119. % TODO: cite RFC
+The items containing keywords "MUST", "SHALL", "SHOULD", and "MAY" are to be interpreted as described in RFC 2119\cite{bradner_key_1997}.
 
 
 
@@ -110,7 +112,7 @@ Git describes itself as ``the stupid content tracker'' (from \texttt{man git}), 
 Explicit version tags (v1.0, v2.3) are convenience labels atop this content-tracking foundation.
 This distinction matters: reproducibility requires precise content identification, not just semantic versioning.
 Two datasets labeled ``version 1.0'' by different labs are ambiguous; two datasets with identical content hashes are provably identical.
-Throughout the manuscript we will refer to such content tracking systems as VCS to use terminology familiar to the reader, although some initiatives such as \cite{sciops-paper} would describe such requirement as data consistency.
+Throughout the manuscript we will refer to such content tracking systems as VCS to use terminology familiar to the reader, although some initiatives such as \cite{johnson_sciops_2024} would describe such requirement as data consistency.
 
 By applying VCS systematically to data and analysis outputs, researchers can pinpoint exact states of digital files, reliably reverting or exploring previous versions as needed.
 Although traditional version control systems have limitations when managing large datasets due to storage inefficiencies, modern tools such as git-annex, DataLad, or DVC effectively extend git functionality to handle large, binary, and distributed datasets.
@@ -248,7 +250,7 @@ Ephemerality addresses this: when computing in a temporary, disposable environme
 
 Ephemeral computation does not validate everything---for instance, an ephemeral environment with network access may successfully fetch unpinned dependencies at build time, masking a self-containment gap that only surfaces when those resources move or disappear---but it substantially raises confidence that the research object is self-contained, portable, and actionable.
 The spectrum of Ephemerality ranges from producing results from a fresh clone on a system that meets stated requirements (P), to an ideal in which every computation runs in a disposable environment created and destroyed per execution.
-The FAIRly big workflow approach and platforms such as Code Ocean operationalize the ideal end of this spectrum, treating each computation as an ephemeral work unit---which also enables scaling, as independent disposable instances can be parallelized across subjects, parameters, or datasets.
+The FAIRly big workflow approach\cite{hanke_defense_2021} and platforms such as Code Ocean operationalize the ideal end of this spectrum, treating each computation as an ephemeral work unit---which also enables scaling, as independent disposable instances can be parallelized across subjects, parameters, or datasets.
 
 
 
@@ -472,7 +474,7 @@ Lightweight STAMPED implementations using Git LFS are feasible for easier onboar
 
 Several research projects have already adopted and documented YODA principles---the predecessor to STAMPED---demonstrating practical utility across domains.
 
-\textbf{BIDS Standard Evolution}: A significant validation of the ``do not look up'' principle occurred within the Brain Imaging Data Structure (BIDS) community.
+\textbf{BIDS Standard Evolution}: A significant validation of the ``do not look up'' principle occurred within the Brain Imaging Data Structure (BIDS)\cite{gorgolewski_brain_2016} community.
 Originally, the BIDS specification nested derived data under \texttt{derivatives/} within the original raw dataset, creating upward dependencies that violated portability.
 Following YODA principles, the BIDS community reversed this relationship: derivative datasets now exist independently and reference raw data as subdatasets, not vice versa.
 
@@ -486,7 +488,7 @@ This architectural shift influenced major neuroimaging tools:
 
 \textbf{Workflow Platforms}: Infrastructure projects implementing YODA at scale:
 \begin{itemize}
-    \item \textbf{BABS}: Platform implementing the ``FAIRly big workflow'' approach, demonstrating YODA principles for large-scale neuroimaging analyses with containerized pipelines and modular dataset composition
+    \item \textbf{BABS}\cite{zhao_reproducible_2024}: Platform implementing the ``FAIRly big workflow'' approach, demonstrating YODA principles for large-scale neuroimaging analyses with containerized pipelines and modular dataset composition
     \item \textbf{CRCNS.org}: Neuroscience data sharing platform providing YODA-structured templates and validation tools
 \end{itemize}
 
@@ -502,8 +504,7 @@ Multiple communities independently developed organizational frameworks exhibitin
 
 Between 2003 and 2025, at least 19 distinct initiatives emerged addressing research data organization, version control, and reproducibility:
 
-% TODO: add references to all!
-\textbf{Foundational principles}: Noble's 2009 guidelines for computational biology organization, FAIR principles (2016) for data sharing, Software Carpentry's ``Good Enough Practices'' (2017).
+\textbf{Foundational principles}: Noble's 2009 guidelines for computational biology organization\cite{noble_quick_2009}, FAIR principles for data sharing\cite{wilkinson_fair_2016}, Software Carpentry's ``Good Enough Practices''\cite{wilson_good_2017}.
 
 \textbf{Version control extensions}: git-annex (2010), Git LFS (2015), DVC (2017), Pachyderm (2014), Quilt (2020s) all independently arrived at ``Git for data'' concepts, applying proven version control semantics to large datasets.
 
@@ -574,7 +575,8 @@ Formal STAMPED properties enable ``STAMPED-compliant'' tool certification, simil
 Operationalized principles provide a foundation for structured curriculum development beyond current tutorial-based approaches.
 \section{Data Availability}
 \section{Code Availability}
-\section{References}
+\bibliographystyle{unsrtnat}
+\bibliography{references}
 
 % TODO: Might be worth relating to "Ten simple rules for principled simulation modelling"
 % https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1009917

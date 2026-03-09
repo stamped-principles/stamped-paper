@@ -5,6 +5,8 @@ main.aux
 main.log
 main.pdf
 main.pdf.mk
+main.bbl
+main.blg
 conversation-*.md
 
 
