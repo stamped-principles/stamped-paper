@@ -434,24 +434,24 @@ This checklist provides such a guide for assessing compliance with STAMPED princ
 No single tool addresses all the dimensions of scientific rigor described above, though many tools contribute to one or several properties simultaneously.
 For example, container technologies such as Docker or Singularity serve Portability by providing OS-level isolation from explicit environment specifications, enable Ephemerality by disposing per-execution environments, and facilitate Distributability by producing frozen, shareable artifacts.
 Similarly, version control systems such as \texttt{Git} underpin both Tracking (content-addressed identification and change history) and Self-containment (gathering all components under a single root).
-As always, self-containing all data might be undesired or prohibitive due to size or other concerns. Extensions such as \texttt{git-annex}, \texttt{DataLad}, \texttt{DVC}, and \texttt{Git LFS} strike the balance between the two properties by tracking metadata regarding data obtainability instead, e.g., from which URLs on remote servers act as a source, and providing actionable interfaces to obtain the data when necessary.
+In practice, self-containing all data might be undesired or prohibitive due to size or other concerns. Extensions such as \texttt{git-annex}, \texttt{DataLad}, \texttt{DVC}, and \texttt{Git LFS} strike the balance between the two properties by tracking metadata that identifies specific data versions and obtainability information instead, e.g., content checksums and URLs of remote servers that act as a source, and providing actionable interfaces to obtain the data when necessary.
 
 This overlap is not incidental — it reflects the interdependence of the STAMPED properties themselves.
-Achieving Ephemerality, for instance, inherently exercises Portability and Actionability: a disposable environment must be reconstituted from explicit specifications, and its setup must be automated end-to-end.
+Achieving Ephemerality, for instance, inherently exercises Portability and Actionability: a disposable environment must be reconstituted from explicit specifications, encouraging end-to-end automation.
 Likewise, Distributability builds on Self-containment and Tracking: a research object can only be shared in a consistent, retrievable state if its boundary is well-defined and all components are precisely identified.
 The tools that serve multiple properties do so precisely because they operationalize these connections.
 
 Table~\ref{tab:stamped-tools} maps some commonly used tools and technologies to each STAMPED property.
-A comprehensive up-to-date review of existing tools is out of the scope for this formalization paper and would quickly become outdated.
-To fill that niche, we initiated a satellite project with a website to describe tools and examples, and  characterize them in terms of STAMPED and FAIR principles [cite https://myyoda.github.io/principles-examples/stamped\_principles/].
+A comprehensive up-to-date review of existing tools is out of scope for this formalization paper and would quickly become outdated.
+To fill that niche, we initiated a satellite project with a website to describe tools and examples, and characterize them in terms of STAMPED and FAIR principles [cite https://myyoda.github.io/principles-examples/stamped\_principles/].
 
-STAMPED properties are tool-agnostic — any system that moves a property from documented to executable moves the research object further along the actionability spectrum — but certain tool categories recur across multiple properties, reinforcing that a well-chosen toolchain can address several dimensions at once.
-Researchers should select tools based on their domain, infrastructure, and team familiarity, recognizing that the tools listed here are illustrative rather than prescriptive: what matters is that the underlying property is satisfied, not which specific tool achieves it.
+STAMPED properties are tool-agnostic. For example, any system that moves a property from documented to executable moves the research object further along the actionability spectrum, but certain tool categories recur across multiple properties; a well-chosen tool can address several dimensions at once, and a thoughtfully assembled toolchain can cover all of them.
+Researchers should select tools based on their domain, infrastructure, and team familiarity, recognizing that the tools listed here are illustrative rather than prescriptive: what matters is that the underlying property is satisfied, regardless of tool achieves it.
 
 Where multiple tools serve the same STAMPED property, the choice between them often involves trade-offs between flexibility and simplicity.
 A representative example is the choice between \texttt{git-annex} and Git LFS for large-file tracking.
 Both appear under Self-containment and Tracking in Table~\ref{tab:stamped-tools}, but they occupy different points on a complexity-flexibility spectrum.
-\texttt{git-annex} supports many remote types (e.g. other git repositories over SSH or HTTP, or simple data stores in cloud such as S3, local drives, offline USB archives), making it well-suited to multi-institutional collaboration, long-term archival where data sovereignty or offline access is required, as well as local content tracking.
+\texttt{git-annex} supports many remote types (e.g. other git repositories over SSH or HTTP, or simple cloud data stores such as S3, local drives, offline USB archives), making it well-suited to multi-institutional collaboration, long-term archival where data sovereignty or offline access is required, as well as local content tracking.
 Git LFS offers a simpler alternative: it is transparent to users, natively supported by GitHub and GitLab, and broadly adopted.
 But it is centralized (requiring an LFS server), lacks offline capability, and provides less flexible remote configurations.
 Lightweight STAMPED implementations using Git LFS are entirely feasible for easier onboarding, trading federation flexibility for reduced operational overhead.
@@ -482,7 +482,7 @@ Define executable specifications for workflows; provide clear entry points for r
 Organize components into independently versioned, composable modules; provide project templates with logical directory separation \\
 \hline
 \textbf{P — Portability} &
-Docker, Singularity, Nix, conda, \texttt{pip} (\texttt{pyproject.toml}, \texttt{requirements.txt}), Node &
+Docker, Singularity, Nix, conda, \texttt{pip} (\texttt{pyproject.toml}, \texttt{requirements.txt}), npm &
 Explicitly specify and isolate computational environments; container-based (OS-level isolation) or package-based (declarative, reproducible builds) \\
 \hline
 \textbf{E — Ephemerality} &
