@@ -435,24 +435,73 @@ This checklist provides such a guide for assessing compliance with STAMPED princ
 
 
 \subsection{Enabling tools}
-% TODO: tools before examples to provide more context/understanding
-% TODO: increases interoperability among tools
 
-STAMPED properties are complementary, not competitive, with existing standards:
-\begin{itemize}
-    \item \textbf{STAMPED + BIDS}: Domain standard within STAMPED structure
-    \item \textbf{STAMPED + RO-Crate}: Organization during research, packaging for publication
-    \item \textbf{STAMPED + FAIR}: Structure projects, then share via FAIR
-    \item \textbf{STAMPED + workflow systems}: Organize, then execute (Nextflow, Snakemake, CWL)
-    \item \textbf{STAMPED + platforms}: Download, version, and compose locally
-\end{itemize}
+No single tool addresses all the dimensions of scientific rigor described above, though many tools contribute to one or several properties simultaneously.
+For example, container technologies such as Docker or Singularity serve Portability by providing OS-level isolation from explicit environment specifications, enable Ephemerality by disposing per-execution environments, and facilitate Distributability by producing frozen, shareable artifacts.
+Similarly, version control systems such as \texttt{Git} underpin both Tracking (content-addressed identification and change history) and Self-containment (gathering all components under a single root).
+In practice, self-containing all data might be undesired or prohibitive due to size or other concerns. Extensions such as \texttt{git-annex}, \texttt{DataLad}, \texttt{DVC}, and \texttt{Git LFS} strike the balance between the two properties by tracking metadata that identifies specific data versions and obtainability information instead, e.g., content checksums and URLs of remote servers that act as a source, and providing actionable interfaces to obtain the data when necessary.
 
-\subsubsection{git-annex Complexity vs Git LFS Simplicity}
-Achieving STAMPED compliance with git-annex offers maximum flexibility, supporting many remote types including SSH, S3, HTTP, local drives, and even offline USB drives.
-This comes at a cost: a steeper learning curve.
-Git LFS offers a simpler alternative that is transparent to users and has native GitHub/GitLab support with broad adoption.
-The trade-off: Git LFS is centralized (requires an LFS server), lacks offline capability, and has less flexible remote configurations.
-Lightweight STAMPED implementations using Git LFS are feasible for easier onboarding, sacrificing federation flexibility.
+This overlap is not incidental — it reflects the interdependence of the STAMPED properties themselves.
+Achieving Ephemerality, for instance, inherently exercises Portability and Actionability: a disposable environment must be reconstituted from explicit specifications, encouraging end-to-end automation.
+Likewise, Distributability builds on Self-containment and Tracking: a research object can only be shared in a consistent, retrievable state if its boundary is well-defined and all components are precisely identified.
+The tools that serve multiple properties do so precisely because they operationalize these connections.
+
+Table~\ref{tab:stamped-tools} maps some commonly used tools and technologies to each STAMPED property.
+A comprehensive up-to-date review of existing tools is out of scope for this formalization paper and would quickly become outdated.
+To fill that niche, we initiated a satellite project with a website to describe tools and examples, and characterize them in terms of STAMPED and FAIR principles [cite https://myyoda.github.io/principles-examples/stamped\_principles/].
+
+STAMPED properties are tool-agnostic. For example, any system that moves a property from documented to executable moves the research object further along the actionability spectrum, but certain tool categories recur across multiple properties; a well-chosen tool can address several dimensions at once, and a thoughtfully assembled toolchain can cover all of them.
+Researchers should select tools based on their domain, infrastructure, and team familiarity, recognizing that the tools listed here are illustrative rather than prescriptive: what matters is that the underlying property is satisfied, regardless of which tool achieves it.
+
+Where multiple tools serve the same STAMPED property, the choice between them often involves trade-offs between flexibility and simplicity.
+A representative example is the choice between \texttt{git-annex} and Git LFS for large-file tracking.
+Both appear under Self-containment and Tracking in Table~\ref{tab:stamped-tools}, but they occupy different points on a complexity-flexibility spectrum.
+\texttt{git-annex} supports many remote types (e.g. other git repositories over SSH or HTTP, or simple cloud data stores such as S3, local drives, offline USB archives), making it well-suited to multi-institutional collaboration, long-term archival where data sovereignty or offline access is required, as well as local content tracking.
+Git LFS offers a simpler alternative: it is transparent to users, natively supported by GitHub and GitLab, and broadly adopted.
+But it is centralized (requiring an LFS server), lacks offline capability, and provides less flexible remote configurations.
+Lightweight STAMPED implementations using Git LFS are entirely feasible for easier onboarding, trading federation flexibility for reduced operational overhead.
+The same pattern---flexibility versus simplicity---recurs across other tool choices in Table~\ref{tab:stamped-tools}: container-based versus package-based environment management, workflow engines versus shell scripts, and federated archives versus centralized platforms.
+
+\begin{table}[ht]
+\centering
+\caption{Sample tools to improve scientific practice for each STAMPED property.}
+\label{tab:stamped-tools}
+\begin{tabular}{|l|p{5cm}|p{6cm}|}
+\hline
+\textbf{Property} & \textbf{Tools / Technologies} & \textbf{Role} \\
+\hline
+\textbf{S — Self-containment} &
+\texttt{Git} submodules, DataLad, \texttt{git-annex}, DVC, Git LFS &
+Gather all components (code, data, environments) under a single root via direct inclusion or explicit references (e.g., subdatasets, registered URLs) \\
+\hline
+\textbf{T — Tracking} &
+\texttt{Git}, \texttt{git-annex}, DataLad, DVC, Docker and other containers, Kedro, Git LFS, OSF.io, Zenodo and other data archives providing DOIs &
+Version control for code and data; content-addressed identification; provenance recording (e.g., \texttt{datalad run} for programmatic provenance capture); persistent identifiers for content (DOIs) \\
+\hline
+\textbf{A — Actionability} &
+Make, Snakemake, Nextflow, CWL, \texttt{datalad run}, \texttt{git annex addcomputed} &
+Define executable specifications for workflows; provide clear entry points for reproducing results \\
+\hline
+\textbf{M — Modularity} &
+\texttt{Git} submodules, DataLad subdatasets, Kedro &
+Organize components into independently versioned, composable modules; provide project templates with logical directory separation \\
+\hline
+\textbf{P — Portability} &
+Docker, Singularity, Nix, conda, \texttt{pip} (\texttt{pyproject.toml}, \texttt{requirements.txt}), npm &
+Explicitly specify and isolate computational environments; container-based (OS-level isolation) or package-based (declarative, reproducible builds) \\
+\hline
+\textbf{E — Ephemerality} &
+Docker, Singularity, \texttt{docker compose}, Slurm, cloud deployments (e.g., AWS, GCP, Azure, GitHub Actions) &
+Spawn disposable, temporary environments per execution; validate that specifications are complete by reconstituting from scratch \\
+\hline
+\textbf{D — Distributability} &
+Zenodo, PyPI, conda-forge, DockerHub/GHCR, RO-Crate, \texttt{npm ci}, \texttt{pip freeze}, executable compilers &
+Archive and persistently host frozen, versioned research objects and their components; enable retrieval by others in the intended state \\
+\hline
+\end{tabular}
+\end{table}
+
+
 
 \subsection{Examples and Case Studies}
 % TODO: point to living documentation, minimal examples/counter-examples
