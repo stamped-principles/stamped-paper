@@ -95,44 +95,26 @@ Tracking, Modularity, Portability, and Distributability each address a different
     all components involved.
 \end{itemize}
 
-Research data frequently exists outside the scope of established version control practices, leading to a multitude of reproducibility issues.
-Non-version-controlled data creates ambiguity, as precise identification of dataset states is challenging, and historical changes are difficult to reconstruct or verify.
-This ambiguity undermines trust, complicates collaboration, and impairs reproducibility, particularly when datasets undergo frequent updates or transformations.
+Research data and code change constantly during a project, and each change compounds the difficulty of reconstructing any previous state: which version of a dataset was used for a particular analysis, what parameters were set, what code produced a given figure.
+Tracking addresses two concerns: the identity of each component---which exact state it was in---and \textbf{provenance}, the recorded history of what actions produced or modified it.
+These are often managed separately---versions in one system, provenance in a lab notebook or nowhere at all---and this fragmentation makes prior work hard to verify or reproduce.
 
-Version control systems (VCS), such as git, directly address these issues by associating each revision with a unique identifier and recording basic provenance information, including who made the changes, when, and why.
-Although commonly called ``version control systems,'' the primary value is not version numbering (``v1'' vs ``v2'') but \emph{content-addressed identification}.
-Git describes itself as ``the stupid content tracker'' (from \texttt{man git}), using cryptographic checksums as content identifiers.
-Explicit version tags (v1.0, v2.3) are convenience labels atop this content-tracking foundation.
-This distinction matters: reproducibility requires precise content identification, not just semantic versioning.
-Two datasets labeled ``version 1.0'' by different labs are ambiguous; two datasets with identical content hashes are provably identical.
-Throughout the manuscript we will refer to such content tracking systems as VCS to use terminology familiar to the reader, although some initiatives such as \cite{johnson_sciops_2024} would describe such requirement as data consistency.
+The spectrum of Tracking begins with content-addressed version control.
+Rather than relying on semantic version labels, content-addressed systems identify each state by a cryptographic checksum of its contents.
+This distinction matters: two datasets labeled ``version 1.0'' by different labs are ambiguous; two datasets with identical content hashes are provably identical.
+Version control commits also capture basic provenance---who made the change, when, and a description of why---unifying identity and provenance in a single system.
+This also provides a safety net: any change can be reverted and any prior state restored, making it safe to modify and experiment.
+For tracking to be effective, all components of the research object must be under version control---code, data, environment definitions, and configuration.
 
-By applying VCS systematically to data and analysis outputs, researchers can pinpoint exact states of digital files, reliably reverting or exploring previous versions as needed.
-Although traditional version control systems have limitations when managing large datasets due to storage inefficiencies, modern tools such as git-annex, DataLad, or DVC effectively extend git functionality to handle large, binary, and distributed datasets.
-These tools enable researchers to manage extensive datasets without losing the benefits of traditional version control, including improved collaboration through explicit tracking of changes, efficient reversion of undesired modifications, and the ability to reconstruct past research states—effectively enabling "time travel."
+Traditional version control is designed for source code, but research objects often include large binary datasets, container images, and other assets that do not fit this model.
+Compatible tools such as git-annex, DataLad, or DVC extend content-addressed tracking to these components, ensuring that all parts of the research object are managed under the same system.
 
-Critically, approaching full reproducibility requires that version control encompasses all components essential for replicating computational workflows.
-These components typically include raw and derived datasets, preprocessing and analysis scripts, parameter and configuration files, computational environment definitions (such as Docker or Singularity containers), and accompanying documentation describing workflow execution details.
-Omitting even one component can severely compromise reproducibility, making comprehensive version control across these assets a fundamental necessity.
-
-% TODO: formal principles removed — now in STAMPED table (S.1, T.1, T.2)
-% TODO: strip S-redundant content (lines 155-157 overlap with S section)
-
-Tracking encompasses not only version history but also provenance---the record of what actions produced or modified each component.
-Provenance collection typically occurs separately from version control, leading to fragmentation: the data is versioned in one system while the record of how it was produced lives in another (or nowhere).
-Embedding provenance directly into version control history---for example, by encoding descriptions of computational actions into commit records---unifies these concerns.
-A provenance-rich commit history records not just that a file changed, but what command was executed, what inputs it consumed, and what versions of code and environment were involved.
-
-For code-driven modifications, provenance should be captured programmatically rather than by manual annotation.
-This ensures completeness and enables re-execution: a researcher can not only see what was done but repeat it.
+Toward the ideal end, provenance is captured programmatically by tooling rather than by manual annotation, producing richer records than a human would typically write: each computational step records what command was executed and what inputs it consumed.
+When modules are independently tracked under compatible systems (M), the version of every module at the time of each commit is also discoverable, providing a complete picture of the state that produced a given result.
+This enables not just inspection but re-execution.
 % TODO: cite Tek Raj paper, provenance format approaches
 % TODO: mention W3C PROV, RO-Crate, BEP028 as interoperable export targets
-% TODO: spectrum — minimum (manual commit messages describing what was done) vs ideal (programmatic provenance capture with full dependency graphs, re-executable)
-% that's where might be worth already to talk about ability of the used VCS/platform to "replicate" the outside components within it.
-% e.g. if containers are used, it must provide storage for those containers as part of the resource, and not to rely on external links which might disappear.
-% To a degree - VCS should provide ways to "cauterize the wound" (or find a better analogie).
-% It should make it "safe to make a cut", but also to "re-connect" the component if any detail or functionality of it is needed.
-% And that should lead into modularity + git modules as the way "to cauterize"
+% TODO: cite \cite{johnson_sciops_2024} somewhere in T — original text described this as "data consistency" but the paper uses that term in a different sense (process/team consistency, not content-addressed identification)
 
 
 
