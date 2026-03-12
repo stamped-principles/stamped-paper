@@ -157,13 +157,12 @@ Actionability applies to every other STAMPED dimension: at the ideal end, each p
 \begin{itemize}
   \item \textbf{Self-containment} is more actionable when retrieval of all components is specified and executable (e.g., \texttt{git clone}, \texttt{datalad install}), not just listed in a manifest.
   \item \textbf{Tracking} is more actionable when provenance records are re-executable (e.g., \texttt{datalad rerun}), not just inspectable.
-  \item \textbf{Modularity} is more actionable when components can be composed and decomposed via tooling (e.g., \texttt{git submodule}), not just organized into directories.
-  \item \textbf{Portability} is more actionable when environments can be instantiated from a specification (e.g., \texttt{singularity run}), not just documented in a README.
+  \item \textbf{Modularity} is more actionable when components can be composed, updated, and replaced via tooling (e.g., \texttt{git submodule}), not just organized into directories.
+  \item \textbf{Portability} is more actionable when environment specifications are machine-readable and can be resolved on different hosts (e.g., \texttt{conda env create}, Nix flakes), not just documented in a README.
   \item \textbf{Ephemerality} is more actionable when computation can be orchestrated in disposable environments (e.g., \texttt{docker compose}, Slurm), not just instructed to ``run in a clean environment.''
   \item \textbf{Distributability} is more actionable when a frozen state can be produced and retrieved by others (e.g., containers, \texttt{npm ci}), not just described with pinning instructions.
 \end{itemize}
 The principle is tool-agnostic: any system that moves a property from documented to executable moves the research object further along the actionability spectrum.
-With advent of agentic AI systems, documentation alone often can provide actionable recipes, but nevertheless formalization in AI-specific formulations (e.g. \texttt{Claude Skills} [CITE]) can drastically improve actionability of such descriptions.
 
 
 
@@ -605,6 +604,8 @@ Formal STAMPED properties enable ``STAMPED-compliant'' tool certification, simil
 
 \subsubsection{Teaching Materials}
 Operationalized principles provide a foundation for structured curriculum development beyond current tutorial-based approaches.
+
+% TODO: AI and Actionability — as AI tools improve, the gap between documented and executable narrows, but executable specifications remain more reliable. Discuss implications for the actionability spectrum.
 \section{Data Availability}
 \section{Code Availability}
 \bibliographystyle{unsrtnat}
