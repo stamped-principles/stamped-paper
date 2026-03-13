@@ -20,28 +20,21 @@
 
 \section{Introduction}
 
-Managing data in modern scientific research presents unprecedented challenges due to rapidly expanding dataset scale, complexity, and interdependency.
-The FAIR (Findable, Accessible, Interoperable, Reusable) principles\cite{wilkinson_fair_2016} and FAIR4RS guidelines\cite{barker_introducing_2022} for research software provide structured guidance to ensure that digital objects are managed in ways that support reuse and reproducibility.
-Here we adopt the term \textbf{research object} to be a collection of data, code, and metadata that together represent the complete unit of research output.
-Reproducing the computational results captured by a research object requires specific versions of data, code, and computational environments, as well as detailed provenance of how they were used together.
-Currently it is most common for these aspects to be managed separately; this separation introduces complexity and undermines reproducibility, transparency, efficiency, and reliability.
+Data-driven research depends on specific versions of datasets, software, and computational environments, together with a record of how they were combined to produce results.
+We adopt the term \textbf{research object} to denote a collection of data, code, and metadata that together represent the research output as a unit.
+It is common for the components of a research object to be managed separately---code in one repository, data on a shared drive, environment setup in a wiki page, provenance in a lab notebook or nowhere at all---and this fragmentation undermines rigor, reproducibility, reusability, and efficiency.
+Even when gathered in one place, research objects are often tightly coupled to specific environments, opaque to outside collaborators, and difficult to reuse or redistribute.
 
-The Workflow Community Initiative’s FAIR Workflows Working Group (WCI-FW)\cite{wilkinson_applying_2025} defines a \textbf{workflow} as ``the formal specification of the data flow and execution control between executable components, the expected datasets, and parameter files.’’
-WCI-FW systematically mapped existing FAIR and FAIR4RS principles onto computational workflows, defining metrics for workflow FAIRness and recommendations for workflow developers and systems.
-However, they explicitly chose not to define new principles for workflows, instead treating them as hybrid data/software objects and applying established FAIR guidelines directly.
-FAIR addresses findability, accessibility, interoperability, and reuse of digital objects, but does not address the operational properties---self-containment, provenance tracking, portability---that make a research object’s results actually reproducible.
+The FAIR principles\cite{wilkinson_fair_2016} and FAIR4RS guidelines\cite{barker_introducing_2022} provide structured guidance for making digital objects findable, accessible, interoperable, and reusable.
+The Workflow Community Initiative (WCI-FW)\cite{wilkinson_applying_2025} mapped these principles onto computational workflows but explicitly chose not to define new ones, instead treating workflows as hybrid data/software objects.
+[TODO: Relate/compare to FAIR here]
 
-Enhanced rigor, reproducibility, re-usability, efficiency, and translation across domains are all aspirational goals.
-Many researchers already employ practices toward these goals, but lack a common framework to evaluate or communicate their approach.
-Here we identify and codify these practices as the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable), originating from the YODA Principles\cite{hanke_yoda_2018},
-which characterize a well-formed research object.
-STAMPED takes a pragmatic approach toward these goals in which each property is a spectrum, from practical minimums---often what researchers are already doing---to aspirational ideals.
-This spectrum means STAMPED applies across the full range of research complexity.
-A researcher who uses version control for an analysis script and documents how to run it is already practicing Self-containment, Tracking, and Actionability at their practical minimum.
-As complexity grows---multi-institutional collaborations with federated datasets, heterogeneous workflows spanning platforms, long-term reproducibility requirements---the same properties guide researchers toward more rigorous practices, scaling from practical minimums toward aspirational ideals without requiring wholesale adoption of new tools.
-STAMPED is not a compliance threshold but an incremental framework: any research object can be evaluated against it, and any improvement along any dimension is meaningful.
-To assist with such incremental improvement, for each STAMPED property we provide compliance checklists with different strengths of the requirements.
-As such, STAMPED complements formal computational workflow guidelines (e.g., FAIR4RS\cite{barker_introducing_2022}, RO-Crate) and facilitates the transition toward comprehensive workflow automation.
+Many researchers already employ practices that address these operational properties---version control, containerized environments, structured project directories, documented analysis steps---but lack a shared vocabulary to name them, evaluate how thoroughly they are applied, and communicate that evaluation to collaborators and reviewers.
+Here we provide that vocabulary: the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable), originating from the YODA Principles\cite{hanke_yoda_2018}, which describe the operational maturity of a research object.
+Rather than a compliance threshold, each STAMPED property is a spectrum from a practical minimum---often what researchers are already doing---to an aspirational ideal.
+A researcher who stores everything under one project directory, version-controls analysis scripts, and documents how to run them is already meeting the practical minimum for Self-containment, Tracking, and Actionability.
+As complexity grows---multi-institutional collaborations, heterogeneous workflows spanning platforms, long-term reproducibility requirements---the same properties guide researchers toward more rigorous practices without requiring wholesale adoption of new tools.
+STAMPED provides a vocabulary for describing and a framework for evaluating and incrementally improving the operational properties of research objects toward enhanced rigor, reproducibility, reusability, and efficiency.
 
 % TODO: work term definitions (workflow, module, component, provenance) into Introduction — see proposals/stamped-acronym.md
 % Recycled prose:
