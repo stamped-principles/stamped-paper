@@ -20,9 +20,9 @@
 
 \section{Introduction}
 
-Computational research depends on specific versions of datasets, software, and computational environments, together with a record of how they were combined to produce results.
-We use the term \textbf{research object} to denote a collection of data, code, and metadata that together represent a unit of research output.
-Currently, components of a research object are most often managed separately---code in one repository, data on a shared drive, environment setup in a wiki page, provenance in a lab notebook or nowhere at all---and this fragmentation undermines rigor, reproducibility, reusability, and efficiency.
+Data-driven research depends on specific versions of datasets, software, and computational environments, together with a record of how they were combined to produce results.
+We adopt the term \textbf{research object} to denote a collection of data, code, and metadata that together represent the research output as a unit.
+It is common for the components of a research object to be managed separately---code in one repository, data on a shared drive, environment setup in a wiki page, provenance in a lab notebook or nowhere at all---and this fragmentation undermines rigor, reproducibility, reusability, and efficiency.
 Even when gathered in one place, research objects are often tightly coupled to specific environments, opaque to outside collaborators, and difficult to reuse or redistribute.
 
 The FAIR principles\cite{wilkinson_fair_2016} and FAIR4RS guidelines\cite{barker_introducing_2022} provide structured guidance for making digital objects findable, accessible, interoperable, and reusable.
@@ -30,12 +30,12 @@ The Workflow Community Initiative (WCI-FW)\cite{wilkinson_applying_2025} mapped 
 These frameworks address \emph{what} should be shared and how it should be described, but not the \emph{operational} properties---self-containment, provenance tracking, portability, environment management---that determine whether a research object can be reliably executed, reused, and shared.
 
 Many researchers already employ practices that address these operational properties---version control, containerized environments, structured project directories, documented analysis steps---but lack a shared vocabulary to name them, evaluate how thoroughly they are applied, and communicate that evaluation to collaborators and reviewers.
-Here we provide that vocabulary: the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable), originating from the YODA Principles\cite{hanke_yoda_2018}, which describe the operational maturity of a computational research object.
+Here we provide that vocabulary: the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable), originating from the YODA Principles\cite{hanke_yoda_2018}, which describe the operational maturity of a research object.
 Rather than a compliance threshold, each STAMPED property is a spectrum from a practical minimum---often what researchers are already doing---to an aspirational ideal.
-A researcher who version-controls analysis scripts, documents how to run them, and stores everything under one project directory is already practicing Self-containment, Tracking, and Actionability at their practical floor.
+A researcher who stores everything under one project directory, version-controls analysis scripts, and documents how to run them is already meeting the practical minimum for Self-containment, Tracking, and Actionability.
 As complexity grows---multi-institutional collaborations, heterogeneous workflows spanning platforms, long-term reproducibility requirements---the same properties guide researchers toward more rigorous practices without requiring wholesale adoption of new tools.
 This spectrum means STAMPED applies across the full range of research complexity.
-STAMPED provides a vocabulary and spectrum-based framework for describing, evaluating, and incrementally improving the operational properties of computational research objects toward enhanced rigor, reproducibility, reusability, and efficiency.
+STAMPED provides a vocabulary for describing and a framework for evaluating and incrementally improving the operational properties of computational research objects toward enhanced rigor, reproducibility, reusability, and efficiency.
 
 % TODO: work term definitions (workflow, module, component, provenance) into Introduction — see proposals/stamped-acronym.md
 % Recycled prose:
