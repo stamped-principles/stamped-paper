@@ -8,7 +8,7 @@
 % Scientific Data: max 110 chars, no colons or parentheses, capitalize only first word + proper nouns
 \title{STAMPED properties for reproducible research objects}
 \author{Austin Macdonald, Cody C. Baker, Yaroslav O. Halchenko, Isaac To}
-\date{March 2025}
+\date{March 2026}
 
 \begin{document}
 
@@ -357,7 +357,7 @@ This checklist provides such a guide for assessing compliance with STAMPED princ
         \item Are datasets included, linked, or referenced reachable from the code and environment specifications without cross the boundary of a common root?
         \item Is external software included in the environment or linked as submodules within the project boundary?
     \end{itemize}
-    \item \textbf{Tracking (T.1)+(T.3)}: Persistent content identification MUST be recorded for all components. Provenance of all modifications MUST be recordeed.
+    \item \textbf{Tracking (T.1)+(T.3)}: Persistent content identification MUST be recorded for all components. Provenance of all modifications MUST be recorded.
     \begin{itemize}[label=$\square$]
         \item Are version control systems such as \texttt{Git} used for code, text, documentation, and configuration files?
         \item Are version control systems such as \texttt{git-annex}, DataLad, or \texttt{Git} LFS used for large binary data?
@@ -383,7 +383,7 @@ This checklist provides such a guide for assessing compliance with STAMPED princ
         \item Are environment specifications (e.g., Dockerfiles, \texttt{pyproject.toml}, \texttt{package.json}) included in the version control system alongside code and data?
         \item Is there a process for updating environment specifications when dependencies change, and are these updates tracked in version control?
     \end{itemize}
-    \item \textbf{Distributability (D.1)}: Computational environments MUST be persistently retrievable by others.
+    \item \textbf{Distributability (D.1)}: All referenced modules and components MUST be persistently retrievable by others.
     \begin{itemize}[label=$\square$]
         \item Are environment specifications (e.g., container digests, frozen package manifests) included to ensure others can attempt to exactly replicate the environment?
         \item Are environment specifications shared in a way that others can access and use them (e.g., published container images, archived environment files)?
