@@ -43,12 +43,6 @@ A researcher who stores everything under one project directory, version-controls
 As complexity grows---multi-institutional collaborations, heterogeneous workflows spanning platforms, long-term reproducibility requirements---the same properties guide researchers toward more rigorous practices without requiring wholesale adoption of new tools.
 STAMPED provides a vocabulary for describing and a framework for evaluating and incrementally improving the operational properties of research objects toward enhanced rigor, reproducibility, reusability, and efficiency.
 
-% TODO: work term definitions (workflow, module, component, provenance) into Introduction — see proposals/stamped-acronym.md
-% Recycled prose:
-% A \textbf{workflow} is a sequence of computational steps that transform data within the research object using code components to produce output data.
-% A research object is composed of \textbf{modules}---separately distributable collections of components (e.g., an input dataset, a container image, an analysis pipeline).
-% A \textbf{component} is a trackable element that is part of a module (e.g., a data file, a script, a configuration file, a metadata file); a module contains components, but not every component is itself a module.
-% \textbf{Provenance} is the recorded history of how components were produced or modified, including what actions were performed, what inputs were used, and the versions of everything involved.
 
 
 
@@ -107,44 +101,26 @@ Tracking, Modularity, Portability, and Distributability each address a different
     all components involved.
 \end{itemize}
 
-Research data frequently exists outside the scope of established version control practices, leading to a multitude of reproducibility issues.
-Non-version-controlled data creates ambiguity, as precise identification of dataset states is challenging, and historical changes are difficult to reconstruct or verify.
-This ambiguity undermines trust, complicates collaboration, and impairs reproducibility, particularly when datasets undergo frequent updates or transformations.
+Research data and code change constantly during a project, and each change compounds the difficulty of reconstructing any previous state: which version of a dataset was used for a particular analysis, what parameters were set, what code produced a given figure.
+Tracking addresses two concerns: the identity of each component---which exact state it was in---and \textbf{provenance}, the recorded history of what actions produced or modified it.
+These are often managed separately---versions in one system, provenance in a lab notebook or nowhere at all---and this fragmentation makes prior work hard to validate.
 
-Version control systems (VCS), such as git, directly address these issues by associating each revision with a unique identifier and recording basic provenance information, including who made the changes, when, and why.
-Although commonly called ``version control systems,'' the primary value is not version numbering (``v1'' vs ``v2'') but \emph{content-addressed identification}.
-Git describes itself as ``the stupid content tracker'' (from \texttt{man git}), using cryptographic checksums as content identifiers.
-Explicit version tags (v1.0, v2.3) are convenience labels atop this content-tracking foundation.
-This distinction matters: reproducibility requires precise content identification, not just semantic versioning.
-Two datasets labeled ``version 1.0'' by different labs are ambiguous; two datasets with identical content hashes are provably identical.
-Throughout the manuscript we will refer to such content tracking systems as VCS to use terminology familiar to the reader, although some initiatives such as \cite{johnson_sciops_2024} would describe such requirement as data consistency.
+The spectrum of Tracking begins with content-addressed version control.
+Rather than relying on semantic version labels, content-addressed systems identify each state by a checksum of its contents.
+This distinction matters: two datasets labeled ``version 1.0'' by different labs are ambiguous; two datasets with identical content hashes are provably identical.
+Version control commits also capture basic provenance---who made the change, when, and a description of why---unifying identity and provenance in a single system.
+This also provides a safety net: any change can be reverted and any prior state restored, making it safe to modify and experiment.
+For tracking to be effective, all components of the research object must be under version control---code, data, environment definitions, and configuration.
 
-By applying VCS systematically to data and analysis outputs, researchers can pinpoint exact states of digital files, reliably reverting or exploring previous versions as needed.
-Although traditional version control systems have limitations when managing large datasets due to storage inefficiencies, modern tools such as git-annex, DataLad, or DVC effectively extend git functionality to handle large, binary, and distributed datasets.
-These tools enable researchers to manage extensive datasets without losing the benefits of traditional version control, including improved collaboration through explicit tracking of changes, efficient reversion of undesired modifications, and the ability to reconstruct past research states—effectively enabling "time travel."
+Traditional version control is designed for code and other text files, but research objects often include large binary datasets, container images, and other assets that do not fit this model.
+Compatible tools such as git-annex, DataLad, or DVC extend content-addressed tracking to these components, ensuring that all parts of the research object are managed under the same system.
 
-Critically, approaching full reproducibility requires that version control encompasses all components essential for replicating computational workflows.
-These components typically include raw and derived datasets, preprocessing and analysis scripts, parameter and configuration files, computational environment definitions (such as Docker or Singularity containers), and accompanying documentation describing workflow execution details.
-Omitting even one component can severely compromise reproducibility, making comprehensive version control across these assets a fundamental necessity.
-
-% TODO: formal principles removed — now in STAMPED table (S.1, T.1, T.2)
-% TODO: strip S-redundant content (lines 155-157 overlap with S section)
-
-Tracking encompasses not only version history but also provenance---the record of what actions produced or modified each component.
-Provenance collection typically occurs separately from version control, leading to fragmentation: the data is versioned in one system while the record of how it was produced lives in another (or nowhere).
-Embedding provenance directly into version control history---for example, by encoding descriptions of computational actions into commit records---unifies these concerns.
-A provenance-rich commit history records not just that a file changed, but what command was executed, what inputs it consumed, and what versions of code and environment were involved.
-
-For code-driven modifications, provenance should be captured programmatically rather than by manual annotation.
-This ensures completeness and enables re-execution: a researcher can not only see what was done but repeat it.
+Toward the ideal end, provenance is captured programmatically by tooling rather than by manual annotation, producing richer records than a human would typically write: each computational step records what command was executed and what inputs it consumed.
+When modules are independently tracked under compatible systems (M), the version of every module at the time of each commit is also discoverable, providing a complete picture of the state that produced a given result.
+This enables not just inspection but re-execution.
 % TODO: cite Tek Raj paper, provenance format approaches
 % TODO: mention W3C PROV, RO-Crate, BEP028 as interoperable export targets
-% TODO: spectrum — minimum (manual commit messages describing what was done) vs ideal (programmatic provenance capture with full dependency graphs, re-executable)
-% that's where might be worth already to talk about ability of the used VCS/platform to "replicate" the outside components within it.
-% e.g. if containers are used, it must provide storage for those containers as part of the resource, and not to rely on external links which might disappear.
-% To a degree - VCS should provide ways to "cauterize the wound" (or find a better analogie).
-% It should make it "safe to make a cut", but also to "re-connect" the component if any detail or functionality of it is needed.
-% And that should lead into modularity + git modules as the way "to cauterize"
+% TODO: cite \cite{johnson_sciops_2024} somewhere in T — original text described this as "data consistency" but the paper uses that term in a different sense (process/team consistency, not content-addressed identification)
 
 
 
@@ -163,13 +139,12 @@ Actionability applies to every other STAMPED dimension: at the ideal end, each p
 \begin{itemize}
   \item \textbf{Self-containment} is more actionable when retrieval of all components is specified and executable (e.g., \texttt{git clone}, \texttt{datalad install}), not just listed in a manifest.
   \item \textbf{Tracking} is more actionable when provenance records are re-executable (e.g., \texttt{datalad rerun}), not just inspectable.
-  \item \textbf{Modularity} is more actionable when components can be composed and decomposed via tooling (e.g., \texttt{git submodule}), not just organized into directories.
-  \item \textbf{Portability} is more actionable when environments can be instantiated from a specification (e.g., \texttt{singularity run}), not just documented in a README.
+  \item \textbf{Modularity} is more actionable when components can be composed, updated, and replaced via tooling (e.g., \texttt{git submodule}), not just organized into directories.
+  \item \textbf{Portability} is more actionable when environment specifications are machine-readable and can be resolved on different hosts (e.g., \texttt{conda env create}, Nix flakes), not just documented in a README.
   \item \textbf{Ephemerality} is more actionable when computation can be orchestrated in disposable environments (e.g., \texttt{docker compose}, Slurm), not just instructed to ``run in a clean environment.''
   \item \textbf{Distributability} is more actionable when a frozen state can be produced and retrieved by others (e.g., containers, \texttt{npm ci}), not just described with pinning instructions.
 \end{itemize}
 The principle is tool-agnostic: any system that moves a property from documented to executable moves the research object further along the actionability spectrum.
-With advent of agentic AI systems, documentation alone often can provide actionable recipes, but nevertheless formalization in AI-specific formulations (e.g. \texttt{Claude Skills} [CITE]) can drastically improve actionability of such descriptions.
 
 
 
@@ -180,33 +155,15 @@ With advent of agentic AI systems, documentation alone often can provide actiona
     \item \textbf{M.2}: Components MAY be included directly or linked as subdatasets.
 \end{itemize}
 
-Monolithic structures present significant barriers to effective development, maintenance, and reuse.
-Managing such research objects as single, large units complicates incremental updates, obscures dependencies, remixing of components, and can be notably time-consuming.
-So rather than managing the research object as one indivisible whole, STAMPED promotes a compositional approach, structuring projects as assemblies of independently versioned and well-defined components.
-Defining a module as a separately distributable collection of components for our research object, \textbf{Modularity} is achieved when all modules of the research are independent and composable.
-Individual parts—such as input and reference datasets, processing scripts, and computational environments—can be updated or replaced independently, thus minimizing disruption and maximizing reusability.
-
-The layout of these components plays a crucial role in enabling effective modularity:
-
-\begin{itemize}
-  \item \textbf{code/}: containing analysis scripts and tests.
-  \item \textbf{inputs/}: encapsulating raw or intermediate datasets.
-  \item \textbf{envs/}: defining computational environments (e.g., Singularity images).
-  \item \textbf{docs/}: for project documentation.
-  \item \textbf{results/}: explicitly identified outputs (e.g., figures, tables, derived datasets).
-\end{itemize}
-
-The intention of such organization clarifies for researchers how to compose and recombine modules flexibly to produce varied outcomes.
-
-The spectrum of modularity ranges from:
-At \textbf{minimum}, organize components into logical subdirectories---separate code from data, distinguish inputs from results, and document structure in a README.
-At a \textbf{middle} level, formalize module boundaries using version control repository boundaries, with major components as separate repositories referencing each other via submodules or documented URLs with version tags.
-At the \textbf{ideal} level, implement fully actionable composition with all dependencies as versioned submodules with automated module installation, allowing the entire workflow to be reassembled from a self-contained specification.
-
-Modularity ought to rely heavily on Tracking (module boundaries require independent versioning) and
-Self-containment (all independent modules required by the workflow).
-It enhances Actionability by increasing the system reliability.
-Portability and Distributability are also easier to achieve since modules can themselves be ported and distributed separately from the integration in the whole.
+Separation of concerns is a foundational engineering practice: organizing a system so that each piece has a clear, distinct role.
+With clear boundaries between the conceptual components of a research object, it becomes more navigable and maintainable.
+We define a \textbf{module} as a separately distributable unit of a research object---such as a dataset, a collection of analysis scripts, or a computational environment definition.
+In practice, module boundaries often align with repository boundaries, but a module may also be a published container, a registered dataset, or any independently versioned unit.
+Modularity applies this principle to research objects, structuring them as assemblies of modules whose boundaries are explicit.
+At a minimum, a research object should separate analysis code, input datasets, computational environments, configuration settings, and results into distinct directories.
+Beyond this, independent versioning of modules enables reuse: a dataset or environment can be updated to a newer version, or swapped for an alternative, without disrupting the rest of the research object.
+This is possible through manual management but becomes practical when handled by tooling that automates module installation, versioning, and composition.
+Toward the ideal end, the full research object can be reassembled from its specification through automated, recursive installation of its modules.
 
 
 
@@ -218,28 +175,14 @@ Portability and Distributability are also easier to achieve since modules can th
     \item \textbf{P.3}: Environment definitions MUST be version controlled.
 \end{itemize}
 
-A research object that is self-contained, tracked, and modular may still fail to reproduce if it depends on undocumented host environment state---hardcoded paths, implicitly available tools, or specific OS configurations.
-Portability requires that procedures can be executed on different host environments, given documented system requirements.
+A research object that is self-contained, tracked, and modular may still fail to run on a different machine if it is silently affected by inherited host state---a specific Python installation, a system library, a hardcoded path, or an assumed OS configuration.
+This coupling is often invisible on the original system and only surfaces when someone else attempts to reproduce the work.
+Portability requires making all host dependencies explicit, so that the research object can be adapted to a new environment.
 
-Research reproducibility fundamentally depends not only on preserving code and data, but also on capturing the complete computational environment—the operating system, libraries, dependencies, and tool versions—that produced the results.
-Environmental drift, where software dependencies evolve or disappear over time, is a primary cause of computational irreproducibility. Even with identical code and data, differences in library versions, compiler settings, or system configurations can produce divergent results or outright failures.
-
-Computational environments should be explicitly defined (not implicitly assumed), machine-reproducible, version controlled alongside code and data, and self-contained within the project boundary.
-
-Two primary approaches exist for environment portability:
-\begin{enumerate}
-  \item \textbf{Container-based}: Docker, Singularity/Apptainer provide OS-level isolation.
-  \item \textbf{Package-based}: Nix, Guix provide declarative, reproducible package management.
-\end{enumerate}
-
-STAMPED is environment-mechanism-agnostic; what matters is that
-environments are explicitly specified, versioned, and available within the project.
-
-% TODO: containers need more coverage here — containerization is a key portability mechanism that E and D both depend on
-% TODO: spectrum — minimum (documented system requirements, no hardcoded paths) vs ideal (machine-reproducible environment specs, containers)
-% TODO: the code/ vs code/local/ pattern for non-portable config — see #34
-% TODO: randomness/seeds as a portability concern — see #34
-% TODO: provenance format targets (W3C PROV, BEP028, RO-Crate, BioComputeObject) — where do these go? Discussion?
+Some degree of coupling to the host is unavoidable---path naming restrictions, resource limits, platform-specific flags.
+The spectrum of Portability begins with isolating this host-specific configuration from the rest of the research object, so that adapting to a new environment, however involved that may be, requires only changing configuration.
+Beyond this, several complementary approaches reduce host coupling: virtual machines provide full system-level isolation; container-based tools (Docker, Singularity/Apptainer) bundle OS-level environments; and declarative package managers (Nix, Guix) specify environments that can be reconstructed from a definition.
+Toward the ideal end, the computational environment is fully specified and version controlled within the research object, enabling it to be instantiated on any compatible system.
 
 
 
@@ -250,12 +193,14 @@ environments are explicitly specified, versioned, and available within the proje
 \end{itemize}
 
 A research object may satisfy Self-containment, Tracking, and Portability while its computational environment has only ever been assembled once, incrementally, on the original researcher's machine.
-Such one-off setup is fragile: specifications that have never been tested by reconstitution can be subtly incomplete---for instance, through hidden dependencies on the researcher's own system that are not apparent until someone else attempts to reproduce the work.
-Ephemerality addresses this: when computing in a temporary, disposable environment built from tracked specifications, researchers validate and exercise Self-containment, Portability, and Actionability---all dependencies must be within the boundary, specifications must be sufficient to reconstitute the environment, and setup and computational procedures become machine-executable steps run end-to-end.
+During development, researchers routinely modify their environment---installing packages, adjusting configurations, setting variables---and each change is individually small but collectively difficult to document.
+The result is environment drift: an environment that works but may not be reconstructable from its specification alone, where undocumented steps can go unnoticed when internalized knowledge silently fills the gaps.
+Ephemerality eliminates this problem by construction: a disposable environment built from tracked specifications cannot carry undocumented state, so any successful execution exercises Self-containment, Actionability, and specification completeness.
 
-Ephemeral computation does not validate everything---for instance, an ephemeral environment with network access may successfully fetch unpinned dependencies at build time, masking a self-containment gap that only surfaces when those resources move or disappear---but it substantially raises confidence that the research object is self-contained, portable, and actionable.
-The spectrum of Ephemerality ranges from producing results from a fresh clone on a system that meets stated requirements (P), to an ideal in which every computation runs in a disposable environment created and destroyed per execution.
-The FAIRly big workflow approach\cite{hanke_defense_2021} and platforms such as Code Ocean operationalize the ideal end of this spectrum, treating each computation as an ephemeral work unit---which also enables scaling, as independent disposable instances can be parallelized across subjects, parameters, or datasets.
+The spectrum of Ephemerality ranges from manually setting up a fresh environment from the project's specification---sufficient to catch environment drift---to fully automated disposable environments created and destroyed per execution.
+At the ideal end, ephemeral computation also enables testing across different host systems, where same-host execution validates specification completeness and different-host execution validates that specifications are not coupled to a specific system.
+The FAIRly big workflow approach\cite{hanke_defense_2021} and platforms such as Code Ocean operationalize this ideal, treating each computation as an ephemeral work unit---which also enables scaling, as independent disposable instances can be parallelized across subjects, parameters, or datasets.
+Ephemeral computation does not validate everything---for instance, an ephemeral environment with network access may fail to notice unpinned dependencies fetched at build time, a self-containment gap that only surfaces when those resources move or disappear---but it substantially raises confidence that the research object is self-contained, portable, and actionable.
 
 
 
@@ -266,18 +211,19 @@ The FAIRly big workflow approach\cite{hanke_defense_2021} and platforms such as 
     \item \textbf{D.2}: Environment specifications SHOULD support reproducible builds.
 \end{itemize}
 
-% TODO: Actionability cross-cut — D is more actionable when there is tooling that can distribute a frozen state (containers, PyInstaller, npm ci), not just instructions to "pin your dependencies"
-Self-containment (S) establishes that everything needed is within the research object's boundary, possibly by reference.
-Distributability promises that those references actually deliver---that the research object and its components can be shared, retrieved, and used by others in a state consistent with reuse.
+A research object that is self-contained on the author's machine but cannot be obtained by others in the same state is effectively unreproducible beyond its origin.
+Self-containment (S) establishes that everything needed is within the boundary and Tracking (T) records the state of each component.
+Distributability ensures that others can obtain the research object in that same state.
 
 The distinction mirrors the concept of a software distribution: a curated, versioned bundle in which all components are resolved to specific versions and packaged for consumption.
 Simply sharing a research object---uploading scripts to a repository with loose dependencies, or posting files on a website with no version guarantees---does not constitute distribution in this sense.
-A distributable research object is packaged so that it can be retrieved in the same state as intended
+A distributable research object is packaged so that it can be retrieved in the same state as intended.
 
 Distributability also has a circular relationship with the other STAMPED properties: someone else's distribution effort often serves as the starting point for a new research object's self-containment.
 Researchers routinely begin by downloading containers, fetching published datasets, and installing released software---modularly composing the distributions of others to assemble their own self-contained research objects.
 
-The spectrum of distributability ranges from publicly accessible components with retrieval instructions, through persistent hosting on archival infrastructure (Zenodo, PyPI, conda-forge, DANDI) with frozen versions and content-addressed identifiers---analogous to moving from a development checkout (\texttt{pip install -e .}) to a pinned release (\texttt{pip freeze})---to an ideal in which all external dependencies are mirrored or the entire research object is packaged as a self-contained archive (e.g., a built container or a zipped RO-Crate).
+The spectrum of Distributability begins where FAIR leaves off: publicly accessible components with documented retrieval instructions.
+Toward the ideal end, several complementary strategies reduce the risk that external changes will break a research object's reproducibility: bundling dependencies into containers or archives reduces the surface area of components that can independently change or disappear; hosting on archival infrastructure (Zenodo, DANDI, Software Heritage) with content-addressed identifiers allows recipients to verify integrity regardless of source; and mirroring across multiple platforms protects against the failure of any single registry.
 
 \begin{table}[ht]
 \centering
@@ -608,6 +554,8 @@ Formal STAMPED properties enable ``STAMPED-compliant'' tool certification, simil
 
 \subsubsection{Teaching Materials}
 Operationalized principles provide a foundation for structured curriculum development beyond current tutorial-based approaches.
+
+% TODO: AI and Actionability — as AI tools improve, the gap between documented and executable narrows, but executable specifications remain more reliable. Discuss implications for the actionability spectrum.
 \section{Data Availability}
 \section{Code Availability}
 \bibliographystyle{unsrtnat}
