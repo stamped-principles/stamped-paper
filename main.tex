@@ -480,8 +480,14 @@ These adoptions demonstrate that STAMPED properties solve practical organization
 % "Rule 5: Be kind to your future self" — STAMPED assists in accessing all necessary components and history.
 
 
+\subsection{Lit Review AKA Reflection on the past/existing efforts}
 
-\subsection{Lit Review}
+% "Convergent evolution" ...
+
+% now that we provided a very brief intro, and then presented the
+% desired STAMPED principles, we want to reflect back better on what
+% had been developed and used in the field ATM and potentially relate
+% to the STAMPED properties.
 % TODO: restructure as comparison to related approaches, not tool-by-tool breakdown
 
 % TODO: tie in the idea of how lots of specific tools have inherently followed these principles, but how STAMPED  formalizes them and provides a framework for any workflow, not just specific tools, can gain the same benefits.
@@ -489,18 +495,20 @@ These adoptions demonstrate that STAMPED properties solve practical organization
 The challenges STAMPED addresses are not unique to neuroscience or even scientific computing broadly.
 Multiple communities independently developed organizational frameworks exhibiting remarkable convergent evolution toward similar core patterns.
 
-Between 2003 and 2025, at least 19 distinct initiatives emerged addressing research data organization, version control, and reproducibility:
+Although [TODO: find some oldest work which could relate to organization of research objects], since 2000, various initiatives emerged formalizing various aspects of the scientific research workflow aiming to improve clarity, efficiency, reproducibility, sharing and other aspects. Here we are not aiming for a comprehensive overview of the approaches but rather relating them to accent on the importance of various STAMPED properties.
 
-\textbf{Foundational principles}: Noble's 2009 guidelines for computational biology organization\cite{noble_quick_2009}, FAIR principles for data sharing\cite{wilkinson_fair_2016}, Software Carpentry's ``Good Enough Practices''\cite{wilson_good_2017}.
+\textbf{Data and metadata organization}: Noble's 2009 guidelines for organizing projects in computational biology organization\cite{noble_quick_2009} potentially pioneered formalization of pragmatic   [TODO relate to BIDS],
 
-\textbf{Version control extensions}: git-annex (2010), Git LFS (2015), DVC (2017), Pachyderm (2014), Quilt (2020s) all independently arrived at ``Git for data'' concepts, applying proven version control semantics to large datasets.
+\textbf{Foundational principles}:  FAIR principles for scholary data management and sharing\cite{wilkinson_fair_2016}, Software Carpentry's ``Good Enough Practices''\cite{wilson_good_2017}.
 
-\textbf{Cloud platforms}: Code Ocean (2017), brainlife.io (2017), Flywheel (2018), Galaxy (2005) provide turnkey reproducibility services, all implementing code/environment/data trinity separation.
+\textbf{Data-oriented content tracking \& version control}: git-annex (2010), Git LFS (2015), DVC (2017), Pachyderm (2014), Quilt (2020s), Icechunk (2024) etc, all independently arrived at ``Git for data'' concepts, applying proven content control semantics to large datasets.
 
-\textbf{Framework tooling}: Kedro (2019), nipoppy (2023), Cookiecutter Data Science (2016) provide opinionated structures for data engineering and neuroimaging workflows.
+\textbf{Cloud platforms}: Code Ocean (2017), brainlife.io (2017), Flywheel (2018), Galaxy (2005) and others provided turnkey reproducibility services, all implementing code/environment/data trinity separation.
+
+\textbf{Framework tooling}: Cookiecutter Data Science (2016), Kedro (2019), nipoppy (2023) etc.  provided opinionated and domain-specific composition of organizational principles along with operational frameworks to facilitate complete data processing workflows.
 
 % Should remove BEP028- too niche etc, but might be worth refer to the PROV itself! and potentially BIDS itself since provides poor man versioning (CHANGES) + structure + linking to SourceDatasets
-\textbf{Metadata standards}: RO-Crate (2019), BioComputeObject (IEEE 2791-2020), PROV (TODO), BIDS (2016) address packaging and provenance standardization.
+\textbf{Metadata standards}: W3C-PROV (???), Frictionless data (???), RO-Crate (2019), BioComputeObject (IEEE 2791-2020) address packaging and provenance standardization.
 
 Despite independent origins, these frameworks converged on core patterns:
 \begin{itemize}
