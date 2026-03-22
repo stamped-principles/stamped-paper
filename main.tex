@@ -1,4 +1,7 @@
 \documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{flafter}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{enumitem} % Required for itemize options in normative table
 \usepackage{amssymb} % Required for \square symbol
@@ -49,11 +52,11 @@ STAMPED provides a vocabulary for describing and a framework for evaluating and 
 
 \section{Comments}
 
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
 \caption{The STAMPED Properties. Each property addresses a distinct dimension of research object organization that contributes to reproducibility. Together, they provide a framework for evaluating and improving the reproducibility of computational research.}
 \label{tab:stamped}
-\begin{tabular}{c l p{10cm}}
+\begin{tabular}{c l p{0.65\textwidth}}
 \hline
 \textbf{Letter} & \textbf{Principle} & \textbf{Description} \\
 \hline
@@ -226,10 +229,10 @@ Researchers routinely begin by downloading containers, fetching published datase
 The spectrum of Distributability begins where FAIR leaves off: publicly accessible components with documented retrieval instructions.
 Toward the ideal end, several complementary strategies reduce the risk that external changes will break a research object's reproducibility: bundling dependencies into containers or archives reduces the surface area of components that can independently change or disappear; hosting on archival infrastructure (Zenodo, DANDI, Software Heritage) with content-addressed identifiers allows recipients to verify integrity regardless of source; and mirroring across multiple platforms protects against the failure of any single registry.
 
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
 \caption{Normative statements about STAMPED properties of research objects.}
-\begin{tabular}{|l|p{10cm}|}
+\begin{tabular}{|l|p{0.7\textwidth}|}
 \hline
 \textbf{Principle} & \textbf{Requirements} \\
 \hline
@@ -409,11 +412,11 @@ But it is centralized (requiring an LFS server), lacks offline capability, and p
 Lightweight STAMPED implementations using Git LFS are entirely feasible for easier onboarding, trading federation flexibility for reduced operational overhead.
 The same pattern---flexibility versus simplicity---recurs across other tool choices in Table~\ref{tab:stamped-tools}: container-based versus package-based environment management, workflow engines versus shell scripts, and federated archives versus centralized platforms.
 
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
 \caption{Sample tools to improve scientific practice for each STAMPED property.}
 \label{tab:stamped-tools}
-\begin{tabular}{|l|p{5cm}|p{6cm}|}
+\begin{tabular}{|l|p{0.3\textwidth}|p{0.35\textwidth}|}
 \hline
 \textbf{Property} & \textbf{Tools / Technologies} & \textbf{Role} \\
 \hline
@@ -522,7 +525,7 @@ and Distributability~(D) wherever licensing, packaging standards, or federated s
 The formalization presented here provides a shared vocabulary for what these practices have in common, enabling researchers to evaluate and incrementally improve their workflows regardless of the specific tools they employ.
 Figure~\ref{fig:convergent-evolution} summarizes these parallel timelines and their mapping to STAMPED properties.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figures/convergent-evolution-gantt.pdf}
 \caption{Convergent evolution of empirical scientific practice toward STAMPED.
