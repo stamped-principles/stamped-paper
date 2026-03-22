@@ -1,0 +1,20 @@
+/* Section background colors — matching Excalidraw palette */
+.section0 { fill: #FDE8E0 !important; }  /* Foundational Ideas — coral */
+.section1 { fill: #DEEAF6 !important; }  /* Normative Frameworks — blue */
+.section2 { fill: #E0F0E0 !important; }  /* Git for Data Tools — green */
+.section3 { fill: #EDE0F0 !important; }  /* Platforms and Standards — purple */
+.section4 { fill: #FFF0DB !important; }  /* Framework Tooling — amber */
+
+/* Section label styling */
+.sectionTitle0 { fill: #C0392B !important; }
+.sectionTitle1 { fill: #2471A3 !important; }
+.sectionTitle2 { fill: #27AE60 !important; }
+.sectionTitle3 { fill: #8E44AD !important; }
+.sectionTitle4 { fill: #D68910 !important; }
+
+/* Milestone markers */
+.section0 .task { stroke: #E74C3C !important; fill: #E74C3C !important; }
+.section1 .task { stroke: #3498DB !important; fill: #3498DB !important; }
+.section2 .task { stroke: #2ECC71 !important; fill: #2ECC71 !important; }
+.section3 .task { stroke: #9B59B6 !important; fill: #9B59B6 !important; }
+.section4 .task { stroke: #F39C12 !important; fill: #F39C12 !important; }
