@@ -1,6 +1,6 @@
 <div align="center">
   <picture>
-    <img alt="nwb2bids logo" src="https://raw.githubusercontent.com/myyoda/principles-paper/add_basic_figs/figures/logo.png" width="600">
+    <img alt="nwb2bids logo" src="https://raw.githubusercontent.com/myyoda/principles-paper/main/figures/logo.png" width="600">
   </picture>
 
   <h1 align="center">STAMPED Properties (Paper)</h1>
