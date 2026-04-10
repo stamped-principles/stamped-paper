@@ -11,13 +11,13 @@
 
 Manuscript formalizing the **STAMPED** properties for reproducible research objects:
 
-📦 S — Self-containment: Everything under one boundary
-🔍 T — Tracking: Version control & provenance
-▶️ A — Actionability: Executable & documented workflows
-🧩 M — Modularity: Independent & composable modules
-🚢 P — Portability: Runs anywhere with explicit specifications
-💨 E — Ephemerality: Transient compute environment
-🌐 D — Distributability: Shareable, persistent, and retrievable
+> 📦 **S**elf-contained: Everything under one boundary<br>
+> 🔍 **T**racked: Version control & provenance<br>
+> ▶️ **A**ctionable: Executable & documented workflows<br>
+> 🧩 **M**odular: Independent & composable modules<br>
+> 🚢 **P**ortable: Runs anywhere with explicit specifications<br>
+> 💨 **E**phemeral: Transient compute environment<br>
+> 🌐 **D**istributable: Shareable, persistent, and retrievable
 
 Originating from the [YODA Principles](https://github.com/myyoda/poster/blob/master/ohbm2018.pdf); earlier working names for this formalization included [VAMP](???).
 
