@@ -62,6 +62,6 @@ The current Results subsection pattern remains appropriate:
 
 ## Workflow
 
-- All editing and comments take place on GitHub https://github.com/myyoda/principles-paper
+- All editing and comments take place on GitHub https://github.com/stamped-principles/stamped-paper
 - Changes occur via pull requests — do not edit in place
 - Avoid comments on Overleaf; use GitHub issues instead

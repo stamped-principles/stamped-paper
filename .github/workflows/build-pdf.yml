@@ -54,10 +54,10 @@ jobs:
         if: github.event_name == 'pull_request'
         id: diff
         run: |
-          docker run --rm -v "$PWD:/work" ghcr.io/myyoda/diff-pdf:latest \
+          docker run --rm -v "$PWD:/work" ghcr.io/stamped-principles/diff-pdf:latest \
             bash ./code/gh-pages-diff-pdf.sh \
               main.pdf \
-              "https://myyoda.github.io/principles-paper/main.pdf" \
+              "https://stamped-principles.github.io/stamped-paper/main.pdf" \
               "gh-pages-pr-${{ github.event.pull_request.number }}" \
               "${{ github.repository }}" \
               "${{ github.server_url }}" \
