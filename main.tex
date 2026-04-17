@@ -1,4 +1,7 @@
 \documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{flafter}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{enumitem} % Required for itemize options in normative table
 \usepackage{amssymb} % Required for \square symbol
@@ -34,7 +37,8 @@ Even when gathered in one place, research objects are often tightly coupled to s
 
 The FAIR principles\cite{wilkinson_fair_2016} and FAIR4RS guidelines\cite{barker_introducing_2022} provide structured guidance for making digital objects findable, accessible, interoperable, and reusable.
 The Workflow Community Initiative (WCI-FW)\cite{wilkinson_applying_2025} mapped these principles onto computational workflows but explicitly chose not to define new ones, instead treating workflows as hybrid data/software objects.
-[TODO: Relate/compare to FAIR here]
+STAMPED addresses a complementary question: how a research object should be organized and managed so it can actually be re-executed, extended, and redistributed.
+Both frameworks cover overlapping concerns---for example, persistent identifiers serve both Findability and Tracking---but accent different aspects: FAIR emphasizes discovery and interoperability across repositories, while STAMPED emphasizes improving the operational maturity of scientific workflows in day-to-day research practice.
 
 Many researchers already employ practices that address these operational properties---version control, containerized environments, structured project directories, documented analysis steps---but lack a shared vocabulary to name them, evaluate how thoroughly they are applied, and communicate that evaluation to collaborators and reviewers.
 Here we provide that vocabulary: the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable), originating from the YODA Principles\cite{hanke_yoda_2018}, which describe the operational maturity of a research object.
@@ -54,11 +58,11 @@ STAMPED provides a vocabulary for describing and a framework for evaluating and 
 
 \section{Comments}
 
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
 \caption{The STAMPED Properties. Each property addresses a distinct dimension of research object organization that contributes to reproducibility. Together, they provide a framework for evaluating and improving the reproducibility of computational research.}
 \label{tab:stamped}
-\begin{tabular}{c l p{10cm}}
+\begin{tabular}{c l p{0.65\textwidth}}
 \hline
 \textbf{Letter} & \textbf{Principle} & \textbf{Description} \\
 \hline
@@ -231,10 +235,10 @@ Researchers routinely begin by downloading containers, fetching published datase
 The spectrum of Distributability begins where FAIR leaves off: publicly accessible components with documented retrieval instructions.
 Toward the ideal end, several complementary strategies reduce the risk that external changes will break a research object's reproducibility: bundling dependencies into containers or archives reduces the surface area of components that can independently change or disappear; hosting on archival infrastructure (Zenodo, DANDI, Software Heritage) with content-addressed identifiers allows recipients to verify integrity regardless of source; and mirroring across multiple platforms protects against the failure of any single registry.
 
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
 \caption{Normative statements about STAMPED properties of research objects.}
-\begin{tabular}{|l|p{10cm}|}
+\begin{tabular}{|l|p{0.7\textwidth}|}
 \hline
 \textbf{Principle} & \textbf{Requirements} \\
 \hline
@@ -341,11 +345,11 @@ But it is centralized (requiring an LFS server), lacks offline capability, and p
 Lightweight STAMPED implementations using Git LFS are entirely feasible for easier onboarding, trading federation flexibility for reduced operational overhead.
 The same pattern---flexibility versus simplicity---recurs across other tool choices in Table~\ref{tab:stamped-tools}: container-based versus package-based environment management, workflow engines versus shell scripts, and federated archives versus centralized platforms.
 
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
 \caption{Sample tools to improve scientific practice for each STAMPED property.}
 \label{tab:stamped-tools}
-\begin{tabular}{|l|p{5cm}|p{6cm}|}
+\begin{tabular}{|l|p{0.3\textwidth}|p{0.35\textwidth}|}
 \hline
 \textbf{Property} & \textbf{Tools / Technologies} & \textbf{Role} \\
 \hline
@@ -408,80 +412,62 @@ This architectural shift influenced major neuroimaging tools:
 
 These adoptions demonstrate that STAMPED properties solve practical organizational challenges across scales, from individual studies to community-wide infrastructure.
 
-% TODO: Might be worth relating to "Ten simple rules for principled simulation modelling"
-% https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1009917
-% "Rule 5: Be kind to your future self" — STAMPED assists in accessing all necessary components and history.
+\subsection{Convergent evolution of data-driven scientific practices}
 
+The challenges that motivate STAMPED are not unique to any single domain.
+Over three decades, communities spanning geophysics, statistics, genomics, neuroimaging, and machine learning independently converged on strikingly similar organizational responses to the same recurring problems: fragmented provenance, irreproducible computations, and ad-hoc project layouts.
+What follows is not a comprehensive review but a tracing of that convergence, organized chronologically, to show that the properties STAMPED formalizes reflect durable responses to recurring challenges.
 
+The earliest calls for reproducibility-as-organization appeared in the 1990s.
+Claerbout and Karrenbach\cite{claerbout_electronic_1992} demonstrated that coupling electronic documents with Makefiles could make geophysical analyses self-contained, tracked, and re-executable---anticipating Self-containment~(S), Tracking~(T), and Actionability~(A).
+Buckheit and Donoho\cite{bickel_wavelab_1995} extended this idea with WaveLab, a compendium packaging code, data, and figures so that ``an article \ldots{} is not the scholarship itself, \ldots{} the actual scholarship is the complete software development environment and the complete set of instructions which generated the figures''---touching Self-containment~(S), Actionability~(A), Portability~(P), and Distributability~(D).
+Gentleman and Temple~Lang\cite{gentleman_statistical_2007} formalized the research compendium concept, emphasizing modular packaging for reuse and redistribution---Self-containment~(S), Modularity~(M), Actionability~(A), and Distributability~(D).
+Noble\cite{noble_quick_2009} provided the first widely adopted project-organization guide for computational biology, offering concrete directory-structure conventions that addressed Self-containment~(S) and Modularity~(M).
 
-\subsection{Lit Review}
-% TODO: restructure as comparison to related approaches, not tool-by-tool breakdown
+A wave of normative frameworks followed in the 2010s.
+Stodden\cite{stodden_scientific_2010} articulated legal and social dimensions of sharing computational research, raising concerns central to Distributability~(D) and Tracking~(T).
+Sandve et~al.\cite{sandve_ten_2013} distilled ten rules for reproducible computation---track versions, record workflows, archive environments---spanning Tracking~(T), Actionability~(A), and Self-containment~(S).
+The FAIR principles\cite{wilkinson_fair_2016} established findability, accessibility, interoperability, and reusability as community norms for digital objects, later extended to research software by FAIR4RS\cite{barker_introducing_2022} and to workflows by the Workflow Community Initiative\cite{wilkinson_applying_2025}.
+Wilson et~al.\cite{wilson_good_2017} codified ``Good Enough Practices'' that operationalized many of these ideals for working scientists---Actionability~(A), Tracking~(T), and Self-containment~(S).
+The YODA principles\cite{hanke_yoda_2018} combined these insights into organizational practices from which STAMPED directly descends.
+Notably, the WCI-FW framework\cite{wilkinson_applying_2025} extended FAIR to computational workflows but explicitly declined to define new principles, leaving the operational gap---how a research object should be structured and managed---that STAMPED fills.
 
-% TODO: tie in the idea of how lots of specific tools have inherently followed these principles, but how STAMPED  formalizes them and provides a framework for any workflow, not just specific tools, can gain the same benefits.
+Independent of these normative efforts, a parallel ``Git for data'' convergence occurred in tooling.
+git-annex (2010), Git~LFS (2015), DVC (2017), Pachyderm (2014), and Icechunk (2024) all independently arrived at content-addressed identification of large files, logical separation of metadata from bulk storage, and derivation records linking inputs to outputs.
+Despite differing architectures---some cloud-native, some local-first, some centralized, some federated---each converged on the same core insight: that version-control semantics proven for code could and should extend to data.
+This convergence is evidence not of influence but of shared need, and maps most directly onto Tracking~(T).
 
-The challenges STAMPED addresses are not unique to neuroscience or even scientific computing broadly.
-Multiple communities independently developed organizational frameworks exhibiting remarkable convergent evolution toward similar core patterns.
+A complementary convergence emerged in platforms and metadata standards.
+Though not an exhaustive list: Galaxy\cite{afgan_galaxy_2018} (first released 2005), Code~Ocean (2017), and brainlife.io\cite{hayashi_brainlifeio_2024} each provided turnkey reproducibility services, each implementing separation of code, data, and environment as a first-class abstraction---reflecting Self-containment~(S), Actionability~(A), and Portability~(P).
+On the standards side, the W3C~PROV data model (2013), Frictionless Data (2007), RO-Crate\cite{peroni_packaging_2022}, and BioComputeObject (IEEE~2791-2020) each addressed interoperable packaging and provenance recording.
+The facts that FAIR required elaboration to accommodate software\cite{barker_introducing_2022} and workflows\cite{goble_fair_2020,wilkinson_applying_2025}, and that independent standards converged on provenance and packaging, confirms that these dimensions are recurrently demanded by research practice.
 
-Between 2003 and 2025, at least 19 distinct initiatives emerged addressing research data organization, version control, and reproducibility:
+Framework tooling and domain standards reveal the same pattern at the project-layout level.
+Cookiecutter Data Science (2016), BIDS\cite{gorgolewski_brain_2016} (2016), Kedro (2019), nipoppy (2023), and others, all imposed opinionated directory structures and modular separation---independently motivated by the costs of ad-hoc layouts---reflecting Modularity~(M) and Self-containment~(S).
+Each framework constrains where code and documentation reside, how raw data inputs and derived outputs are handled, which makes such projects navigable by \emph{convention}.
 
-\textbf{Foundational principles}: Noble's 2009 guidelines for computational biology organization\cite{noble_quick_2009}, FAIR principles for data sharing\cite{wilkinson_fair_2016}, Software Carpentry's ``Good Enough Practices''\cite{wilson_good_2017}.
+Viewed together, these independent lines of development map onto every STAMPED property.
+Self-containment~(S) appears wherever projects bundle their dependencies into a single rooted structure; 
+Tracking~(T) wherever content-addressed storage or version control records the history of changes or acquisition of every component;
+Actionability~(A) wherever Makefiles, workflow managers, or platform APIs make re-execution or acquisition a single command;
+Modularity~(M) wherever directory conventions or subproject composition separate concerns;
+Portability~(P) wherever good coding practice, containers or environment specifications decouple a research object from a particular machine;
+Ephemerality~(E) wherever computational compositions bringing together compute and data are treated as disposable and regenerable;
+and Distributability~(D) wherever licensing, packaging standards, or federated storage enable sharing.
 
-\textbf{Version control extensions}: git-annex (2010), Git LFS (2015), DVC (2017), Pachyderm (2014), Quilt (2020s) all independently arrived at ``Git for data'' concepts, applying proven version control semantics to large datasets.
+The formalization presented here provides a shared vocabulary for what these practices have in common, enabling researchers to evaluate and incrementally improve their workflows regardless of the specific tools they employ.
+Figure~\ref{fig:convergent-evolution} summarizes these parallel timelines and their mapping to STAMPED properties.
 
-\textbf{Cloud platforms}: Code Ocean (2017), brainlife.io (2017), Flywheel (2018), Galaxy (2005) provide turnkey reproducibility services, all implementing code/environment/data trinity separation.
-
-\textbf{Framework tooling}: Kedro (2019), nipoppy (2023), Cookiecutter Data Science (2016) provide opinionated structures for data engineering and neuroimaging workflows.
-
-% Should remove BEP028- too niche etc, but might be worth refer to the PROV itself! and potentially BIDS itself since provides poor man versioning (CHANGES) + structure + linking to SourceDatasets
-\textbf{Metadata standards}: RO-Crate (2019), BioComputeObject (IEEE 2791-2020), PROV (TODO), BIDS (2016) address packaging and provenance standardization.
-
-Despite independent origins, these frameworks converged on core patterns:
-\begin{itemize}
-    \item \textbf{Separation of concerns}: Data, code, environment, and results managed distinctly
-    \item \textbf{Immutability}: Raw data never modified in-place
-    \item \textbf{Hierarchical organization}: Nested, modular structures
-    \item \textbf{Version control}: Applying Git concepts beyond just code
-    \item \textbf{Provenance tracking}: Recording how outputs were generated
-\end{itemize}
-
-% TODO: this block is tool-specific (git-annex, DataLad) not STAMPED-general. Reframe or move to Discussion.
-STAMPED's unique contributions within this landscape:
-\begin{itemize}
-    \item \textbf{Federated composition}: Subdatasets can live anywhere (not centralized)
-    \item \textbf{Interface agnosticism}: Works with any container/pipeline system
-    \item \textbf{Local-first design}: Works offline, no cloud platform dependency
-    \item \textbf{git-annex flexibility}: Many remote types vs single-server models
-    \item \textbf{Scale via modularity}: Proven from single files to 8000+ subdatasets (datasets.datalad.org)
-\end{itemize}
-
-This convergent evolution validates that STAMPED properties are not arbitrary choices but responses to fundamental challenges in computational research reproducibility.
-The formalization presented here provides a foundation for interoperability and comparison across this evolving ecosystem of tools and standards.
-
-\subsubsection{DVC (Data Version Control)}
-Shares ``Git for data'' philosophy but differs in architecture:
-DVC uses external .dvc files with remote storage configuration, while tools complementary to STAMPED such as DataLad with git-annex integrate directly into the git repository structure.
-DVC focuses on Python and ML workflows within a single project, whereas STAMPED is language-agnostic and supports federated multi-project composition.
-Both are valid; choice depends on team familiarity (DVC easier for ML engineers), infrastructure (DVC integrates easily with cloud ML platforms), and scale requirements (git-annex more flexible for federated datasets).
-
-\subsubsection{Pachyderm}
-Enterprise ``Git for data'' with Kubernetes-native architecture.
-Pachyderm requires a centralized cluster and cloud infrastructure, while a STAMPED approach is local-first, works offline, and supports federation.
-Pachyderm provides automatic pipeline triggering, whereas STAMPED emphasizes explicit, provenance-tracked execution (e.g., \texttt{datalad run}).
-Pachyderm excels for production ML pipelines, team collaboration with shared compute resources, and automatic scaling.
-STAMPED excels for research workflows, offline work, and heterogeneous datasets across institutions.
-
-\subsubsection{Kedro}
-Python data engineering framework with modular pipelines.
-Kedro provides within-project modularity through Python pipeline components, while STAMPED provides across-project modularity through subdatasets as git submodules.
-Kedro includes built-in visualization (Kedro-Viz), whereas STAMPED is CLI-focused with integration to external tools.
-These approaches are complementary: a Kedro pipeline inside a STAMPED research object combines both strengths.
-
-\subsubsection{Cloud Platforms (Code Ocean, brainlife.io, Flywheel)}
-Turnkey reproducibility services with proprietary interfaces.
-Platforms offer zero local setup and institutional partnerships; STAMPED offers local control with no vendor lock-in.
-Platforms provide web GUIs with point-and-click interaction; STAMPED provides CLI/API with scriptable automation.
-Platforms are centralized (single capsule or project); STAMPED is federated (compose across repositories).
-STAMPED research objects could wrap platform outputs: download results, organize locally with full versioning, and compose across platforms via subdatasets.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/convergent-evolution-gantt.pdf}
+\caption{Convergent evolution of empirical scientific practice toward STAMPED.
+Five independent lines of development---foundational ideas, normative frameworks, data version-control tools, platforms and metadata standards, and framework tooling---are shown on a shared timeline from 1992 to 2025.
+Each milestone is annotated with the STAMPED properties it anticipates.
+Despite independent origins, all five tracks converged on the same organizational patterns that STAMPED formalizes.
+The milestones shown are illustrative rather than exhaustive; many other influential projects and communities contributed to this convergence but are omitted here for brevity.}
+\label{fig:convergent-evolution}
+\end{figure}
 
 
 
