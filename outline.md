@@ -57,9 +57,9 @@ Point to our living documentation, minimal examples/counter-examples
 
 
 ## Data Availability
-- Version-controlled manuscript repo: https://github.com/myyoda/principles-paper/
-- TODO: Zenodo DOI https://github.com/myyoda/principles-paper/issues/19
-- TODO: Examples repo https://github.com/myyoda/principles-paper/issues/20
+- Version-controlled manuscript repo: https://github.com/stamped-principles/stamped-paper/
+- TODO: Zenodo DOI https://github.com/stamped-principles/stamped-paper/issues/19
+- TODO: Examples repo https://github.com/stamped-principles/stamped-paper/issues/20
 
 ## Code Availability
 

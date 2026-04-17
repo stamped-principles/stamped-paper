@@ -58,8 +58,6 @@
 - W3C PROV overview: https://www.w3.org/TR/prov-overview/
 
 **YODA-specific**:
-- YODA template repo: https://github.com/myyoda/template
-- Formalized YODA best-practices issue: https://github.com/myyoda/best-practices/issues/2
 - Wagner & Halchenko (2024). DataLad — decentralized management: https://doi.org/10.3389/fninf.2024.1376022
 
 **BIDS & Layouts**:

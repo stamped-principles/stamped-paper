@@ -31,4 +31,4 @@ jobs:
           context: containers
           file: containers/diff-pdf.Dockerfile
           push: true
-          tags: ghcr.io/myyoda/diff-pdf:latest
+          tags: ghcr.io/stamped-principles/diff-pdf:latest

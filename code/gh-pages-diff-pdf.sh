@@ -6,9 +6,9 @@
 #
 # Inputs:
 #   pr-pdf          — path to the PR-built PDF
-#   base-url        — URL of the deployed main PDF (e.g. https://myyoda.github.io/principles-paper/main.pdf)
+#   base-url        — URL of the deployed main PDF (e.g. https://stamped-principles.github.io/stamped-paper/main.pdf)
 #   preview-branch  — name of the preview branch (e.g. gh-pages-pr-42)
-#   repo            — GitHub repository (e.g. myyoda/principles-paper)
+#   repo            — GitHub repository (e.g. stamped-principles/stamped-paper)
 #   server          — GitHub server URL (e.g. https://github.com)
 #   head-sha        — full SHA of the PR head commit
 #
