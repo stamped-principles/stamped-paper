@@ -560,62 +560,67 @@ STAMPED research objects could wrap platform outputs: download results, organize
 
 \subsection{Future Directions}
 
-TODO here
+STAMPED principles provide a vocabulary rather than a closed specification, which is rooted in practices that continue to evolve with tooling, policy, and scientific convention.
+The directions below identify open fronts where the framework's vocabulary will need to stretch, and where complementary work by adjacent communities will define how STAMPED will assist researchers in the coming decade.
+
+\subsubsection{Specification-centric research objects}
+
+Ephemerality (E) as formulated here treats the compute environment as disposable while the code and data it runs on remain durable.
+A complementary view is emerging in which workflow implementations themselves become regenerable from a durable specification.
+Declarative workflow languages such as CWL\cite{crusoe_methods_2022}, Snakemake\cite{molder_sustainable_2021}, and Nextflow\cite{di_tommaso_nextflow_2017}, together with fully-declarative environment managers such as Nix and Guix, already operate this way: the specification accumulates the domain knowledge --- inputs, constraints, expected outputs, validation criteria --- while any given implementation can be rebuilt or replaced without loss.
+Under this view, STAMPED properties apply to the specification first and the generated implementation second: the specification is what must be Self-contained, Tracked, Actionable, and Distributable; the running code is ephemeral in the same sense as a container.
+The connection to pre-registration is direct and generalizes Ephemerality even further\cite{nosek_preregistration_2018}: a well-formulated study specification is a commitment that survives any particular implementation, and what is ephemeral expands from compute environment to the full scientific ``middleware'' --- data acquisition, harmonization, preprocessing, analytics --- each stage reduced to a specification from which implementations can be derived.
+That is where concentration on formalization and standardization of overall study specifications becomes the target to apply STAMPED properties, so that the middleware steps could also be automatically carried out in an ephemeral fashion and potentially while exploring various possible implementations.
+The cost of under-specified middleware is already visible in practice: the NARPS study showed that 70 independent teams analyzing the same fMRI dataset with nominally similar hypotheses produced substantially divergent results\cite{botvinik-nezer_variability_2020}, precisely because the study specification left most of the middleware up to each team.
+
+\subsubsection{Provenance standards convergence}
+
+STAMPED does not prescribe a serialization for provenance records, and in practice researchers rely on whatever their tooling emits.
+Convergence among community standards --- W3C PROV\cite{w3c_provenance_working_group_prov-overview_2013}, RO-Crate\cite{peroni_packaging_2022}, and domain-specific provenance such as BIDS-Prov (BEP028)\cite{bids_community_bep028_2025} --- would let STAMPED research objects carry portable provenance across toolchains without lock-in.
+This is less a change to STAMPED itself than a call on these communities and relation to FAIR principles: Tracking (T) becomes substantially more useful when provenance records follow standards and can be exported, compared, and re-interpreted by tools other than the one that generated them.
+
+\subsubsection{Adoption incentives and tool certification}
+
+STAMPED compliance today is self-assessed against the checklist provided in this paper and shared at \url{https://github.com/stamped-principles/stamped-checklist}.
+Broader adoption will depend on promotion and external incentives: funder mandates (e.g.,\ NIH Data Management and Sharing policies), journal reproducibility badges\cite{center_for_open_science_open_2023}, and venue-level review checklists that converge toward automated scoring --- paralleling the trajectory of FAIR, which has moved from principles to machine-assessable indicators with tools such as F-UJI\cite{devaraju_automated_2021}.
+No tool certifies STAMPED compliance today; a community-maintained benchmark suite, seeded by the satellite examples project associated with this paper (\url{https://stamped-principles.github.io/stamped-examples}), is a natural precursor.
+
+\subsubsection{Teaching and onboarding}
+
+STAMPED is only as useful as the fraction of students and early-career researchers who encounter it during training.
+Existing resources --- EduWrench\cite{casanova_eduwrench_2023}, the Reproducible Research MOOC which teaches \texttt{git-annex} and related tools\cite{legrand_reproducible_2022}, and RDMkit data analysis best practices\cite{elixir_rdmkit_community_data_2024} --- already teach most of what STAMPED asks for, without using the term.
+Curricular integration with open-science and neuroimaging training programs (ReproNim, Brainhack) would close the gap between practitioners who do these things by habit and those who can name what they are doing and evaluate it against a shared rubric.
+YODA principles have already entered the curricula of several such programs, and we expect their references to migrate toward the more formally articulated STAMPED vocabulary; continued community outreach, including recorded talks such as Cody Baker's introduction to STAMPED\cite{baker_guidelines_2026}, supports that transition.
 
 \subsubsection{Research in an AI Era}
 
-AI models and agentic frameworks built on them are increasingly embedded in research workflows, from generating analysis code to orchestrating full cycle of the scientific projects. % Cite e.g. KOSMOS/EdisonScientific platform, and/or others
-As these tools mature, properties of research objects will determine whether AI-assisted research remains at least as transparent and reproducible as it is now or drifts toward opaque and unreproducible automation.
-STAMPED principles already provide support for us during this transition to arrive at the overall more transparent and reproducible practices: self-contained research objects give agents a well-defined workspace, tracked histories make agent contributions auditable and contribute to their ``memory'', and actionable documentation provides instructions that both humans and machines can follow.
-However, several dimensions of the framework may need to evolve to fully address the challenges AI introduces.
+AI agents are now generating analysis code, selecting methods, and in some systems running entire research cycles end-to-end\cite{boiko_autonomous_2023, lu_ai_2024, mitchener_kosmos_2025}.
+Without explicit structure, this automation can produce results whose provenance and reasoning are irrecoverable\cite{messeri_artificial_2024}.
+STAMPED properties already carry most of what is needed --- self-contained workspaces give agents a well-defined boundary, tracked histories make agent contributions auditable and contribute to their ``memory'', and actionable documentation serves humans and machines alike --- but each property needs an AI-era extension.
 
 \paragraph{Self-contained models.}
 Machine learning models are becoming standard components of research workflows, yet they are often fetched at runtime from external repositories with no guarantee of long-term availability or version stability.
-In many cases, users interact with models through platforms without knowing which model version produced their results.
-Even when models are nominally versioned, the degree of version control varies widely: Hugging Face provides commit-level pinning, while commercial APIs may silently update the model behind a fixed endpoint.
-Self-containment (S) could extend naturally to address this: treating models as tracked components of the research object, just as data and code are today.
-Practical mechanisms exist for open models, such as pinned revisions on Hugging Face or, ideally, storing the whole model via git-annex, and models managed in this way would immediately offer greater value for use in scientific workflows.
-A related challenge remains: tracking what training data and procedures produced a given model is an open problem that intersects questions of copyright, benchmarking, and provenance, largely beyond what STAMPED can prescribe today, but could potentially be adopted by the organizations training and releasing the models.
+Users frequently interact with models through platforms without knowing which model version produced their results, and even where models are nominally versioned the degree of control varies widely: Hugging Face provides commit-level pinning, while commercial APIs may silently update the model behind a fixed endpoint.
+Self-containment (S) extends naturally to this case: models are tracked components of the research object, just as data and code are today.
+Practical mechanisms exist for open models, such as pinned revisions on Hugging Face or, for durable self-containment, archival copies managed via \texttt{git-annex}.
+Tracking what training data and procedures produced a given model remains an open problem that intersects copyright, benchmarking, and provenance --- mostly beyond what STAMPED can prescribe --- but community artifacts such as Model Cards\cite{mitchell_model_2019} and Datasheets for Datasets\cite{gebru_datasheets_2021} point toward the shape of an answer.
 
 \paragraph{Provenance for AI-driven changes.}
 When an AI agent modifies code, generates analysis scripts, or makes architectural decisions, those actions become part of the research record.
-Tracking (T) naturally extends to cover agent actions --- for example, wrapping an agent invocation in a provenance-capturing command such as \texttt{datalad run} to record the model, prompt, and resulting changes alongside the output.
-It is already our daily practice.
-Some of this provenance is already captured organically through git commits authored by agents, session transcripts, and co-authorship metadata.
-Solutions such as entire.io go one step further and automate capture of the entire AI session to get associated with the changes under git.
-It creates a practical tension: agent sessions can produce enormous transcripts, and including them wholesale may dilute the value of more targeted provenance records.
-Determining what to capture (and at what granularity), and in what standard form to capture, remain open questions.
-
-Even with a full capture of the AI-related provenance, results are even less likely to be bitwise reproducible.
-Language model outputs are inherently stochastic, so depending on the framework using the output of the models, there could be a wider spectrum of possible end results.
-But exact reproducibility is rarely the goal; what matters is that the hypothesis and methods formulation is sufficiently well formulated and tracked, and then potentially that the reasoning and decisions are recoverable for introspection.
+Tracking (T) naturally extends to cover agent actions: wrapping an agent invocation in a provenance-capturing command such as \texttt{datalad run} records the model, prompt, and resulting changes alongside the output.
+Some of this provenance is already captured organically through git commits authored by agents, session transcripts, and co-authorship metadata; emerging tools such as Entire CLI\cite{entire_entire_2026} go further, automating capture of the entire AI session alongside the commit.
+A practical tension follows: agent sessions can produce enormous transcripts, and including them wholesale may dilute the value of more targeted provenance records, so what to capture and at what granularity remain open questions.
+Bitwise reproducibility is not the target and rarely is the goal even for human-driven steps; what the record must preserve is the hypothesis, the method specification, and enough of the decision trail to support introspection.
 Self-contained models (above) strengthen this chain: when the model itself is tracked, the provenance record is more complete.
 
 \paragraph{Machine-actionable instructions.}
-Actionability (A) has traditionally meant that a human can trigger an action, as to execute specific ``entry-point'' command which would trigger a sequence of actions in a workflow.
-Accompanying documentation often provided an overview, with description of such entry-points.
-Such documentation was often incomplete or out of sync with the actual workflow.
-AI agents became a second consumer of such documentation: machines now can parse, follow and even on-the-fly correct given prose instructions to determine what actions to take.
-Needless to say that simple Markdown file format and non-structured textual instructions overall became the interface language to the AI.
-Stored as text files \texttt{CLAUDE.md} instructions to AI agents, \texttt{README}-driven agent workflows, \texttt{spec-kit} [ref] managed collection of project development specification and instructions, and full AI-managed collections of \texttt{.md} file wikis already serve the role of the machine-actionable instructions, making Self-contained and Tracked research objects more Actionable.
-As a result, this realization of documentation becoming actionable, represents a practical test of how actionable existing prose-based instructions --- currently less reliable than deterministic execution, but an increasingly important interface as agent-driven research becomes routine.
+Actionability (A) was defined with human operators in mind --- entry-point commands documented in READMEs, frequently incomplete or out of sync with the underlying workflow.
+AI agents are a second consumer of the same prose, one that can parse, follow, and correct instructions on the fly, and plain Markdown has effectively become the interface language: \texttt{CLAUDE.md} files, README-driven agent workflows, and spec-kit\cite{github_spec_2025} collections now function as machine-actionable interfaces, making Self-contained and Tracked research objects more Actionable.
+Where prose instructions fail, the failure is legible --- an audit mechanism that did not exist before --- even if agent-driven execution remains less reliable than deterministic tooling.
 
-\paragraph{Generalization from Ephemeral software to Ephemeral scientific ``middleware''.}
-Ephemerality (E) to the day was applied to compute environments: containers and virtual machines that are created, used, and discarded.
-The rise of AI-generated code extends this property to software itself.
-When an agent can regenerate analysis code from a method specification, the specific implementation becomes disposable.
-The specification accumulates real-world experience, including use cases, bugs, and edge cases, and robustness emerges from this accumulated knowledge rather than from any particular codebase implementation.
-It already became a common practice of working with agentic frameworks, where to address your question they would first produce the code to provide you with an answer based on the output of running that code.
-This at large re-frames reproducibility: rather than preserving a fixed software stack, researchers preserve the hypothesis, knowledge and constraints for which code implementation can be derived.
-Specification-driven approaches such as spec-kit point toward this future, where STAMPED properties would target the specifications themselves --- self-contained, tracked, and actionable descriptions from which software is generated on demand.
-
-But such approach of code ephemerality expands to the ephemerality of the entire scientific workflow pipeline.
-Given the original scientific study formulation there could be a wide range of valid to the domain workflows, which could differ in choices of particular processing methods and their parametrizations.
-Very similar to the idea of pre-registration, what becomes crucial is a quality of the study formulation.
-With the help of AI the details of carrying out the study could be worked out to match best practices, existing regulations, and available infrastructure.
-That in turn makes all those ``middleware'' steps of a typical scientific workflow (data discovery or acquisition, harmonization, pre-processing, analytics, etc) ephemeral too, making us to concentrate on formulating the scientific inquiry of interest.
-
-Emphasis of STAMPED principles on tracked, self-contained method descriptions does not only provide the foundation to capture the crucial premise of the study, it translates to making STAMPED any ephemeral stage of the scientific workflow.
+\paragraph{AI-accelerated specification-to-implementation.}
+Specification-centric research objects (above) depend on the cost of regenerating an implementation from a specification being low enough to be routine.
+AI coding assistants and specification-driven toolkits such as spec-kit move this cost toward zero, and make the spec-centric view practical rather than aspirational --- provided the preceding extensions for models, provenance, and machine-actionable instructions are in place.
 
 
 \section{Data Availability}
