@@ -561,23 +561,25 @@ STAMPED research objects could wrap platform outputs: download results, organize
 \subsection{Future Directions}
 
 STAMPED principles provide a vocabulary rather than a closed specification, which is rooted in practices that continue to evolve with tooling, policy, and scientific convention.
-The directions below identify open fronts where the framework's vocabulary will need to stretch, and where complementary work by adjacent communities will define how STAMPED will assist researchers in the coming decade.
+The directions below identify open fronts where the framework's vocabulary will need to stretch, and where complementary work by adjacent communities will shape how STAMPED assists researchers in the coming decade.
+We begin with directions that apply broadly across computational science --- generalizing Ephemerality to workflow specifications, aligning provenance standards, building adoption incentives, and seeding training pipelines --- and then devote the remainder of the section to the more specific and fast-moving challenges introduced by AI, where several STAMPED properties need explicit extensions and where the stakes for transparent, reproducible research are most immediate.
 
-\subsubsection{Specification-centric research objects}
+\subsubsection{Specification-centric research objects as the reproducibility ideal}
 
-Ephemerality (E) as formulated here treats the compute environment as disposable while the code and data it runs on remain durable.
+Ephemerality (E), as formulated here, treats the compute environment as disposable while the code and data it runs on remain durable.
 A complementary view is emerging in which workflow implementations themselves become regenerable from a durable specification.
 Declarative workflow languages such as CWL\cite{crusoe_methods_2022}, Snakemake\cite{molder_sustainable_2021}, and Nextflow\cite{di_tommaso_nextflow_2017}, together with fully-declarative environment managers such as Nix and Guix, already operate this way: the specification accumulates the domain knowledge --- inputs, constraints, expected outputs, validation criteria --- while any given implementation can be rebuilt or replaced without loss.
 Under this view, STAMPED properties apply to the specification first and the generated implementation second: the specification is what must be Self-contained, Tracked, Actionable, and Distributable; the running code is ephemeral in the same sense as a container.
-The connection to pre-registration is direct and generalizes Ephemerality even further\cite{nosek_preregistration_2018}: a well-formulated study specification is a commitment that survives any particular implementation, and what is ephemeral expands from compute environment to the full scientific ``middleware'' --- data acquisition, harmonization, preprocessing, analytics --- each stage reduced to a specification from which implementations can be derived.
+The connection to pre-registration is direct and generalizes Ephemerality even further\cite{nosek_preregistration_2018}: a well-formulated study specification is a commitment that survives any particular implementation, and what is ephemeral expands from compute environment to the full ``scientific middleware'' --- data acquisition, harmonization, preprocessing, analytics --- each stage reduced to a specification from which implementations can be derived.
 That is where concentration on formalization and standardization of overall study specifications becomes the target to apply STAMPED properties, so that the middleware steps could also be automatically carried out in an ephemeral fashion and potentially while exploring various possible implementations.
 The cost of under-specified middleware is already visible in practice: the NARPS study showed that 70 independent teams analyzing the same fMRI dataset with nominally similar hypotheses produced substantially divergent results\cite{botvinik-nezer_variability_2020}, precisely because the study specification left most of the middleware up to each team.
+% Here could potentially point to the opposite -- Ben's agentic AI being capable of support/demonstrating core "behavioral neuroscience" paradigms. TODO: citation? mention in AI subsection?
 
 \subsubsection{Provenance standards convergence}
 
-STAMPED does not prescribe a serialization for provenance records, and in practice researchers rely on whatever their tooling emits.
-Convergence among community standards --- W3C PROV\cite{w3c_provenance_working_group_prov-overview_2013}, RO-Crate\cite{peroni_packaging_2022}, and domain-specific provenance such as BIDS-Prov (BEP028)\cite{bids_community_bep028_2025} --- would let STAMPED research objects carry portable provenance across toolchains without lock-in.
-This is less a change to STAMPED itself than a call on these communities and relation to FAIR principles: Tracking (T) becomes substantially more useful when provenance records follow standards and can be exported, compared, and re-interpreted by tools other than the one that generated them.
+As FAIR leaves specific protocols and standards open, STAMPED likewise does not prescribe a serialization for provenance records, and in practice researchers rely on whatever their tooling emits.
+Convergence among existing approaches --- cross-domain standards such as W3C PROV\cite{w3c_provenance_working_group_prov-overview_2013} and RO-Crate\cite{peroni_packaging_2022}, tool-level records such as DataLad's\cite{halchenko_datalad_2021} \texttt{datalad run} provenance, and domain-specific specifications such as BIDS-Prov (BEP028)\cite{bids_community_bep028_2025} --- would let STAMPED research objects carry portable provenance across toolchains without lock-in.
+This is less a change to STAMPED itself than a call on these communities: Tracking (T) becomes substantially more useful when provenance records follow shared standards and can be exported, compared, and re-interpreted by tools other than the one that generated them.
 
 \subsubsection{Adoption incentives and tool certification}
 
@@ -587,16 +589,17 @@ No tool certifies STAMPED compliance today; a community-maintained benchmark sui
 
 \subsubsection{Teaching and onboarding}
 
-STAMPED is only as useful as the fraction of students and early-career researchers who encounter it during training.
+Uptake through formal training is slow but compounding: as the ``train the trainer'' model used by the ReproNim program has demonstrated, students and early-career researchers who encounter these practices during training become some of the most effective propagators of the vocabulary, even if that propagation takes years to surface.
 Existing resources --- EduWrench\cite{casanova_eduwrench_2023}, the Reproducible Research MOOC which teaches \texttt{git-annex} and related tools\cite{legrand_reproducible_2022}, and RDMkit data analysis best practices\cite{elixir_rdmkit_community_data_2024} --- already teach most of what STAMPED asks for, without using the term.
-Curricular integration with open-science and neuroimaging training programs (ReproNim, Brainhack) would close the gap between practitioners who do these things by habit and those who can name what they are doing and evaluate it against a shared rubric.
-YODA principles have already entered the curricula of several such programs, and we expect their references to migrate toward the more formally articulated STAMPED vocabulary; continued community outreach, including recorded talks such as Cody Baker's introduction to STAMPED\cite{baker_guidelines_2026}, supports that transition.
+Curricular integration with open-science and neuroimaging training programs such as Brainhack would close the gap between practitioners who apply these practices by habit and those who can name what they are doing and evaluate it against a shared checklist.
+YODA principles have already entered the curricula of several such programs, and we expect their references to migrate toward the more formally articulated STAMPED vocabulary; continued community outreach --- including a recent introduction to STAMPED\cite{baker_guidelines_2026} delivered to the BRAIN BBQS program --- supports that transition.
 
 \subsubsection{Research in an AI Era}
 
 AI agents are now generating analysis code, selecting methods, and in some systems running entire research cycles end-to-end\cite{boiko_autonomous_2023, lu_ai_2024, mitchener_kosmos_2025}.
 Without explicit structure, this automation can produce results whose provenance and reasoning are irrecoverable\cite{messeri_artificial_2024}.
-STAMPED properties already carry most of what is needed --- self-contained workspaces give agents a well-defined boundary, tracked histories make agent contributions auditable and contribute to their ``memory'', and actionable documentation serves humans and machines alike --- but each property needs an AI-era extension.
+STAMPED properties already carry most of what is needed --- self-contained workspaces give agents a well-defined boundary, tracked histories make agent contributions auditable and contribute to their ``memory'', and actionable documentation serves humans and machines alike --- but, as with any new methodology or instrumentation entering science, several of these properties need AI-era extensions.
+Because the agentic-AI ecosystem is evolving rapidly, the directions below are indicative rather than exhaustive.
 
 \paragraph{Self-contained models.}
 Machine learning models are becoming standard components of research workflows, yet they are often fetched at runtime from external repositories with no guarantee of long-term availability or version stability.
@@ -621,6 +624,11 @@ Where prose instructions fail, the failure is legible --- an audit mechanism tha
 \paragraph{AI-accelerated specification-to-implementation.}
 Specification-centric research objects (above) depend on the cost of regenerating an implementation from a specification being low enough to be routine.
 AI coding assistants and specification-driven toolkits such as spec-kit move this cost toward zero, and make the spec-centric view practical rather than aspirational --- provided the preceding extensions for models, provenance, and machine-actionable instructions are in place.
+This closes a loop with the end-to-end ``AI scientist'' systems that opened this section\cite{boiko_autonomous_2023, lu_ai_2024, mitchener_kosmos_2025}: as soon as an agentic pipeline takes a study specification and returns data, code, figures, and a draft manuscript, the specification and every downstream artifact must together satisfy STAMPED --- not only to keep such pipelines efficient to re-run at lower cost, but to make their outputs introspectable.
+Tracked and self-contained research objects let a researcher inspect which model, prompt, and decision led to a particular result, implement ``hand over'' between humans and agents alike and let subsequent actor re-enter a prior state and continue from it without rediscovering context.
+At the end, human scientists authoring and iterating over the specification of a STAMPED research object would see how their edits propagate through the generated implementation.
+Without these properties, the acceleration might be real but the accountability would be lost.
+With STAMPED properties spec-driven agentic research becomes a collaborative transparent artifact between scientists and the AI systems that serves them both.
 
 
 \section{Data Availability}
