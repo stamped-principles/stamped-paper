@@ -1,9 +1,14 @@
 # References to Add
 
 **Foundational**:
-- Noble, W. S. (2009). PLOS Computational Biology - Quick guide
-- Wilkinson et al. (2016). Nature Scientific Data - FAIR Principles
-- Wilson et al. (2017). PLOS Computational Biology - Good Enough Practices
+- [DONE] Noble, W. S. (2009). PLOS Computational Biology - Quick guide
+- [DONE] Wilkinson et al. (2016). Nature Scientific Data - FAIR Principles
+- [DONE] Wilson et al. (2017). PLOS Computational Biology - Good Enough Practices
+- [DONE] Claerbout & Karrenbach (1992). SEG Expanded Abstracts - Electronic documents
+- [DONE] Buckheit & Donoho (1995). Wavelets and Statistics - WaveLab
+- [DONE] Gentleman & Temple Lang (2007). JCGS - Statistical Analyses and Reproducible Research
+- [DONE] Stodden (2010). MIT Sloan - Scientific Method in Practice
+- [DONE] Sandve et al. (2013). PLOS Comp Bio - Ten Simple Rules
 
 **Git for Data**:
 - Pachyderm: https://github.com/pachyderm/pachyderm
@@ -12,8 +17,8 @@
 
 **Platforms**:
 - Code Ocean: https://pmc.ncbi.nlm.nih.gov/articles/PMC7893895/
-- brainlife.io: https://www.nature.com/articles/s41592-024-02237-2
-- Galaxy: https://academic.oup.com/nar/article/52/W1/W83/7676834
+- [DONE] brainlife.io: https://www.nature.com/articles/s41592-024-02237-2
+- [DONE] Galaxy: https://academic.oup.com/nar/article/52/W1/W83/7676834
 
 **Frameworks**:
 - Kedro: https://kedro.org/
@@ -21,9 +26,9 @@
 - Cookiecutter Data Science: https://cookiecutter-data-science.drivendata.org/
 
 **Standards**:
-- RO-Crate: https://www.researchobject.org/ro-crate/
+- [DONE] RO-Crate: https://www.researchobject.org/ro-crate/
 - BEP028: https://github.com/bids-standard/BEP028_BIDSprov
-- BioComputeObject: IEEE 2791-2020
+- [DONE] BioComputeObject: IEEE 2791-2020
 
 **Package Management**:
 - Nix for reproducibility: https://onlinelibrary.wiley.com/doi/full/10.1002/qua.26872
@@ -42,11 +47,11 @@
 - Hanke et al. "FAIRly big workflow": https://doi.org/10.1016/j.patter.2021.100322 (Patterns, 2021)
 
 **FAIR Principles & Extensions**:
-- Wilkinson et al. (2016). FAIR Principles: https://www.nature.com/articles/sdata201618
+- [DONE] Wilkinson et al. (2016). FAIR Principles: https://www.nature.com/articles/sdata201618
 - FAIR living document (GO FAIR): https://www.go-fair.org/fair-principles/
-- Barker et al. (2022). FAIR Principles for research software: https://doi.org/10.1038/s41597-022-01710-x
-- Goble et al. (2020). FAIR Computational Workflows: https://doi.org/10.1162/dint_a_00033
-- Wilkinson et al. (2025). Applying FAIR to computational workflows: https://doi.org/10.1038/s41597-025-04451-9
+- [DONE] Barker et al. (2022). FAIR Principles for research software: https://doi.org/10.1038/s41597-022-01710-x
+- [DONE] Goble et al. (2020). FAIR Computational Workflows: https://doi.org/10.1162/dint_a_00033
+- [DONE] Wilkinson et al. (2025). Applying FAIR to computational workflows: https://doi.org/10.1038/s41597-025-04451-9
 - FAIR Computational Workflows community initiative: https://workflows.community/groups/fair/
 
 **Provenance**:

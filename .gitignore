@@ -9,5 +9,12 @@ main.bbl
 main.blg
 conversation-*.md
 *.DS_Store
+.cache/
+.duct/
+.pki/
+main.out
+*.orig
+*.rej
+
 
 main.out
