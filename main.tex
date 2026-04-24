@@ -344,7 +344,7 @@ git-annex supports many remote types (e.g. other git repositories over SSH or HT
 Git LFS offers a simpler alternative: it is transparent to users, natively supported by GitHub and GitLab, and broadly adopted.
 But it is centralized (requiring an LFS server), lacks offline capability, and provides less flexible remote configurations.
 Lightweight STAMPED implementations using Git LFS are entirely feasible for easier onboarding, trading federation flexibility for reduced operational overhead.
-The same pattern---flexibility versus simplicity---recurs across other tool choices in Table~\ref{tab:stamped-tools}: container-based versus package-based environment management, workflow engines versus shell scripts, and federated archives versus centralized platforms.
+The same pattern---flexibility versus simplicity---recurs across other tool choices in Table~\ref{tab:stamped-tools}: container-based versus package-based environment management, workflow engines versus shell scripts, and distributed archives versus centralized platforms.
 
 \begin{table}[htbp]
 \centering
@@ -437,7 +437,7 @@ Notably, the WCI-FW framework\cite{wilkinson_applying_2025} extended FAIR to com
 
 Independent of these normative efforts, a parallel ``Git for data'' convergence occurred in tooling.
 git-annex (2010), Git~LFS (2015), DVC (2017), Pachyderm (2014), and Icechunk (2024) all independently arrived at content-addressed identification of large files, logical separation of metadata from bulk storage, and derivation records linking inputs to outputs.
-Despite differing architectures---some cloud-native, some local-first, some centralized, some federated---each converged on the same core insight: that version-control semantics proven for code could and should extend to data.
+Despite differing architectures---some cloud-native, some local-first, some centralized, some distributed---each converged on the same core insight: that version-control semantics proven for code could and should extend to data.
 This convergence is evidence not of influence but of shared need, and maps most directly onto Tracking~(T).
 
 A complementary convergence emerged in platforms and metadata standards.
