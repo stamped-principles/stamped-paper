@@ -32,19 +32,22 @@
 
 Data-driven research depends on specific versions of datasets, software, and computational environments, and a record of how they were used together to produce results.
 We adopt the term \textbf{research object} to denote a collection of data, code, and metadata that together represent the research as a complete unit.
-It is common for the components of a research object to be organized independently---code in one repository, data on a shared drive, environment setup in a wiki page, provenance in a lab notebook or nowhere at all---and this separation undermines rigor, reproducibility, reusability, and efficiency.
+It is common for the components of a research object to be organized independently with code in one repository, data on a shared drive, environment setup in a wiki page, provenance in a lab notebook or nowhere at all.
+This separation undermines rigor, reproducibility, reusability, and efficiency.
 Even when gathered in one place, research objects are often tightly coupled to specific environments, opaque to outside collaborators, and difficult to reuse or redistribute.
 
 The FAIR principles\cite{wilkinson_fair_2016} and FAIR4RS guidelines\cite{barker_introducing_2022} provide structured guidance for making digital objects "Findable, Accessible, Interoperable, and Reusable".
 The Workflow Community Initiative (WCI-FW)\cite{wilkinson_applying_2025} mapped these principles onto computational workflows but explicitly chose not to define new ones, instead treating workflows as hybrid data/software objects.
 STAMPED addresses a complementary question: how a research object should be organized and managed so it can actually be re-executed, extended, and redistributed.
-Both frameworks cover overlapping concerns---for example, persistent identifiers serve both Findability and Tracking---but accent different aspects: FAIR emphasizes discovery and interoperability across repositories, while STAMPED emphasizes improving the operational maturity of scientific workflows in day-to-day research practice.
+Both frameworks cover overlapping concerns.
+For example, persistent identifiers serve both Findability and Tracking, but accent different aspects: FAIR emphasizes discovery and interoperability across repositories, while STAMPED emphasizes improving the operational maturity of scientific workflows in day-to-day research practice.
 
-Many researchers already employ practices that address these operational properties---version control, containerized environments, structured project directories, documented analysis steps---but lack a shared vocabulary to name them, evaluate how thoroughly they are applied, and communicate that evaluation to collaborators and reviewers.
+Many researchers already employ practices that address these operational properties, such as version control, containerized environments, structured project directories, and documented analysis steps.
+Yet the community lacks a shared vocabulary for referring to these ideas, evaluating how thoroughly they are applied, and communicating that evaluation to collaborators and reviewers.
 Here we provide that vocabulary: the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable), originating from the YODA Principles\cite{hanke_yoda_2018}, which describe the operational maturity of a research object.
 Rather than a compliance threshold, each STAMPED property is a spectrum from a practical minimum---often what researchers are already doing---to an aspirational ideal.
 A researcher who stores everything under one project directory, version-controls analysis scripts, and documents how to run them is already meeting the practical minimum for Self-containment, Tracking, and Actionability.
-As complexity grows---multi-institutional collaborations, heterogeneous workflows spanning platforms, long-term reproducibility requirements---the same properties guide researchers toward more rigorous practices without requiring wholesale adoption of new tools.
+As complexity grows, such as for multi-institutional collaborations with heterogeneous workflows spanning platforms enforcing long-term reproducibility, these same properties guide researchers toward more rigorous practices without requiring wholesale adoption of new tools.
 STAMPED provides a vocabulary for describing and a framework for evaluating and incrementally improving the operational properties of research objects toward enhanced rigor, reproducibility, reusability, and efficiency.
 
 \begin{figure}[htbp]
@@ -66,7 +69,7 @@ STAMPED provides a vocabulary for describing and a framework for evaluating and 
 \hline
 \textbf{Letter} & \textbf{Principle} & \textbf{Description} \\
 \hline
-S & Self-containment & A research object is a complete retrieval unit---it can be obtained and understood in its intended scope without needing to reference external resources. \\
+S & Self-containment & A research object is a complete retrieval unit; it can be obtained and understood in its intended scope without needing to reference external resources. \\
 T & Tracking & The state and provenance of all components is recorded. \\
 A & Actionability & Research object contains machine-actionable information to carry out procedures to obtain or reproduce content. \\
 M & Modularity & All modules are independent and composable. \\
@@ -87,13 +90,14 @@ The items containing keywords "MUST", "SHALL", "SHOULD", and "MAY" are to be int
     \item \textbf{S.1}: All modules and components essential to replicate computational execution MUST be reachable within a single top-level research object.
 \end{itemize}
 
-Reproducibility fails when a research object depends on resources that are not part of it---an undocumented library, a dataset referenced by a broken URL, a script that assumes tools are installed on the host system.
+Reproducibility fails when a research object depends on resources that are not part of it; an undocumented library, a dataset referenced by a broken URL, a script that assumes tools are installed on the host system.
 We call this the ``don't look up'' rule: a research object must never rely on implicit external state.
 Instead, it must be a complete retrieval unit, where all modules and components essential to reproduce its results are contained within a single top-level boundary (S.1, Table~1).
 
 Components may be included literally (e.g., files committed directly) or by reference (e.g., as subdatasets, registered data URLs).
 Both approaches satisfy self-containment, provided the references are explicit and part of the research object.
-At a minimum, everything needed is gathered under one root and any external dependency is explicitly documented---ensuring that nothing is implicitly assumed about the host system, a concern further addressed by Portability.
+At a minimum, everything needed is gathered under one root and any external dependency is explicitly documented.
+This ensures that nothing is implicitly assumed about the host system, a concern further addressed by Portability.
 At the ideal end, every reference is precise enough that retrieval is unambiguous; how to achieve that precision is the concern of Tracking (T) and Distributability (D).
 
 Self-containment is the foundational property upon which the remaining STAMPED properties build.
@@ -112,15 +116,15 @@ Tracking, Modularity, Portability, and Distributability each address a different
 \end{itemize}
 
 Research data and code change constantly during a project, and each change compounds the difficulty of reconstructing any previous state: which version of a dataset was used for a particular analysis, what parameters were set, what code produced a given figure.
-Tracking addresses two concerns: the identity of each component---which exact state it was in---and \textbf{provenance}, the recorded history of what actions produced or modified it.
-These are often managed separately---versions in one system, provenance in a lab notebook or nowhere at all---and this fragmentation makes prior work hard to validate.
+Tracking addresses two concerns: 1) the identity of each component and its exact state at a point in time, and 2) \textbf{provenance}, the recorded history of what actions by which identities produced or modified it.
+These are often managed separately, which makes prior work harder to validate.
 
 The spectrum of Tracking begins with content-addressed version control.
 Rather than relying on semantic version labels, content-addressed systems identify each state by a checksum of its contents.
 This distinction matters: two datasets labeled ``version 1.0'' by different labs are ambiguous; two datasets with identical content hashes are provably identical.
-Version control commits also capture basic provenance---who made the change, when, and a description of why---unifying identity and provenance in a single system.
-This also provides a safety net: any change can be reverted and any prior state restored, making it safe to modify and experiment.
-For tracking to be effective, all components of the research object must be under version control---code, data, environment definitions, and configuration.
+Version control commits also capture basic provenance: who made the change, when, and a description of why.
+This unifies identity and provenance in a single system and also provides a safety net since any change can be reverted and any prior state restored, making it easier to modify and experiment.
+For tracking to be effective, all components of the research object must be under version control: code, data, environment definitions, and configuration.
 
 Traditional version control is designed for code and other text files, but research objects often include large binary datasets, container images, and other assets that do not fit this model.
 Compatible tools such as git-annex, DataLad, or DVC extend content-addressed tracking to these components, ensuring that all parts of the research object are managed under the same system.
@@ -142,7 +146,7 @@ Beyond the research object itself, knowing the state of data and code at each ha
 \end{itemize}
 
 A research object may be self-contained and fully tracked, yet having all ingredients and a record of what was done is insufficient without a recipe that can be followed.
-Requirement A.1 is what makes a research object operationally useful---the bridge between having the components and being able to use them.
+Requirement A.1 is what makes a research object operationally useful by bridging the gap between having the components and being able to use them.
 
 At a minimum, a research object must contain documentation thorough enough for another researcher to follow every step to reproduce results.
 Actionability applies to every other STAMPED dimension: at the ideal end, each property is enacted not through documentation alone but through executable specifications (A.2):
@@ -168,7 +172,8 @@ Actionability also extends from tooling to the operational layer of a research g
 
 Separation of concerns is a foundational engineering practice: organizing a system so that each piece has a clear, distinct role.
 With clear boundaries between the conceptual components of a research object, it becomes more navigable and maintainable.
-We define a \textbf{module} as a separately distributable unit of a research object---such as a dataset, a collection of analysis scripts, or a computational environment definition.
+We define a \textbf{module} as a separately distributable unit of a research object.
+This can include a subdataset, a collection of analysis scripts, or the definition for some computational environment.
 In practice, module boundaries often align with repository boundaries, but a module may also be a published container, a registered dataset, or any independently versioned unit.
 Modularity applies this principle to research objects, structuring them as assemblies of modules whose boundaries are explicit.
 At a minimum, a research object should separate analysis code, input datasets, computational environments, configuration settings, and results into distinct directories.
@@ -186,14 +191,15 @@ Toward the ideal end, the full research object can be reassembled from its speci
     \item \textbf{P.3}: Environment definitions MUST be version controlled.
 \end{itemize}
 
-A research object that is self-contained, tracked, and modular may still fail to run on a different machine if it is silently affected by inherited host state---a specific Python installation, a system library, a hardcoded path, or an assumed OS configuration.
+A research object that is self-contained, tracked, and modular may still fail to run on a different machine if it is silently affected by the inherited host state.
+Common examples of such states include specific developer-level package installations with no released versions, unique system libraries exposed to custom user profiles, hardcoded system paths, or an assumed OS configuration (\textit{e.g.}, path character limits).
 This coupling is often invisible on the original system and only surfaces when someone else attempts to reproduce the work.
 Portability requires making all host dependencies explicit, so that the research object can be adapted to a new environment.
 
-Some degree of coupling to the host is unavoidable---path naming restrictions, resource limits, platform-specific flags.
+Some degree of coupling to the host is unavoidable, such as path naming restrictions (``C:/'' vs. ``/mnt''), resource limits (minimum CPU/RAM requirements), or platform-specific flags.
 The spectrum of Portability begins with isolating this host-specific configuration from the rest of the research object, so that adapting to a new environment, however involved that may be, requires only changing configuration.
 Beyond this, several complementary approaches reduce host coupling: virtual machines provide full system-level isolation; container-based tools (Docker, Singularity/Apptainer) bundle OS-level environments; and declarative package managers (Nix, Guix) specify environments that can be reconstructed from a definition.
-Toward the ideal end, the computational environment is fully specified and version controlled within the research object, enabling it to be instantiated on any compatible system.
+Toward the ideal end, the computational environment is fully specified and version-controlled within the research object, enabling it to be instantiated on any compatible system.
 
 
 
@@ -204,14 +210,19 @@ Toward the ideal end, the computational environment is fully specified and versi
 \end{itemize}
 
 A research object may satisfy Self-containment, Tracking, and Portability while its computational environment has only ever been assembled once, incrementally, on the original researcher's machine.
-During development, researchers routinely modify their environment---installing packages, adjusting configurations, setting variables---and each change is individually small but collectively difficult to document.
-The result is environment drift: an environment that works but may not be reconstructable from its specification alone, where undocumented steps can go unnoticed when internalized knowledge silently fills the gaps.
+During development, researchers routinely modify their environment by installing packages, adjusting configurations, and setting variables.
+Each change is individually small but collectively difficult to document manually.
+The result is environment drift, where an environment that works but may not be reconstructable from its specification alone.
+When this occurs, undocumented steps can go unnoticed when internalized knowledge silently fills the gaps.
 Ephemerality eliminates this problem by construction: a disposable environment built from tracked specifications cannot carry undocumented state, so any successful execution exercises Self-containment, Actionability, and specification completeness.
 
-The spectrum of Ephemerality ranges from manually setting up a fresh environment from the project's specification---sufficient to catch environment drift---to fully automated disposable environments created and destroyed per execution.
+The spectrum of Ephemerality ranges from manually setting up a fresh environment from the project's specification (which is usually sufficient to catch environment drift) to fully automated disposable environments created and destroyed per execution.
 At the ideal end, ephemeral computation also enables testing across different host systems, where same-host execution validates specification completeness and different-host execution validates that specifications are not coupled to a specific system.
-The FAIRly big workflow approach\cite{wagner_fairly_2022} and platforms such as Code Ocean operationalize this ideal, treating each computation as an ephemeral work unit---which also enables scaling, as independent disposable instances can be parallelized across subjects, parameters, or datasets.
-Ephemeral computation does not validate everything---for instance, an ephemeral environment with network access may fail to notice unpinned dependencies fetched at build time, a self-containment gap that only surfaces when those resources move or disappear---but it substantially raises confidence that the research object is self-contained, portable, and actionable.
+The FAIRly big workflow\cite{wagner_fairly_2022} and other approaches to using distributed computing platforms such as SLURM or Code Ocean operationalize this ideal, treating each computation as an ephemeral work unit.
+This approach easily enables horizontal scaling, as independent disposable instances that can be parallelized across subjects, parameters, or datasets.
+Yet Ephemeral computation does not validate everything.
+For instance, an ephemeral environment with network access may fail to notice unpinned dependencies fetched at build time, a self-containment gap that only surfaces when those resources move or disappear.
+Nonetheless, the principle substantially raises confidence that the research object is self-contained, portable, and actionable.
 
 
 
@@ -227,7 +238,7 @@ Self-containment (S) establishes that everything needed is within the boundary a
 Distributability ensures that others can obtain the research object in that same state.
 
 The distinction mirrors the concept of a software distribution: a curated, versioned bundle in which all components are resolved to specific versions and packaged for consumption.
-Simply sharing a research object---uploading scripts to a repository with loose dependencies, or posting files on a website with no version guarantees---does not constitute distribution in this sense.
+Simply sharing a research object by uploading scripts to a repository with loose dependencies, or posting files on a website with no version or other persistence guarantees, does not constitute distribution in this sense.
 A distributable research object is packaged so that it can be retrieved in the same state as intended.
 
 Distributability also has a circular relationship with the other STAMPED properties: someone else's distribution effort often serves as the starting point for a new research object's self-containment.
