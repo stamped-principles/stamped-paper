@@ -69,7 +69,7 @@ STAMPED provides a vocabulary for describing and a framework for evaluating and 
 \hline
 \textbf{Letter} & \textbf{Principle} & \textbf{Description} \\
 \hline
-S & Self-containment & A research object is a complete retrieval unit---it can be obtained and understood in its intended scope without needing to reference external resources. \\
+S & Self-containment & A research object is a complete retrieval unit; it can be obtained and understood in its intended scope without needing to reference external resources. \\
 T & Tracking & The state and provenance of all components is recorded. \\
 A & Actionability & Research object contains machine-actionable information to carry out procedures to obtain or reproduce content. \\
 M & Modularity & All modules are independent and composable. \\
@@ -90,13 +90,14 @@ The items containing keywords "MUST", "SHALL", "SHOULD", and "MAY" are to be int
     \item \textbf{S.1}: All modules and components essential to replicate computational execution MUST be reachable within a single top-level research object.
 \end{itemize}
 
-Reproducibility fails when a research object depends on resources that are not part of it---an undocumented library, a dataset referenced by a broken URL, a script that assumes tools are installed on the host system.
+Reproducibility fails when a research object depends on resources that are not part of it; an undocumented library, a dataset referenced by a broken URL, a script that assumes tools are installed on the host system.
 We call this the ``don't look up'' rule: a research object must never rely on implicit external state.
 Instead, it must be a complete retrieval unit, where all modules and components essential to reproduce its results are contained within a single top-level boundary (S.1, Table~1).
 
 Components may be included literally (e.g., files committed directly) or by reference (e.g., as subdatasets, registered data URLs).
 Both approaches satisfy self-containment, provided the references are explicit and part of the research object.
-At a minimum, everything needed is gathered under one root and any external dependency is explicitly documented---ensuring that nothing is implicitly assumed about the host system, a concern further addressed by Portability.
+At a minimum, everything needed is gathered under one root and any external dependency is explicitly documented.
+This ensures that nothing is implicitly assumed about the host system, a concern further addressed by Portability.
 At the ideal end, every reference is precise enough that retrieval is unambiguous; how to achieve that precision is the concern of Tracking (T) and Distributability (D).
 
 Self-containment is the foundational property upon which the remaining STAMPED properties build.
@@ -115,15 +116,15 @@ Tracking, Modularity, Portability, and Distributability each address a different
 \end{itemize}
 
 Research data and code change constantly during a project, and each change compounds the difficulty of reconstructing any previous state: which version of a dataset was used for a particular analysis, what parameters were set, what code produced a given figure.
-Tracking addresses two concerns: the identity of each component---which exact state it was in---and \textbf{provenance}, the recorded history of what actions produced or modified it.
-These are often managed separately---versions in one system, provenance in a lab notebook or nowhere at all---and this fragmentation makes prior work hard to validate.
+Tracking addresses two concerns: 1) the identity of each component and its exact state at a point in time, and 2) \textbf{provenance}, the recorded history of what actions by which identities produced or modified it.
+These are often managed separately, which makes prior work harder to validate.
 
 The spectrum of Tracking begins with content-addressed version control.
 Rather than relying on semantic version labels, content-addressed systems identify each state by a checksum of its contents.
 This distinction matters: two datasets labeled ``version 1.0'' by different labs are ambiguous; two datasets with identical content hashes are provably identical.
-Version control commits also capture basic provenance---who made the change, when, and a description of why---unifying identity and provenance in a single system.
-This also provides a safety net: any change can be reverted and any prior state restored, making it safe to modify and experiment.
-For tracking to be effective, all components of the research object must be under version control---code, data, environment definitions, and configuration.
+Version control commits also capture basic provenance: who made the change, when, and a description of why.
+This unifies identity and provenance in a single system and also provides a safety net since any change can be reverted and any prior state restored, making it easier to modify and experiment.
+For tracking to be effective, all components of the research object must be under version control: code, data, environment definitions, and configuration.
 
 Traditional version control is designed for code and other text files, but research objects often include large binary datasets, container images, and other assets that do not fit this model.
 Compatible tools such as git-annex, DataLad, or DVC extend content-addressed tracking to these components, ensuring that all parts of the research object are managed under the same system.
