@@ -146,7 +146,7 @@ Beyond the research object itself, knowing the state of data and code at each ha
 \end{itemize}
 
 A research object may be self-contained and fully tracked, yet having all ingredients and a record of what was done is insufficient without a recipe that can be followed.
-Requirement A.1 is what makes a research object operationally useful---the bridge between having the components and being able to use them.
+Requirement A.1 is what makes a research object operationally useful by bridging the gap between having the components and being able to use them.
 
 At a minimum, a research object must contain documentation thorough enough for another researcher to follow every step to reproduce results.
 Actionability applies to every other STAMPED dimension: at the ideal end, each property is enacted not through documentation alone but through executable specifications (A.2):
@@ -172,7 +172,8 @@ Actionability also extends from tooling to the operational layer of a research g
 
 Separation of concerns is a foundational engineering practice: organizing a system so that each piece has a clear, distinct role.
 With clear boundaries between the conceptual components of a research object, it becomes more navigable and maintainable.
-We define a \textbf{module} as a separately distributable unit of a research object---such as a dataset, a collection of analysis scripts, or a computational environment definition.
+We define a \textbf{module} as a separately distributable unit of a research object.
+This can include a subdataset, a collection of analysis scripts, or the definition for some computational environment.
 In practice, module boundaries often align with repository boundaries, but a module may also be a published container, a registered dataset, or any independently versioned unit.
 Modularity applies this principle to research objects, structuring them as assemblies of modules whose boundaries are explicit.
 At a minimum, a research object should separate analysis code, input datasets, computational environments, configuration settings, and results into distinct directories.
@@ -190,14 +191,15 @@ Toward the ideal end, the full research object can be reassembled from its speci
     \item \textbf{P.3}: Environment definitions MUST be version controlled.
 \end{itemize}
 
-A research object that is self-contained, tracked, and modular may still fail to run on a different machine if it is silently affected by inherited host state---a specific Python installation, a system library, a hardcoded path, or an assumed OS configuration.
+A research object that is self-contained, tracked, and modular may still fail to run on a different machine if it is silently affected by the inherited host state.
+Common examples of such states include specific developer-level package installations with no released versions, unique system libraries exposed to custom user profiles, hardcoded system paths, or an assumed OS configuration (\textit{e.g.}, path character limits).
 This coupling is often invisible on the original system and only surfaces when someone else attempts to reproduce the work.
 Portability requires making all host dependencies explicit, so that the research object can be adapted to a new environment.
 
-Some degree of coupling to the host is unavoidable---path naming restrictions, resource limits, platform-specific flags.
+Some degree of coupling to the host is unavoidable, such as path naming restrictions (``C:/'' vs. ``/mnt''), resource limits (minimum CPU/RAM requirements), or platform-specific flags.
 The spectrum of Portability begins with isolating this host-specific configuration from the rest of the research object, so that adapting to a new environment, however involved that may be, requires only changing configuration.
 Beyond this, several complementary approaches reduce host coupling: virtual machines provide full system-level isolation; container-based tools (Docker, Singularity/Apptainer) bundle OS-level environments; and declarative package managers (Nix, Guix) specify environments that can be reconstructed from a definition.
-Toward the ideal end, the computational environment is fully specified and version controlled within the research object, enabling it to be instantiated on any compatible system.
+Toward the ideal end, the computational environment is fully specified and version-controlled within the research object, enabling it to be instantiated on any compatible system.
 
 
 
@@ -208,14 +210,19 @@ Toward the ideal end, the computational environment is fully specified and versi
 \end{itemize}
 
 A research object may satisfy Self-containment, Tracking, and Portability while its computational environment has only ever been assembled once, incrementally, on the original researcher's machine.
-During development, researchers routinely modify their environment---installing packages, adjusting configurations, setting variables---and each change is individually small but collectively difficult to document.
-The result is environment drift: an environment that works but may not be reconstructable from its specification alone, where undocumented steps can go unnoticed when internalized knowledge silently fills the gaps.
+During development, researchers routinely modify their environment by installing packages, adjusting configurations, and setting variables.
+Each change is individually small but collectively difficult to document manually.
+The result is environment drift, where an environment that works but may not be reconstructable from its specification alone.
+When this occurs, undocumented steps can go unnoticed when internalized knowledge silently fills the gaps.
 Ephemerality eliminates this problem by construction: a disposable environment built from tracked specifications cannot carry undocumented state, so any successful execution exercises Self-containment, Actionability, and specification completeness.
 
-The spectrum of Ephemerality ranges from manually setting up a fresh environment from the project's specification---sufficient to catch environment drift---to fully automated disposable environments created and destroyed per execution.
+The spectrum of Ephemerality ranges from manually setting up a fresh environment from the project's specification (which is usually sufficient to catch environment drift) to fully automated disposable environments created and destroyed per execution.
 At the ideal end, ephemeral computation also enables testing across different host systems, where same-host execution validates specification completeness and different-host execution validates that specifications are not coupled to a specific system.
-The FAIRly big workflow approach\cite{wagner_fairly_2022} and platforms such as Code Ocean operationalize this ideal, treating each computation as an ephemeral work unit---which also enables scaling, as independent disposable instances can be parallelized across subjects, parameters, or datasets.
-Ephemeral computation does not validate everything---for instance, an ephemeral environment with network access may fail to notice unpinned dependencies fetched at build time, a self-containment gap that only surfaces when those resources move or disappear---but it substantially raises confidence that the research object is self-contained, portable, and actionable.
+The FAIRly big workflow approach\cite{wagner_fairly_2022} and other distributed computing platforms such as SLURM or Code Ocean operationalize this ideal, treating each computation as an ephemeral work unit.
+This approach easily enables horizontal scaling, as independent disposable instances that can be parallelized across subjects, parameters, or datasets.
+Yet Ephemeral computation does not validate everything.
+For instance, an ephemeral environment with network access may fail to notice unpinned dependencies fetched at build time, a self-containment gap that only surfaces when those resources move or disappear.
+Nonetheless, the principle substantially raises confidence that the research object is self-contained, portable, and actionable.
 
 
 
@@ -231,7 +238,7 @@ Self-containment (S) establishes that everything needed is within the boundary a
 Distributability ensures that others can obtain the research object in that same state.
 
 The distinction mirrors the concept of a software distribution: a curated, versioned bundle in which all components are resolved to specific versions and packaged for consumption.
-Simply sharing a research object---uploading scripts to a repository with loose dependencies, or posting files on a website with no version guarantees---does not constitute distribution in this sense.
+Simply sharing a research object by uploading scripts to a repository with loose dependencies, or posting files on a website with no version or other persistence guarantees, does not constitute distribution in this sense.
 A distributable research object is packaged so that it can be retrieved in the same state as intended.
 
 Distributability also has a circular relationship with the other STAMPED properties: someone else's distribution effort often serves as the starting point for a new research object's self-containment.
