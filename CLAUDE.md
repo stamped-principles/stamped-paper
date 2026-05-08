@@ -65,3 +65,8 @@ The current Results subsection pattern remains appropriate:
 - All editing and comments take place on GitHub https://github.com/stamped-principles/stamped-paper
 - Changes occur via pull requests — do not edit in place
 - Avoid comments on Overleaf; use GitHub issues instead
+
+## AI policy
+
+The manuscript's Acknowledgments (§Acknowledgments in `main.tex`) commits the authors to annotating commits where AI tools notably contributed with a `Co-Authored-By:` trailer (or analogous comment) that identifies the tool and model version, so the public git history of `stamped-*` repos is the inspectable provenance record.
+When you (the AI assistant) author a commit in this repo, include a `Co-Authored-By: Claude <model-version> <noreply@anthropic.com>` trailer using the model identifier your environment provides — don't guess it.
