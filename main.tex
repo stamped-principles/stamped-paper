@@ -34,15 +34,15 @@ Data-driven research depends on specific versions of datasets, software, and com
 We adopt the term \textbf{research object} to denote a collection of data, code, and metadata that together represent the research as a complete unit.
 It is common for the components of a research object to be organized independently with code in one repository, data on a shared drive, environment setup in a wiki page, provenance in a lab notebook or nowhere at all.
 This separation undermines rigor, reproducibility, reusability, and efficiency.
-Even when gathered in one place, research objects are often tightly coupled to specific environments, opaque to outside collaborators, and difficult to reuse or redistribute.
+Even when its components are gathered in one place, a research object is often tightly coupled to specific environments, opaque to outside collaborators, and difficult to reuse or redistribute.
 
 The FAIR principles\cite{wilkinson_fair_2016} and FAIR4RS guidelines\cite{barker_introducing_2022} provide structured guidance for making digital objects "Findable, Accessible, Interoperable, and Reusable".
-The Workflow Community Initiative (WCI-FW)\cite{wilkinson_applying_2025} mapped these principles onto computational workflows but explicitly chose not to define new ones, instead treating workflows as hybrid data/software objects.
+The Workflow Community Initiative (WCI-FW)\cite{wilkinson_applying_2025} mapped these principles onto computational workflows but explicitly chose not to define new ones, instead treating workflows as hybrid data \& software objects.
 STAMPED addresses a complementary question: how a research object should be organized and managed so it can actually be re-executed, extended, and redistributed.
-Both frameworks cover overlapping concerns.
+Both the FAIR and STAMPED frameworks cover overlapping concerns.
 For example, persistent identifiers serve both Findability and Tracking, but accent different aspects: FAIR emphasizes discovery and interoperability across repositories, while STAMPED emphasizes improving the operational maturity of scientific workflows in day-to-day research practice.
 
-Many researchers already employ practices that address these operational properties, such as version control, containerized environments, structured project directories, and documented analysis steps.
+Many researchers already employ practices that address these operational properties, such as version control, containerized environments, structured project directories, and documented analysis steps. % TODO: It is unclear what the operational properties are at this point, so it can be confusing to the user.
 Yet the community lacks a shared vocabulary for referring to these ideas, evaluating how thoroughly they are applied, and communicating that evaluation to collaborators and reviewers.
 Here we provide that vocabulary: the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable), originating from the YODA Principles\cite{hanke_yoda_2018}, which describe the operational maturity of a research object.
 Rather than a compliance threshold, each STAMPED property is a spectrum from a practical minimum---often what researchers are already doing---to an aspirational ideal.
