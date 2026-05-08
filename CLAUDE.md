@@ -65,3 +65,15 @@ The current Results subsection pattern remains appropriate:
 - All editing and comments take place on GitHub https://github.com/stamped-principles/stamped-paper
 - Changes occur via pull requests — do not edit in place
 - Avoid comments on Overleaf; use GitHub issues instead
+
+## Commit co-authorship
+
+Every commit you author MUST include a `Co-Authored-By` trailer identifying both your tool name + version and your underlying model + version. Format:
+
+```
+Co-Authored-By: <Tool> <tool-version> / <Model> <model-version> <noreply@<vendor-domain>>
+```
+
+Use the actual versions reported by your tool. Don't guess.
+
+(Convention adopted from https://github.com/con/catenate `conboarding.md` § Commit Co-Authorship.)
