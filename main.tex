@@ -16,7 +16,7 @@
 
 
 % Scientific Data: max 110 chars, no colons or parentheses, capitalize only first word + proper nouns
-\title{STAMPED properties for reproducible research objects}
+\title{STAMPED principles for reproducible research objects}
 \author{Austin Macdonald, Cody C. Baker, Isaac To, Yaroslav O. Halchenko}
 \date{March 2026}
 
@@ -44,16 +44,17 @@ For example, persistent identifiers serve both Findability and Tracking, but acc
 
 Many researchers already employ practices that address these operational properties, such as version control, containerized environments, structured project directories, and documented analysis steps. % TODO: It is unclear what the operational properties are at this point, so it can be confusing to the user.
 Yet the community lacks a shared vocabulary for referring to these ideas, evaluating how thoroughly they are applied, and communicating that evaluation to collaborators and reviewers.
-Here we provide that vocabulary: the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable), originating from the YODA Principles\cite{hanke_yoda_2018}, which describe the operational maturity of a research object.
-Rather than a compliance threshold, each STAMPED property is a spectrum from a practical minimum---often what researchers are already doing---to an aspirational ideal.
+Here we provide that vocabulary by introducing seven principles which articulate how Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable (STAMPED) a research object is, thus describing its operational maturity.
+These originate from both the YODA Principles\cite{hanke_yoda_2018}, as well as VAMP\cite{hanke_what_2023}.
+Rather than a compliance threshold, each STAMPED principle is a spectrum from a practical minimum---often what researchers are already doing---to an aspirational ideal.
 A researcher who stores everything under one project directory, version-controls analysis scripts, and documents how to run them is already meeting the practical minimum for Self-containment, Tracking, and Actionability.
-As complexity grows, such as for multi-institutional collaborations with heterogeneous workflows spanning platforms enforcing long-term reproducibility, these same properties guide researchers toward more rigorous practices without requiring wholesale adoption of new tools.
+As complexity grows, such as for multi-institutional collaborations with heterogeneous workflows spanning platforms enforcing long-term reproducibility, these same principles guide researchers toward more rigorous practices without requiring wholesale adoption of new tools.
 STAMPED provides a vocabulary for describing and a framework for evaluating and incrementally improving the operational properties of research objects toward enhanced rigor, reproducibility, reusability, and efficiency.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig1.png}  % TODO: vectorize and humanize
-\caption{Illustration of the STAMPED properties.}
+\caption{Illustration of the STAMPED principles.}
 \label{fig:stamped}
 \end{figure}
 
@@ -63,7 +64,7 @@ STAMPED provides a vocabulary for describing and a framework for evaluating and 
 
 \begin{table}[htbp]
 \centering
-\caption{The STAMPED Properties. Each property addresses a distinct dimension of research object organization that contributes to reproducibility. Together, they provide a framework for evaluating and improving the reproducibility of computational research.}
+\caption{The STAMPED Principles where each one addresses a distinct property of research object organization that contributes to reproducibility. Together, they provide a framework for evaluating and improving the reproducibility of computational research.}
 \label{tab:stamped}
 \begin{tabular}{c l p{0.65\textwidth}}
 \hline
@@ -100,7 +101,7 @@ At a minimum, everything needed is gathered under one root and any external depe
 This ensures that nothing is implicitly assumed about the host system, a concern further addressed by Portability.
 At the ideal end, every reference is precise enough that retrieval is unambiguous; how to achieve that precision is the concern of Tracking (T) and Distributability (D).
 
-Self-containment is the foundational property upon which the remaining STAMPED properties build.
+Self-containment is the foundation upon which the remaining STAMPED principles are built.
 Tracking, Modularity, Portability, and Distributability each address a different aspect of how that boundary is organized, versioned, and shared---but none are meaningful without first establishing what is inside it.
 
 
@@ -149,7 +150,7 @@ A research object may be self-contained and fully tracked, yet having all ingred
 Requirement A.1 is what makes a research object operationally useful by bridging the gap between having the components and being able to use them.
 
 At a minimum, a research object must contain documentation thorough enough for another researcher to follow every step to reproduce results.
-Actionability applies to every other STAMPED dimension: at the ideal end, each property is enacted not through documentation alone but through executable specifications (A.2):
+Actionability applies to every other STAMPED principle: at the ideal end, each principle is enacted not through documentation alone but through executable specifications (A.2):
 \begin{itemize}
   \item \textbf{Self-containment} is more actionable when retrieval of all components is specified and executable (e.g., \texttt{git clone}, \texttt{datalad install}), not just listed in a manifest.
   \item \textbf{Tracking} is more actionable when provenance records are re-executable (e.g., \texttt{datalad rerun}), not just inspectable.
@@ -241,7 +242,7 @@ The distinction mirrors the concept of a software distribution: a curated, versi
 Simply sharing a research object by uploading scripts to a repository with loose dependencies, or posting files on a website with no version or other persistence guarantees, does not constitute distribution in this sense.
 A distributable research object is packaged so that it can be retrieved in the same state as intended.
 
-Distributability also has a circular relationship with the other STAMPED properties: someone else's distribution effort often serves as the starting point for a new research object's self-containment.
+Distributability also has a circular relationship with the other STAMPED principles: someone else's distribution effort often serves as the starting point for a new research object's self-containment.
 Researchers routinely begin by downloading containers, fetching published datasets, and installing released software---modularly composing the distributions of others to assemble their own self-contained research objects.
 
 The spectrum of Distributability begins where FAIR leaves off: publicly accessible components with documented retrieval instructions.
@@ -249,7 +250,7 @@ Toward the ideal end, several complementary strategies reduce the risk that exte
 
 \begin{table}[htbp]
 \centering
-\caption{Normative statements about STAMPED properties of research objects.}
+\caption{Normative statements about STAMPED principles as they apply to research objects.}
 \begin{tabular}{|l|p{0.7\textwidth}|}
 \hline
 \textbf{Principle} & \textbf{Requirements} \\
@@ -313,7 +314,7 @@ Toward the ideal end, several complementary strategies reduce the risk that exte
 
 \subsection{Checklist for compliance to principles}
 
-We hope that the preceding sections have provided a clear understanding of the STAMPED properties and their rationale.
+We hope that the preceding sections have provided a clear understanding of the STAMPED principles and their rationale.
 While this understanding is essential, researchers may also benefit from a practical checklist to assess their research objects against these principles.
 Similar to the living examples repository, an interactive checklist has been provided at the webpage https://stamped-principles.github.io/stamped-checklist/ to guide assessments of compliance with STAMPED principles, ordered by the strength of the requirement (MUST, SHOULD, MAY).
 The schema for this checklist is itself a living, version-tracked entity that is likely to grow over time as more common violations of the principles are discovered in practice.
@@ -334,21 +335,22 @@ The schema for this checklist is itself a living, version-tracked entity that is
 No single tool addresses all the dimensions of scientific rigor described above, though many tools contribute to one or several properties simultaneously.
 For example, container technologies such as Docker or Singularity serve Portability by providing OS-level isolation from explicit environment specifications, enable Ephemerality by disposing per-execution environments, and facilitate Distributability by producing frozen, shareable artifacts.
 Similarly, version control systems such as Git underpin both Tracking (content-addressed identification and change history) and Self-containment (gathering all components under a single root).
-In practice, self-containing all data might be undesired or prohibitive due to size or other concerns. Extensions such as git-annex, DataLad, DVC, and Git LFS strike the balance between the two properties by tracking metadata that identifies specific data versions and obtainability information instead, e.g., content checksums and URLs of remote servers that act as a source, and providing actionable interfaces to obtain the data when necessary.
+In practice, self-containing all data might be undesired or prohibitive due to size or other concerns. Extensions such as git-annex, DataLad, DVC, and Git LFS strike the balance between the two principles by tracking metadata that identifies specific data versions and obtainability information instead, e.g., content checksums and URLs of remote servers that act as a source, and providing actionable interfaces to obtain the data when necessary.
 
-This overlap is not incidental — it reflects the interdependence of the STAMPED properties themselves.
+This overlap is not incidental — it reflects the interdependence of the STAMPED principles themselves.
 Achieving Ephemerality, for instance, inherently exercises Portability and Actionability: a disposable environment must be reconstituted from explicit specifications, encouraging end-to-end automation.
 Likewise, Distributability builds on Self-containment and Tracking: a research object can only be shared in a consistent, retrievable state if its boundary is well-defined and all components are precisely identified.
-The tools that serve multiple properties do so precisely because they operationalize these connections.
+The tools that enhance multiple properties of a research object do so precisely because they operationalize these connections.
 
-Table~\ref{tab:stamped-tools} maps some commonly used tools and technologies to each STAMPED property.
+Table~\ref{tab:stamped-tools} maps some commonly used tools and technologies to each STAMPED principle.
 A comprehensive up-to-date review of existing tools is out of scope for this formalization paper and would quickly become outdated.
-To fill that niche, we initiated a satellite project with a website to describe tools and examples, and characterize them in terms of STAMPED and FAIR principles [cite https://stamped-principles.github.io/stamped-examples/stamped\_principles/].
+To fill that niche, we initiated a satellite project with a website to describe tools and examples, and characterize them in terms of STAMPED and FAIR principles [cite https://examples.stamped-principles.org].
 
-STAMPED properties are tool-agnostic. For example, any system that moves a property from documented to executable moves the research object further along the actionability spectrum, but certain tool categories recur across multiple properties; a well-chosen tool can address several dimensions at once, and a thoughtfully assembled toolchain can cover all of them.
-Researchers should select tools based on their domain, infrastructure, and team familiarity, recognizing that the tools listed here are illustrative rather than prescriptive: what matters is that the underlying property is satisfied, regardless of which tool achieves it.
+STAMPED principles are tool-agnostic.
+A well-chosen tool can improve several properties at once, and a thoughtfully assembled toolchain can cover all of them.
+Researchers should select tools based on their domain, infrastructure, and team familiarity, recognizing that the tools listed here are illustrative rather than prescriptive: what matters is that the underlying principle is satisfied, regardless of which tool achieves it.
 
-Where multiple tools serve the same STAMPED property, the choice between them often involves trade-offs between flexibility and simplicity.
+Where multiple tools enhance the same STAMPED property of an object, the choice between them often involves a trade-off between flexibility and simplicity.
 A representative example is the choice between git-annex and Git LFS for large-file tracking.
 Both appear under Self-containment and Tracking in Table~\ref{tab:stamped-tools}, but they occupy different points on a complexity-flexibility spectrum.
 git-annex supports many remote types (e.g. other git repositories over SSH or HTTP, or simple cloud data stores such as S3, local drives, offline USB archives), making it well-suited to multi-institutional collaboration, long-term archival where data sovereignty or offline access is required, as well as local content tracking.
@@ -359,11 +361,11 @@ The same pattern---flexibility versus simplicity---recurs across other tool choi
 
 \begin{table}[htbp]
 \centering
-\caption{Sample tools to improve scientific practice for each STAMPED property.}
+\caption{Sample tools to improve scientific practice for each STAMPED principle.}
 \label{tab:stamped-tools}
 \begin{tabular}{|l|p{0.3\textwidth}|p{0.35\textwidth}|}
 \hline
-\textbf{Property} & \textbf{Tools / Technologies} & \textbf{Role} \\
+\textbf{Principle} & \textbf{Tools / Technologies} & \textbf{Role} \\
 \hline
 \textbf{S — Self-containment} &
 Git submodules, DataLad, git-annex, DVC, Git LFS &
@@ -402,6 +404,13 @@ Archive and persistently host frozen, versioned research objects and their compo
 % TODO: point to living documentation, minimal examples/counter-examples
 % TODO: FAIRly big workflow, AIND, non-neuroscience examples?
 
+\subsubsection{Pedagogical examples}
+
+To complement the formal definitions above, the satellite examples project (\url{https://examples.stamped-principles.org}) walks the reader through the STAMPED properties using small, concrete worked examples.
+The pages tagged ``introduction'' (\url{https://examples.stamped-principles.org/tags/introduction/}) trace how each property applies to the same simple research object, providing a gentle on-ramp before the real-world adoptions below.
+
+\subsubsection{Real-world adoptions}
+
 Several research projects have already adopted and documented YODA principles---the predecessor to STAMPED---demonstrating practical utility across domains.
 
 \textbf{BIDS Standard Evolution}: A significant validation of the ``do not look up'' principle occurred within the Brain Imaging Data Structure (BIDS)\cite{gorgolewski_brain_2016} community.
@@ -422,13 +431,13 @@ This architectural shift influenced major neuroimaging tools:
     \item \textbf{CRCNS.org}: Neuroscience data sharing platform providing YODA-structured templates and validation tools
 \end{itemize}
 
-These adoptions demonstrate that STAMPED properties solve practical organizational challenges across scales, from individual studies to community-wide infrastructure.
+These adoptions demonstrate that STAMPED principles solve practical organizational challenges across scales, from individual studies to community-wide infrastructure.
 
 \subsection{Convergent evolution of data-driven scientific practices}
 
 The challenges that motivate STAMPED are not unique to any single domain.
 Over three decades, communities spanning geophysics, statistics, genomics, neuroimaging, and machine learning independently converged on strikingly similar organizational responses to the same recurring problems: fragmented provenance, irreproducible computations, and ad-hoc project layouts.
-What follows is not a comprehensive review but a tracing of that convergence, organized chronologically, to show that the properties STAMPED formalizes reflect durable responses to recurring challenges.
+What follows is not a comprehensive review but a tracing of that convergence, organized chronologically, to show that the principles STAMPED formalizes reflect durable responses to recurring challenges.
 
 The earliest calls for reproducibility-as-organization appeared in the 1990s.
 Claerbout and Karrenbach\cite{claerbout_electronic_1992} demonstrated that coupling electronic documents with Makefiles could make geophysical analyses self-contained, tracked, and re-executable---anticipating Self-containment~(S), Tracking~(T), and Actionability~(A).
@@ -460,7 +469,7 @@ Framework tooling and domain standards reveal the same pattern at the project-la
 Cookiecutter Data Science (2016), BIDS\cite{gorgolewski_brain_2016} (2016), Kedro (2019), nipoppy (2023), and others, all imposed opinionated directory structures and modular separation---independently motivated by the costs of ad-hoc layouts---reflecting Modularity~(M) and Self-containment~(S).
 Each framework constrains where code and documentation reside, how raw data inputs and derived outputs are handled, which makes such projects navigable by \emph{convention}.
 
-Viewed together, these independent lines of development map onto every STAMPED property.
+Viewed together, these independent lines of development map onto every STAMPED principle.
 Self-containment~(S) appears wherever projects bundle their dependencies into a single rooted structure; 
 Tracking~(T) wherever content-addressed storage or version control records the history of changes or acquisition of every component;
 Actionability~(A) wherever Makefiles, workflow managers, or platform APIs make re-execution or acquisition a single command;
@@ -470,14 +479,14 @@ Ephemerality~(E) wherever composition brings together computation on data which 
 and Distributability~(D) wherever licensing, packaging standards, or data logistic mechanisms enable sharing.
 
 The formalization presented here provides a shared vocabulary for what these practices have in common, enabling researchers to evaluate and incrementally improve their workflows regardless of the specific tools they employ.
-Figure~\ref{fig:convergent-evolution} summarizes these parallel timelines and their mapping to STAMPED properties.
+Figure~\ref{fig:convergent-evolution} summarizes these parallel timelines and their mapping to STAMPED principles.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figures/convergent-evolution-gantt.pdf}
 \caption{Convergent evolution of empirical scientific practice toward STAMPED.
 Five independent lines of development---foundational ideas, normative frameworks, data version-control tools, platforms and metadata standards, and framework tooling---are shown on a shared timeline from 1992 to 2025.
-Each milestone is annotated with the STAMPED properties it anticipates.
+Each milestone is annotated with the STAMPED principles it anticipates.
 Despite independent origins, all five tracks converged on the same organizational patterns that STAMPED formalizes.
 The milestones shown are illustrative rather than exhaustive; many other influential projects and communities contributed to this convergence but are omitted here for brevity.}
 \label{fig:convergent-evolution}
@@ -489,16 +498,16 @@ The milestones shown are illustrative rather than exhaustive; many other influen
 
 STAMPED principles provide a vocabulary rather than a closed specification, which is rooted in practices that continue to evolve with tooling, policy, and scientific convention.
 The directions below identify open fronts where the framework's vocabulary will need to stretch, and where complementary work by adjacent communities will shape how STAMPED assists researchers in the coming decade.
-We begin with directions that apply broadly across computational science --- generalizing Ephemerality to workflow specifications, aligning provenance standards, building adoption incentives, and seeding training pipelines --- and then devote the remainder of the section to the more specific and fast-moving challenges introduced by AI, where several STAMPED properties need explicit extensions and where the stakes for transparent, reproducible research are most immediate.
+We begin with directions that apply broadly across computational science --- generalizing Ephemerality to workflow specifications, aligning provenance standards, building adoption incentives, and seeding training pipelines --- and then devote the remainder of the section to the more specific and fast-moving challenges introduced by AI, where several STAMPED principles need explicit extensions and where the stakes for transparent, reproducible research are most immediate.
 
 \subsubsection{Specification-centric research objects as the reproducibility ideal}
 
 Ephemerality (E), as formulated here, treats the compute environment as disposable while the code and data it runs on remain durable.
 A complementary view is emerging in which workflow implementations themselves become regenerable from a durable specification.
 Declarative workflow languages such as CWL\cite{crusoe_methods_2022}, Snakemake\cite{molder_sustainable_2021}, and Nextflow\cite{di_tommaso_nextflow_2017}, together with fully-declarative environment managers such as Nix and Guix, already operate this way: the specification accumulates the domain knowledge --- inputs, constraints, expected outputs, validation criteria --- while any given implementation can be rebuilt or replaced without loss.
-Under this view, STAMPED properties apply to the specification first and the generated implementation second: the specification is what must be Self-contained, Tracked, Actionable, and Distributable; the running code is ephemeral in the same sense as a container.
+Under this view, STAMPED principles apply to the specification first and the generated implementation second: the specification is what must be Self-contained, Tracked, Actionable, and Distributable; the running code is ephemeral in the same sense as a container.
 The connection to pre-registration is direct and generalizes Ephemerality even further\cite{nosek_preregistration_2018}: a well-formulated study specification is a commitment that survives any particular implementation, and what is ephemeral expands from compute environment to the full ``scientific middleware'' --- data acquisition, harmonization, preprocessing, analytics --- each stage reduced to a specification from which implementations can be derived.
-That is where concentration on formalization and standardization of overall study specifications becomes the target to apply STAMPED properties, so that the middleware steps could also be automatically carried out in an ephemeral fashion and potentially while exploring various possible implementations.
+That is where concentration on formalization and standardization of overall study specifications becomes the target to apply STAMPED principles, so that the middleware steps could also be automatically carried out in an ephemeral fashion and potentially while exploring various possible implementations.
 The cost of under-specified middleware is already visible in practice: the NARPS study showed that 70 independent teams analyzing the same fMRI dataset with nominally similar hypotheses produced substantially divergent results\cite{botvinik-nezer_variability_2020}, precisely because the study specification left most of the middleware up to each team.
 % Here could potentially point to the opposite -- Ben's agentic AI being capable of support/demonstrating core "behavioral neuroscience" paradigms. TODO: citation? mention in AI subsection?
 
@@ -512,7 +521,8 @@ This is less a change to STAMPED itself than a call on these communities: Tracki
 
 STAMPED compliance today is self-assessed against the checklist provided in this paper and shared at \url{https://github.com/stamped-principles/stamped-checklist}.
 Broader adoption will depend on promotion and external incentives: funder mandates (e.g.,\ NIH Data Management and Sharing policies), journal reproducibility badges\cite{center_for_open_science_open_2023}, and venue-level review checklists that converge toward automated scoring --- paralleling the trajectory of FAIR, which has moved from principles to machine-assessable indicators with tools such as F-UJI\cite{devaraju_automated_2021}.
-No tool certifies STAMPED compliance today; a community-maintained benchmark suite, seeded by the satellite examples project associated with this paper (\url{https://stamped-principles.github.io/stamped-examples}), is a natural precursor.
+No automated tool yet available as of now certifies STAMPED compliance.
+A community-maintained benchmark suite, seeded by the satellite examples project associated with this paper (\url{https://examples.stamped-principles.org}), is a natural precursor.
 
 \subsubsection{Teaching and onboarding}
 
@@ -525,7 +535,7 @@ YODA principles have already entered the curricula of several such programs, and
 
 AI agents are now generating analysis code, selecting methods, and in some systems running entire research cycles end-to-end\cite{boiko_autonomous_2023, lu_ai_2024, mitchener_kosmos_2025}.
 Without explicit structure, this automation can produce results whose provenance and reasoning are irrecoverable\cite{messeri_artificial_2024}.
-STAMPED properties already carry most of what is needed --- self-contained workspaces give agents a well-defined boundary, tracked histories make agent contributions auditable and contribute to their ``memory'', and actionable documentation serves humans and machines alike --- but, as with any new methodology or instrumentation entering science, several of these properties need AI-era extensions.
+STAMPED principles already carry most of what is needed --- self-contained workspaces give agents a well-defined boundary, tracked histories make agent contributions auditable and contribute to their ``memory'', and actionable documentation serves humans and machines alike --- but, as with any new methodology or instrumentation entering science, several of these principles need AI-era extensions.
 Because the agentic-AI ecosystem is evolving rapidly, the directions below are indicative rather than exhaustive.
 
 \paragraph{Self-contained models.}
@@ -554,8 +564,8 @@ AI coding assistants and specification-driven toolkits such as spec-kit move thi
 This closes a loop with the end-to-end ``AI scientist'' systems that opened this section\cite{boiko_autonomous_2023, lu_ai_2024, mitchener_kosmos_2025}: as soon as an agentic pipeline takes a study specification and returns data, code, figures, and a draft manuscript, the specification and every downstream artifact must together satisfy STAMPED --- not only to keep such pipelines efficient to re-run at lower cost, but to make their outputs introspectable.
 Tracked and self-contained research objects let a researcher inspect which model, prompt, and decision led to a particular result, implement ``hand over'' between humans and agents alike and let subsequent actor re-enter a prior state and continue from it without rediscovering context.
 At the end, human scientists authoring and iterating over the specification of a STAMPED research object would see how their edits propagate through the generated implementation.
-Without these properties, the acceleration might be real but the accountability would be lost.
-With STAMPED properties spec-driven agentic research becomes a collaborative transparent artifact between scientists and the AI systems that serves them both.
+Without the STAMPED principles, the acceleration might be real but the accountability would be lost.
+Instead, spec-driven agentic research becomes a collaborative, transparent artifact between scientists and the AI systems that support them.
 
 
 \section{Data Availability}
