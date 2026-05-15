@@ -331,8 +331,8 @@ Toward the ideal end, several complementary strategies reduce the risk that exte
 
 We hope that the preceding sections have provided a clear understanding of the STAMPED principles and their rationale.
 While this understanding is essential, researchers may also benefit from a practical checklist to assess their research objects against these principles.
-Similar to the living examples repository, an interactive checklist has been provided at the webpage https://checklist.stamped-principles.org to guide assessments of compliance with STAMPED principles, ordered by the strength of the requirement (MUST, SHOULD, MAY).
-The schema for this checklist is itself a living, version-tracked entity \cite{stamped-checklist} that is likely to grow over time as more common violations of the principles are discovered in practice.
+Similar to the living examples repository, an interactive checklist has been provided at the webpage \url{https://checklist.stamped-principles.org} to guide assessments of compliance with STAMPED principles, ordered by the strength of the requirement (MUST, SHOULD, MAY).
+The schema for this checklist is itself a living, version-tracked entity \cite{stamped-checklist-schema:v0.1.0} that is likely to grow over time as more common violations of the principles are discovered in practice.
 
 \begin{figure}[htbp]
 \centering
@@ -545,8 +545,9 @@ This is less a change to STAMPED itself than a call on these communities: Tracki
 
 \anchoredsubsubsection{adoption-incentives}{Adoption incentives and tool certification}
 
-STAMPED compliance today is self-assessed against the checklist provided in this paper and shared at \url{https://github.com/stamped-principles/stamped-checklist}.
-Broader adoption will depend on promotion and external incentives, including funder mandates (e.g.,\ NIH Data Management and Sharing policies), journal reproducibility badges\cite{center_for_open_science_open_2023}, and venue-level review checklists that converge toward automated scoring.
+STAMPED compliance today is self-assessed against the checklist fulfilling a simple LinkML model\cite{stamped-checklist-schema:v0.1.0}, which then presented in this paper, and exposed to users in a convenient Web UI at \url{https://checklist.stamped-principles.org}.
+That Web UI provides self-contained stateful permalinks to render any particular state of the filled out checklist, so they could be shared easily.
+Broader adoption will depend on promotion and external incentives, including funder mandates (e.g.,\ NIH Data Management and Sharing policies), journal reproducibility badges\cite{center_for_open_science_open_2023}, and venue-level review checklists that converge toward automated scoring. 
 Such a trajectory would parallel that of FAIR, which has moved from principles to machine-assessable indicators with tools such as F-UJI\cite{devaraju_automated_2021}.
 No automated tool yet available as of now certifies STAMPED compliance.
 A community-maintained benchmark suite, seeded by the satellite examples project associated with this paper (\url{https://examples.stamped-principles.org}), is a natural precursor.
