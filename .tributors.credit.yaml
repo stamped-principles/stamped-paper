@@ -82,8 +82,9 @@ style:
   # --- Byline + affiliations (render_authors.py) ---
   # affiliations_width: 0.85           # fraction of \textwidth for affiliation minipage
   # affiliations_size:  small          # tiny|scriptsize|footnotesize|small|normalsize|...
-  # orcid_marker:       text-id        # 'text-id' (plain superscript "iD" hyperlink) |
-                                       # 'orcidlink' (needs \usepackage{orcidlink}) |
+  orcid_marker:       orcidlink        # 'text-id' (plain superscript "iD" hyperlink) |
+                                       # 'orcidlink' (needs \usepackage{orcidlink}; gives
+                                       #             the proper green ORCID iD logo) |
                                        # 'none'
 
 # Substring → URL hyperlinks applied to every affiliation by render_authors.py.
