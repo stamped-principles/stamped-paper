@@ -13,7 +13,7 @@ Manuscript formalizing the **STAMPED** properties for reproducible research obje
 
 > 📦 **S**elf-contained: Everything under one boundary<br>
 > 🔍 **T**racked: Version control & provenance<br>
-> ▶️  **A**ctionable: Executable & documented workflows<br>
+> ▶️ **A**ctionable: Executable & documented workflows<br>
 > 🧩 **M**odular: Independent & composable modules<br>
 > 🚢 **P**ortable: Runs anywhere with explicit specifications<br>
 > 💨 **E**phemeral: Transient compute environment<br>
