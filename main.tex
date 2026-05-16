@@ -595,11 +595,27 @@ Instead, spec-driven agentic research becomes a collaborative, transparent artif
 
 \section{Data Availability}
 
-% TODO
+All materials, data and code alike, are shared as part of the
+\url{https://github.com/stamped-principles} GitHub organization, and released under OSI-approved licenses, with per-file licensing metadata maintained via the REUSE specification.
+
+The STAMPED principles\cite{stamped-principles-schema:v0.1.0}
+(\url{https://github.com/stamped-principles/stamped-principles-schema})
+and their accompanying compliance
+checklist\cite{stamped-checklist-schema:v0.1.0} (\url{https://github.com/stamped-principles/stamped-checklist-schema}) are formally encoded as LinkML schemas with corresponding JSON instances, separating the data model from the principle content so that each can evolve independently.
+All sources for this manuscript (e.g., LaTeX file, figures;
+\url{https://github.com/stamped-principles/stamped-paper}) have a rendered version at \url{https://paper.stamped-principles.org}.
+Examples illustrating the principles are published as a Hugo-built
+static website and collected in
+\url{https://github.com/stamped-principles/stamped-examples}, open for submissions from the community.
+Examples in that repository are metadata-tagged to allow classification and filtering
+by principle, domain, and tooling as presented at \url{https://examples.stamped-principles.org}.
+Visual identity materials (e.g., logos, favicons, etc) are maintained at \url{https://github.com/stamped-principles/stamped-branding}, and organization-level landing content is served from \url{https://github.com/stamped-principles/.github} at \url{https://stamped-principles.org}.
+The bibliography for this work is curated in the Center for Open Neuroscience public Zotero group library at \url{https://www.zotero.org/groups/6197458/centerforopenneuroscience/library}, which is openly reusable.
 
 \section{Code Availability}
 
-% TODO
+This work is a documentation and formalization project, and the production of scientific software is not its primary aim.
+The auxiliary code that supports it is distributed across the organization's repositories and includes tooling around the LinkML schemas in \texttt{stamped-principles-schema} and \texttt{stamped-checklist-schema}; the front-end JavaScript that powers the interactive compliance checklist deployed at \url{https://checklist.stamped-principles.org}; the Hugo-based site that renders worked examples in \texttt{stamped-examples}; and continuous-integration workflows in \texttt{stamped-paper} that build the manuscript PDF and post diff previews on pull requests.
 
 
 \bibliographystyle{unsrtnat}
