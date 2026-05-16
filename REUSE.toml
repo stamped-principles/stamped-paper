@@ -18,6 +18,9 @@ SPDX-License-Identifier = "Apache-2.0"
 [[annotations]]
 path = [
     "main.tex",
+    "authors.tex",
+    "author-contributions.tex",
+    "author-contributions.jats.xml",
     "references.bib",
     "outline.md",
     "README.md",
@@ -26,6 +29,18 @@ path = [
     "proposals/**",
     "research/**",
     "figures/**",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2025-2026 STAMPED Principles authors and contributors"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+# Contributor identity (.tributors) and CRediT role overlay
+# (.tributors.credit.yaml). Authorship metadata — license as CC-BY-4.0
+# so attribution is preserved when the files are reused.
+[[annotations]]
+path = [
+    ".tributors",
+    ".tributors.credit.yaml",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2025-2026 STAMPED Principles authors and contributors"

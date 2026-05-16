@@ -1,0 +1,84 @@
+# CRediT (Contributor Roles Taxonomy) overlay for .tributors
+#
+# Vocabulary: https://credit.niso.org/  (ANSI/NISO Z39.104-2022)
+# Renderer:   code/render_credit.py  (vendored from the credit-contributions
+#             skill at ~/.claude/skills/credit-contributions/)
+#
+# This file is the SINGLE SOURCE OF TRUTH for the Author Contributions
+# section in main.tex and for any JATS XML metadata at submission time.
+# Re-generate the LaTeX section via `make author-contributions` after
+# editing. Do not hand-edit the rendered LaTeX in main.tex.
+#
+# Identity (name / email / ORCID / affiliation) lives in sibling
+# .tributors JSON, indexed by the same GitHub-username key. When
+# https://github.com/con/tributors gains native CRediT support, this
+# overlay can fold back in.
+#
+# Inferred role assignments — those marked with `# DRAFT` — were
+# derived from git activity across stamped-* sibling repos (the
+# stamped-principles GitHub organisation: paper, branding, checklist,
+# checklist-schema, examples, principles-schema, _github) and need
+# author confirmation before submission.
+
+work:
+  title: "STAMPED principles for reproducible research objects"
+  venue: "Nature Scientific Data (Article)"
+
+# Byline order matches the \author{...} line in main.tex.
+byline:
+  - asmacdo            # Austin Macdonald
+  - CodyCBakerPhD      # Cody C. Baker
+  - candleindark       # Isaac To
+  - yarikoptic         # Yaroslav O. Halchenko
+
+contributors:
+
+  asmacdo:
+    # initials A.M. auto-derived
+    roles:
+      - Methodology                   # DRAFT — stamped-examples reference implementations of the principles
+      - Software                      # DRAFT — CI workflow (overleaf-sync, build-pdf, diff-pdf wiring) and code/ scripts
+      - Resources                     # DRAFT — concrete example workflows used to evaluate the principles
+      - Writing – original draft      # DRAFT — heavy main.tex authorship (~60 commits)
+      - Writing – review & editing    # DRAFT
+
+  CodyCBakerPhD:
+    # initials C.C.B. auto-derived
+    roles:
+      - Conceptualization             # DRAFT — proposals/stamped-acronym.md (the normative spec)
+      - Methodology                   # DRAFT — stamped-checklist, stamped-checklist-schema, stamped-principles-schema
+      - Software                      # DRAFT — schema and checklist repositories
+      - Visualization                 # DRAFT — figures/fig1.png, checklist-figure.png, logos, favicons
+      - Writing – original draft      # DRAFT — heavy main.tex authorship (~85 commits) and proposal
+      - Writing – review & editing    # DRAFT
+
+  candleindark:
+    initials: I.T.                    # explicit to disambiguate against potential future I.M.s, etc.
+    roles:
+      - Validation                    # DRAFT — technical/editorial review on main.tex
+      - Writing – review & editing    # DRAFT — ~36 commits, all copy-edits on main.tex
+
+  yarikoptic:
+    # initials Y.O.H. auto-derived
+    roles:
+      - Conceptualization                                # confirmed by author
+      - Funding acquisition                              # confirmed by author (ReproNim, OpenNeuro, DANDI, EMBER grants)
+      - {role: Supervision, degree: lead}                # DRAFT — overall project leadership across stamped-* repos
+      - Project administration                           # DRAFT — multi-repo coordination
+      - Methodology                                      # DRAFT — schema and principles-schema design
+      - Software                                         # DRAFT — build-pdf CI, diff-pdf containers, Zotero bib pipeline
+      - Resources                                        # DRAFT — grant-funded infrastructure (computing, tooling)
+      - Writing – review & editing                       # DRAFT — ~89 commits on main.tex
+
+# Render-time style. The renderer reads these to format the prose
+# section. Nature Scientific Data shows author contributions in
+# initials form (e.g. "A.B. did X; C.D. did Y.").
+style:
+  # --- CRediT contributions section (render_credit.py) ---
+  authors_as: initials       # 'initials' (Nature) | 'fullname' (Elsevier)
+  group_by: byauthor         # 'byauthor' | 'byrole'
+  dash: endash               # 'endash' (canonical CRediT '–') | 'hyphen'
+
+  # --- Byline + affiliations (render_authors.py) ---
+  # affiliations_width: 0.85           # fraction of \textwidth for affiliation minipage
+  # affiliations_size:  small          # tiny|scriptsize|footnotesize|small|normalsize|...
