@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage[margin=1in]{geometry}
+\usepackage{datetime}
 \usepackage{microtype}
 \usepackage{flafter}
 \usepackage{graphicx} % Required for inserting images
@@ -18,7 +19,8 @@
 % Scientific Data: max 110 chars, no colons or parentheses, capitalize only first word + proper nouns
 \title{STAMPED principles for reproducible research objects}
 \author{Austin Macdonald, Cody C. Baker, Isaac To, Yaroslav O. Halchenko}
-\date{March 2026}
+\newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
+\date{\monthyeardate\today}
 
 \begin{document}
 
