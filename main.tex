@@ -33,7 +33,9 @@
 
 % Scientific Data: max 110 chars, no colons or parentheses, capitalize only first word + proper nouns
 \title{STAMPED principles for reproducible research objects}
-\author{Austin Macdonald, Cody C. Baker, Isaac To, Yaroslav O. Halchenko}
+% Byline + affiliations are rendered from .tributors + .tributors.credit.yaml.
+% Regenerate via `make authors` (renderer: code/render_authors.py).
+\input{authors}
 \newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
 \date{\monthyeardate\today}
 
@@ -623,6 +625,12 @@ Instead, spec-driven agentic research becomes a collaborative, transparent artif
 \bibliography{references}
 
 \anchoredsection{author-contributions}{Author Contributions}
+
+% Contributions follow the CRediT taxonomy (https://credit.niso.org/,
+% ANSI/NISO Z39.104-2022). Single source of truth: .tributors.credit.yaml
+% (CRediT overlay) + .tributors (identity, con/tributors JSON cache).
+% Regenerate via `make author-contributions` (renderer: code/render_credit.py).
+\input{author-contributions}
 
 \anchoredsection{competing-interests}{Competing Interests}
 The authors declare no competing interests.

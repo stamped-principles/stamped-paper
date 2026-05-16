@@ -1,0 +1,26 @@
+{
+    "asmacdo": {
+        "name": "Austin Macdonald",
+        "email": "austin@dartmouth.edu",
+        "orcid": "0000-0002-8124-807X",
+        "affiliation": "Center for Open Neuroscience, Department of Psychological and Brain Sciences, Dartmouth College, NH, USA 03755"
+    },
+    "CodyCBakerPhD": {
+        "name": "Cody C. Baker",
+        "orcid": "0000-0002-0829-4790",
+        "affiliation": "Center for Open Neuroscience, Department of Psychological and Brain Sciences, Dartmouth College, NH, USA 03755"
+    },
+    "candleindark": {
+        "name": "Isaac To",
+        "email": "isaac.chun.to@gmail.com",
+        "orcid": "0000-0002-4740-0824",
+        "affiliation": "Center for Open Neuroscience, Department of Psychological and Brain Sciences, Dartmouth College, NH, USA 03755"
+    },
+    "yarikoptic": {
+        "name": "Yaroslav O. Halchenko",
+        "email": "debian@onerussian.com",
+        "orcid": "0000-0003-3456-2493",
+        "affiliation": "Center for Open Neuroscience, Department of Psychological and Brain Sciences, Dartmouth College, NH, USA 03755",
+        "blog": "www.onerussian.com"
+    }
+}
