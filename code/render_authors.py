@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -65,6 +66,39 @@ _VALID_SIZES = {
     "normalsize", "large", "Large", "LARGE",
 }
 
+_VALID_ORCID_MARKERS = {"text-id", "orcidlink", "none"}
+
+
+def _linkify(text: str, links: dict[str, str]) -> str:
+    """Wrap each ``links`` key found in ``text`` with ``\\href{url}{key}``.
+
+    Keys are tried longest-first so that overlapping keys (e.g.
+    "Dartmouth College" vs "Dartmouth") link the more specific name.
+    Each occurrence is wrapped, but a key inside an already-wrapped
+    region is not re-wrapped (re.sub does a single left-to-right pass).
+    """
+    if not links:
+        return text
+    keys_sorted = sorted(links, key=len, reverse=True)
+    pattern = re.compile("|".join(re.escape(k) for k in keys_sorted))
+
+    def _sub(match: re.Match) -> str:
+        key = match.group(0)
+        url = links[key]
+        return f"\\href{{{url}}}{{{key}}}"
+
+    return pattern.sub(_sub, text)
+
+
+def _orcid_url(orcid: str) -> str:
+    return orcid if orcid.startswith("http") else f"https://orcid.org/{orcid}"
+
+
+def _orcid_id(orcid: str) -> str:
+    """Return the bare 16-digit ORCID id (XXXX-XXXX-XXXX-XXXX), stripping
+    any leading ``https://orcid.org/`` prefix."""
+    return orcid.rsplit("/", 1)[-1] if "/" in orcid else orcid
+
 
 def render(credit: dict, tributors: dict[str, dict]) -> str:
     byline: list[str] = list(credit.get("byline") or [])
@@ -92,6 +126,16 @@ def render(credit: dict, tributors: dict[str, dict]) -> str:
             f"style.affiliations_size must be one of {sorted(_VALID_SIZES)}; "
             f"got {aff_size!r}"
         )
+    orcid_marker = str(style.get("orcid_marker", "text-id"))
+    if orcid_marker not in _VALID_ORCID_MARKERS:
+        raise ValueError(
+            f"style.orcid_marker must be one of {sorted(_VALID_ORCID_MARKERS)}; "
+            f"got {orcid_marker!r}"
+        )
+
+    # Top-level: substring → URL replacements applied to every affiliation
+    # via render_authors._linkify (longest-key-first).
+    aff_links: dict[str, str] = dict(credit.get("affiliation_links") or {})
 
     aff_id: dict[str, int] = {}
     rendered_authors: list[str] = []
@@ -104,11 +148,23 @@ def render(credit: dict, tributors: dict[str, dict]) -> str:
             if aff not in aff_id:
                 aff_id[aff] = len(aff_id) + 1
             ids.append(aff_id[aff])
-        if ids:
-            sup = "\\textsuperscript{" + ",".join(str(i) for i in ids) + "}"
-        else:
-            sup = ""
-        rendered_authors.append(f"{name}{sup}")
+
+        # Build the marker(s) trailing the author name. ORCID marker form
+        # depends on style.orcid_marker:
+        #   text-id   — plain "iD" hyperlink, packed inside the affiliation
+        #               superscript (no preamble change required).
+        #   orcidlink — \orcidlink{<id>} from the orcidlink package, sits
+        #               after the superscript (needs \usepackage{orcidlink}).
+        #   none      — no ORCID marker rendered.
+        orcid = entry.get("orcid")
+        sup_parts: list[str] = [",".join(str(i) for i in ids)] if ids else []
+        trailing = ""
+        if orcid and orcid_marker == "text-id":
+            sup_parts.append(f"\\href{{{_orcid_url(orcid)}}}{{iD}}")
+        elif orcid and orcid_marker == "orcidlink":
+            trailing = f"~\\orcidlink{{{_orcid_id(orcid)}}}"
+        sup = f"\\textsuperscript{{{','.join(sup_parts)}}}" if sup_parts else ""
+        rendered_authors.append(f"{name}{sup}{trailing}")
 
     lines: list[str] = [
         "% AUTO-GENERATED from .tributors{,.credit.yaml} by render_authors.py — do not hand-edit.",
@@ -127,7 +183,8 @@ def render(credit: dict, tributors: dict[str, dict]) -> str:
         sorted_affs = sorted(aff_id.items(), key=lambda kv: kv[1])
         for aff, idx in sorted_affs:
             sep = " \\\\" if idx < len(sorted_affs) else ""
-            lines.append(f"    \\textsuperscript{{{idx}}}{aff}{sep}")
+            aff_rendered = _linkify(aff, aff_links)
+            lines.append(f"    \\textsuperscript{{{idx}}}{aff_rendered}{sep}")
         lines.append("  \\end{minipage}")
 
     lines.append("}")

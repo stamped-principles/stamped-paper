@@ -82,3 +82,13 @@ style:
   # --- Byline + affiliations (render_authors.py) ---
   # affiliations_width: 0.85           # fraction of \textwidth for affiliation minipage
   # affiliations_size:  small          # tiny|scriptsize|footnotesize|small|normalsize|...
+  # orcid_marker:       text-id        # 'text-id' (plain superscript "iD" hyperlink) |
+                                       # 'orcidlink' (needs \usepackage{orcidlink}) |
+                                       # 'none'
+
+# Substring → URL hyperlinks applied to every affiliation by render_authors.py.
+# Longest-match-first when keys overlap (e.g. "Dartmouth College" before "Dartmouth").
+affiliation_links:
+  Center for Open Neuroscience: https://centerforopenneuroscience.org/
+  Department of Psychological and Brain Sciences: https://pbs.dartmouth.edu/
+  Dartmouth College: https://dartmouth.edu/
