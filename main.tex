@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage[margin=1in]{geometry}
+\usepackage{datetime}
 \usepackage{microtype}
 \usepackage{flafter}
 \usepackage{graphicx} % Required for inserting images
@@ -13,22 +14,38 @@
 \definecolor{darkgreen}{rgb}{0,0.35,0.08}
 \usepackage[backref=false,breaklinks,colorlinks,citecolor=darkblue,linkcolor=darkgreen,urlcolor=darkblue,hyperindex,plainpages=false,pdftex]{hyperref} % Hyper-references
 
+% Headings with a named PDF destination. Usage:
+%   \anchoredsection{intro}{Introduction}
+%   \anchoredsubsection{self-containment}{Self-containment}
+%   \anchoredsubsubsection{nested}{Nested thing}
+% Link via file.pdf#anchor (browsers) or file.pdf#nameddest=anchor (Acrobat).
+%
+% \hyanchor{name} places an invisible PDF anchor at the top of the current line.
+% Each wrapper forwards plain title to the heading.
+% \texorpdfstring inside \hyanchor hides the anchor when building pdf strings to avoid build errors in the PDF outline.
+\makeatletter
+\newcommand{\hyanchor}[1]{\texorpdfstring{\Hy@raisedlink{\hypertarget{#1}{}}}{}}
+\makeatother
 
+\newcommand{\anchoredsection}[2]{\section[#2]{\hyanchor{#1}#2}}
+\newcommand{\anchoredsubsection}[2]{\subsection[#2]{\hyanchor{#1}#2}}
+\newcommand{\anchoredsubsubsection}[2]{\subsubsection[#2]{\hyanchor{#1}#2}}
 
 % Scientific Data: max 110 chars, no colons or parentheses, capitalize only first word + proper nouns
 \title{STAMPED principles for reproducible research objects}
 \author{Austin Macdonald, Cody C. Baker, Isaac To, Yaroslav O. Halchenko}
-\date{March 2026}
+\newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
+\date{\monthyeardate\today}
 
 \begin{document}
 
 \maketitle
 
-\section{Abstract}
+\anchoredsection{abstract}{Abstract}
 
 % TODO: compose later when other stuff filled out
 
-\section{Introduction}
+\anchoredsection{introduction}{Introduction}
 
 Data-driven research depends on specific versions of datasets, software, and computational environments, and a record of how they were used together to produce results.
 We adopt the term \textbf{research object} to denote a collection of data, code, and metadata that together represent the research as a complete unit.
@@ -60,7 +77,7 @@ STAMPED provides a vocabulary for describing and a framework for evaluating and 
 
 
 
-\section{Comments}
+\anchoredsection{comments}{Comments}
 
 \begin{table}[htbp]
 \centering
@@ -85,7 +102,7 @@ The items containing keywords "MUST", "SHALL", "SHOULD", and "MAY" are to be int
 
 
 
-\subsection{Self-containment}
+\anchoredsubsection{self-containment}{Self-containment}
 
 \begin{itemize}
     \item \textbf{S.1}: All modules and components essential to replicate computational execution MUST be reachable within a single top-level research object.
@@ -106,7 +123,7 @@ Tracking, Modularity, Portability, and Distributability each address a different
 
 
 
-\subsection{Tracking}
+\anchoredsubsection{tracking}{Tracking}
 
 \begin{itemize}
     \item \textbf{T.1}: Persistent content identification MUST be recorded for all components.
@@ -139,7 +156,7 @@ Beyond the research object itself, knowing the state of data and code at each ha
 
 
 
-\subsection{Actionability}
+\anchoredsubsection{actionability}{Actionability}
 
 \begin{itemize}
     \item \textbf{A.1}: Research object MUST contain sufficient instructions to reproduce all computational results.
@@ -164,7 +181,7 @@ Actionability also extends from tooling to the operational layer of a research g
 
 
 
-\subsection{Modularity}
+\anchoredsubsection{modularity}{Modularity}
 
 \begin{itemize}
     \item \textbf{M.1}: Components SHOULD be organized in a modular structure.
@@ -184,7 +201,7 @@ Toward the ideal end, the full research object can be reassembled from its speci
 
 
 
-\subsection{Portability}
+\anchoredsubsection{portability}{Portability}
 
 \begin{itemize}
     \item \textbf{P.1}: Procedures MUST NOT depend on undocumented host environment state.
@@ -204,7 +221,7 @@ Toward the ideal end, the computational environment is fully specified and versi
 
 
 
-\subsection{Ephemerality}
+\anchoredsubsection{ephemerality}{Ephemerality}
 
 \begin{itemize}
     \item \textbf{E.1}: Computational results SHOULD be produced in ephemeral environments.
@@ -227,7 +244,7 @@ Nonetheless, the principle substantially raises confidence that the research obj
 
 
 
-\subsection{Distributability}
+\anchoredsubsection{distributability}{Distributability}
 
 \begin{itemize}
     \item \textbf{D.1}: All referenced modules and components MUST be persistently retrievable by others.
@@ -312,7 +329,7 @@ Toward the ideal end, several complementary strategies reduce the risk that exte
 
 
 
-\subsection{Checklist for compliance to principles}
+\anchoredsubsection{checklist}{Checklist for compliance to principles}
 
 We hope that the preceding sections have provided a clear understanding of the STAMPED principles and their rationale.
 While this understanding is essential, researchers may also benefit from a practical checklist to assess their research objects against these principles.
@@ -330,7 +347,7 @@ The schema for this checklist is itself a living, version-tracked entity \cite{s
 
 
 
-\subsection{Enabling tools}
+\anchoredsubsection{enabling-tools}{Enabling tools}
 
 No single tool addresses all the dimensions of scientific rigor described above, though many tools contribute to one or several properties simultaneously.
 For example, container technologies such as Docker or Singularity serve Portability by providing OS-level isolation from explicit environment specifications, enable Ephemerality by disposing per-execution environments, and facilitate Distributability by producing frozen, shareable artifacts.
@@ -402,14 +419,14 @@ Archive and persistently host frozen, versioned research objects and their compo
 
 
 
-\subsection{Examples and Case Studies}
+\anchoredsubsection{examples}{Examples and Case Studies}
 
-\subsubsection{Pedagogical examples}
+\anchoredsubsubsection{pedagogical-examples}{Pedagogical examples}
 
 To complement the formal definitions above, the satellite examples project (\url{https://examples.stamped-principles.org}) walks the reader through the STAMPED properties using small, concrete worked examples.
 The pages tagged ``STAMPED-intro'' (\url{https://examples.stamped-principles.org/tags/stamped-intro/}) trace how each property applies to the same simple research object, providing a gentle on-ramp before the real-world adoptions below.
 
-\subsubsection{Real-world adoptions}
+\anchoredsubsubsection{real-world-adoptions}{Real-world adoptions}
 
 Several research projects have already adopted and documented the YODA principles (the predecessor to STAMPED) demonstrating practical utility across domains.
 
@@ -433,7 +450,7 @@ This architectural shift influenced major neuroimaging tools:
 
 These adoptions demonstrate that STAMPED principles solve practical organizational challenges across scales, from individual studies to community-wide infrastructure.
 
-\subsection{Convergent evolution of data-driven scientific practices}
+\anchoredsubsection{convergent-evolution}{Convergent evolution of data-driven scientific practices}
 
 The challenges that motivate STAMPED are not unique to any single domain.
 
@@ -477,7 +494,7 @@ Cookiecutter Data Science (2016), BIDS\cite{gorgolewski_brain_2016} (2016), Kedr
 Each framework constrains where code and documentation reside, how raw data inputs and derived outputs are handled, which makes such projects navigable by \emph{convention}.
 
 Viewed together, these independent lines of development map onto every STAMPED principle.
-Self-containment~(S) appears wherever projects bundle their dependencies into a single rooted structure; 
+Self-containment~(S) appears wherever projects bundle their dependencies into a single rooted structure;
 Tracking~(T) wherever content-addressed storage or version control records the history of changes or acquisition of every component;
 Actionability~(A) wherever Makefiles, workflow managers, or platform APIs make re-execution or acquisition a single command;
 Modularity~(M) wherever directory conventions or subproject composition separate concerns;
@@ -502,14 +519,14 @@ The milestones shown are illustrative rather than exhaustive; many other influen
 
 
 
-\subsection{Future Directions}
+\anchoredsubsection{future-directions}{Future Directions}
 
 STAMPED principles provide a vocabulary rather than a closed specification, which is rooted in practices that continue to evolve with tooling, policy, and scientific convention.
 The directions below identify open fronts where the framework's vocabulary will need to stretch, and where complementary work by adjacent communities will shape how STAMPED assists researchers in the coming decade.
 We begin with directions that apply broadly across computational science, including generalizing Ephemerality to workflow specifications, aligning provenance standards, building adoption incentives, and seeding training pipelines.
 The remainder of the section then addresses the more specific and fast-moving challenges introduced by AI, where several STAMPED principles need explicit extensions and where the stakes for transparent, reproducible research are most immediate.
 
-\subsubsection{Specification-centric research objects as the reproducibility ideal}
+\anchoredsubsubsection{spec-centric}{Specification-centric research objects as the reproducibility ideal}
 
 Ephemerality (E), as formulated here, treats the compute environment as disposable while the code and data it runs on remain durable.
 A complementary view is emerging in which workflow implementations themselves become regenerable from a durable specification.
@@ -525,7 +542,7 @@ The cost of under-specified middleware is already visible in practice; the NARPS
 % Here could potentially point to the opposite -- Ben's agentic AI being capable of support/demonstrating core "behavioral neuroscience" paradigms. TODO: citation? mention in AI subsection?
 
 
-\subsubsection{Provenance standards convergence}
+\anchoredsubsubsection{provenance-standards}{Provenance standards convergence}
 
 As FAIR leaves specific protocols and standards open, STAMPED likewise does not prescribe a serialization for provenance records, and in practice researchers rely on whatever their tooling emits.
 Convergence among existing approaches would let STAMPED research objects carry portable provenance across toolchains without lock-in.
@@ -533,7 +550,7 @@ Relevant efforts include cross-domain standards such as W3C PROV\cite{w3c_proven
 This is less a change to STAMPED itself than a call on these communities: Tracking (T) becomes substantially more useful when provenance records follow shared standards and can be exported, compared, and re-interpreted by tools other than the one that generated them.
 
 
-\subsubsection{Adoption incentives and tool certification}
+\anchoredsubsubsection{adoption-incentives}{Adoption incentives and tool certification}
 
 STAMPED compliance today is self-assessed against the checklist fulfilling a simple LinkML model\cite{stamped-checklist-schema:v0.1.0}, which then presented in this paper, and exposed to users in a convenient Web UI at \url{https://checklist.stamped-principles.org}.
 That Web UI provides self-contained stateful permalinks to render any particular state of the filled out checklist, so they could be shared easily.
@@ -543,7 +560,7 @@ No automated tool yet available as of now certifies STAMPED compliance.
 A community-maintained benchmark suite, seeded by the satellite examples project associated with this paper (\url{https://examples.stamped-principles.org}), is a natural precursor.
 
 
-\subsubsection{Teaching and onboarding}
+\anchoredsubsubsection{teaching}{Teaching and onboarding}
 
 Uptake through formal training is slow but compounding: as the ``train the trainer'' model used by the ReproNim program has demonstrated, students and early-career researchers who encounter these practices during training become some of the most effective propagators of the vocabulary, even if that propagation takes years to surface.
 Existing resources already teach most of what STAMPED asks for, without using the term.
@@ -553,7 +570,7 @@ YODA principles have already entered the curricula of several such programs, and
 Continued community outreach, including a recent introduction to STAMPED\cite{baker_guidelines_2026} delivered to the BRAIN BBQS program, supports that transition.
 
 
-\subsubsection{Research in an AI Era}
+\anchoredsubsubsection{ai-era}{Research in an AI Era}
 
 AI agents are now generating analysis code, selecting methods, and in some systems running entire research cycles end-to-end\cite{boiko_autonomous_2023, lu_ai_2024, mitchener_kosmos_2025}.
 Without explicit structure, this automation can produce results whose provenance and reasoning are irrecoverable\cite{messeri_artificial_2024}.
@@ -598,11 +615,11 @@ Without the STAMPED principles, the acceleration might be real but the accountab
 Instead, spec-driven agentic research becomes a collaborative, transparent artifact between scientists and the AI systems that support them.
 
 
-\section{Data Availability}
+\anchoredsection{data-availability}{Data Availability}
 
 % TODO
 
-\section{Code Availability}
+\anchoredsection{code-availability}{Code Availability}
 
 % TODO
 
@@ -610,18 +627,18 @@ Instead, spec-driven agentic research becomes a collaborative, transparent artif
 \bibliographystyle{unsrtnat}
 \bibliography{references}
 
-\section{Author Contributions}
+\anchoredsection{author-contributions}{Author Contributions}
 
-\section{Competing Interests}
+\anchoredsection{competing-interests}{Competing Interests}
 The authors declare no competing interests.
 
-\section{Acknowledgments}
+\anchoredsection{acknowledgments}{Acknowledgments}
 
 This manuscript and companion materials in the \href{STAMPED Principles GitHub organization}{https://github.com/stamped-principles/} were prepared with the assistance of agentic AI coding tools and large language models (primarily Claude Opus).
 All final text, figures, and specifications were edited and/or confirmed by the human authors, who are responsible for the content.
 Where AI tools notably contributed to a change, we have strived to annotate the corresponding commits with a \texttt{Co-Authored-By} trailer, or analogous comments, to identify the tool and potentially the model version, so that the provenance of individual contributions is inspectable in the public git history of the \texttt{stamped-*} repositories.
 
-\section{Funding}
+\anchoredsection{funding}{Funding}
 This work was supported by the National Institutes of Health:
 ReproNim --- Center for Reproducible Neuroimaging Computation (NIBIB P41~EB019936),
 OpenNeuro --- An Open Archive for Analysis and Sharing of BRAIN Initiative Data (NIMH R24~MH117179),
