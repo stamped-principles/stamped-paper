@@ -45,12 +45,12 @@ contributors:
   CodyCBakerPhD:
     # initials C.C.B. auto-derived
     roles:
-      - Conceptualization             # DRAFT — proposals/stamped-acronym.md (the normative spec)
-      - Methodology                   # DRAFT — stamped-checklist, stamped-checklist-schema, stamped-principles-schema
-      - Software                      # DRAFT — schema and checklist repositories
-      - Visualization                 # DRAFT — figures/fig1.png, checklist-figure.png, logos, favicons
-      - Writing – original draft      # DRAFT — heavy main.tex authorship (~85 commits) and proposal
-      - Writing – review & editing    # DRAFT
+      - Conceptualization             # proposals/stamped-acronym.md (the normative spec)
+      - Methodology                   # stamped-checklist, stamped-checklist-schema, stamped-principles-schema
+      - Software                      # schema and checklist repositories
+      - Visualization                 # figures/fig1.png, checklist-figure.png, logos, favicons
+      - Writing – original draft      # heavy main.tex authorship (~85 commits) and proposal
+      - Writing – review & editing
 
   candleindark:
     initials: I.T.                    # explicit to disambiguate against potential future I.M.s, etc.
