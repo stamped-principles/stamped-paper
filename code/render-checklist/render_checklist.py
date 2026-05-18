@@ -5,6 +5,7 @@ vector PDF suitable for inclusion in a LaTeX paper.
 
 Usage:
     pip install playwright
+    pip install datalad
     playwright install chromium
     python render_checklist.py
 
