@@ -139,16 +139,17 @@ These are often managed separately, which makes prior work harder to validate.
 
 The spectrum of Tracking begins with content-addressed version control.
 Rather than relying on semantic version labels, content-addressed systems identify each state by a checksum of its contents.
-This distinction matters: two datasets labeled ``version 1.0'' by different labs are ambiguous; two datasets with identical content hashes are provably identical.
-Version control commits also capture basic provenance: who made the change, when, and a description of why.
+This distinction matters; two datasets labeled ``version 1.0'' by different labs are ambiguous whereas two datasets with identical content hashes are provably identical.
+Version control commits also capture basic provenance of who made the change, when, and a description of why.
 This unifies identity and provenance in a single system and also provides a safety net since any change can be reverted and any prior state restored, making it easier to modify and experiment.
 For tracking to be effective, all components of the research object must be under version control: code, data, environment definitions, and configuration.
 
 Traditional version control is designed for code and other text files, but research objects often include large binary datasets, container images, and other assets that do not fit this model.
 Compatible tools such as git-annex, DataLad, or DVC extend content-addressed tracking to these components, ensuring that all parts of the research object are managed under the same system.
 
-Toward the ideal end, provenance is captured programmatically by tooling rather than by manual annotation, producing richer records than a human would typically write: each computational step records what command was executed and what inputs it consumed.
-When modules are independently tracked under compatible systems (M), the version of every module at the time of each commit is also discoverable, providing a complete picture of the state that produced a given result.
+Toward the ideal end, provenance is captured programmatically by tooling rather than by manual annotation, producing richer records than a human would typically write.
+Each computational step then records exactly what command was executed and what inputs it consumed.
+When modules are independently tracked under compatible systems, the version of every module at the time of each commit is also discoverable, providing a complete picture of the state that produced a given result.
 This enables not just inspection but re-execution.
 Beyond the research object itself, knowing the state of data and code at each hand-off between experimental, analytical, and engineering stages is what allows a team to coordinate updates without losing the provenance chain---an operational view of Tracking developed by the SciOps framework\cite{johnson_sciops_2024}.
 % TODO: cite Tek Raj paper, provenance format approaches
@@ -167,7 +168,8 @@ A research object may be self-contained and fully tracked, yet having all ingred
 Requirement A.1 is what makes a research object operationally useful by bridging the gap between having the components and being able to use them.
 
 At a minimum, a research object must contain documentation thorough enough for another researcher to follow every step to reproduce results.
-Actionability applies to every other STAMPED principle: at the ideal end, each principle is enacted not through documentation alone but through executable specifications (A.2):
+Actionability applies to every other STAMPED principle.
+At the ideal end, each principle is enacted not through documentation alone but through executable specifications (A.2):
 \begin{itemize}
   \item \textbf{Self-containment} is more actionable when retrieval of all components is specified and executable (e.g., \texttt{git clone}, \texttt{datalad install}), not just listed in a manifest.
   \item \textbf{Tracking} is more actionable when provenance records are re-executable (e.g., \texttt{datalad rerun}), not just inspectable.
@@ -176,8 +178,9 @@ Actionability applies to every other STAMPED principle: at the ideal end, each p
   \item \textbf{Ephemerality} is more actionable when computation can be orchestrated in disposable environments (e.g., \texttt{docker compose}, Slurm), not just instructed to ``run in a clean environment.''
   \item \textbf{Distributability} is more actionable when a frozen state can be produced and retrieved by others (e.g., containers, \texttt{npm ci}), not just described with pinning instructions.
 \end{itemize}
-The principle is tool-agnostic: any system that moves a property from documented to executable moves the research object further along the actionability spectrum.
-Actionability also extends from tooling to the operational layer of a research group: a SciOps-style workflow makes hand-offs between experimental, analytical, and engineering stages explicit so that artifacts move from one step to the next with unambiguous state\cite{johnson_sciops_2024}, an organizational counterpart to the per-component actionability described above.
+The principle is tool-agnostic; any system that moves a property from documented to executable moves the research object further along the actionability spectrum.
+Actionability also extends from tooling to the operational layer of a research group.
+A SciOps-style workflow makes hand-offs between experimental, analytical, and engineering stages explicit so that artifacts move from one step to the next with unambiguous state\cite{johnson_sciops_2024}, an organizational counterpart to the per-component actionability described above.
 
 
 
@@ -195,7 +198,7 @@ This can include a subdataset, a collection of analysis scripts, or the definiti
 In practice, module boundaries often align with repository boundaries, but a module may also be a published container, a registered dataset, or any independently versioned unit.
 Modularity applies this principle to research objects, structuring them as assemblies of modules whose boundaries are explicit.
 At a minimum, a research object should separate analysis code, input datasets, computational environments, configuration settings, and results into distinct directories.
-Beyond this, independent versioning of modules enables reuse: a dataset or environment can be updated to a newer version, or swapped for an alternative, without disrupting the rest of the research object.
+Beyond this, independent versioning of modules enables reuse; a dataset or environment can be updated to a newer version, or swapped for an alternative, without disrupting the rest of the research object.
 This is possible through manual management but becomes practical when handled by tooling that automates module installation, versioning, and composition.
 Toward the ideal end, the full research object can be reassembled from its specification through automated, recursive installation of its modules.
 
