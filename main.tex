@@ -377,8 +377,7 @@ Where multiple tools enhance the same STAMPED property of an object, the choice 
 A representative example is the choice between git-annex and Git LFS for large-file tracking.
 Both appear under Self-containment and Tracking in Table~\ref{tab:stamped-tools}, but they occupy different points on a complexity-flexibility spectrum.
 git-annex supports many remote types (e.g. other git repositories over SSH or HTTP, or simple cloud data stores such as S3, local drives, offline USB archives), making it well-suited to multi-institutional collaboration, long-term archival where data sovereignty or offline access is required, as well as local content tracking.
-Git LFS offers a simpler alternative; it is transparent to users, natively supported by GitHub and GitLab, and
-broadly adopted.
+Git LFS offers a simpler alternative; it is transparent to users, natively supported by GitHub and GitLab, and broadly adopted.
 But it is centralized (requiring an LFS server), lacks offline capability, and provides less flexible remote configurations.
 Lightweight STAMPED implementations using Git LFS are entirely feasible for easier onboarding, trading flexibility for reduced operational overhead.
 The same pattern of flexibility versus simplicity recurs across other tool choices in Table~\ref{tab:stamped-tools}: container-based versus package-based environment management, workflow engines versus shell scripts, and distributed archives versus centralized platforms.
