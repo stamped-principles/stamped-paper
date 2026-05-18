@@ -28,3 +28,23 @@ Associated examples: [stamped-principles.github.io/stamped-examples](https://sta
 Target venue: **Nature Scientific Data** (Article format).
 
 See [CLAUDE.md](CLAUDE.md) for project conventions and file map.
+
+## Licensing
+
+This project follows the [REUSE specification](https://reuse.software/) for
+machine-readable copyright and licensing information.
+
+- Manuscript text, bibliography, figures and auxililary documentation are
+  licensed under [CC-BY-4.0](LICENSES/CC-BY-4.0.txt).
+- Code, tooling, and CI configuration are licensed under
+  [Apache-2.0](LICENSES/Apache-2.0.txt).
+
+Per-path declarations live in [`REUSE.toml`](REUSE.toml); full license texts
+live under [`LICENSES/`](LICENSES/). To verify compliance locally:
+
+```bash
+make reuse-lint   # or: uvx --from reuse reuse lint
+```
+
+When adding new files, extend the relevant `path` list in `REUSE.toml` so they
+fall under the appropriate block.

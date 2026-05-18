@@ -38,3 +38,8 @@ ZOTERO_GROUP_ID = 6197458
 
 references.bib:
 	./code/fetch-zotero-bib.sh $(ZOTERO_GROUP_ID) $@
+
+# REUSE specification compliance — https://reuse.software/
+.PHONY: reuse-lint
+reuse-lint:
+	uvx --from reuse reuse lint
