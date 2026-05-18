@@ -148,8 +148,8 @@ For tracking to be effective, all components of the research object must be unde
 Traditional version control is designed for code and other text files, but research objects often include large binary datasets, container images, and other assets that do not fit this model.
 Compatible tools such as git-annex, DataLad, or DVC extend content-addressed tracking to these components, ensuring that all parts of the research object are managed under the same system.
 
-Toward the ideal end, provenance is captured programmatically by tooling rather than by manual annotation, producing richer records than a human would typically write.
-Each computational step then records exactly what command was executed and what inputs it consumed.
+Toward the ideal end, provenance is captured programmatically by tooling rather than by manual annotation.
+Each computational step should record exactly what command was executed and what inputs were consumed, producing richer and more reliable records than a human would typically write.
 When modules are independently tracked under compatible systems, the version of every module at the time of each commit is also discoverable, providing a complete picture of the state that produced a given result.
 This enables not just inspection but re-execution.
 Beyond the research object itself, knowing the state of data and code at each hand-off between experimental, analytical, and engineering stages is what allows a team to coordinate updates without losing the provenance chain---an operational view of Tracking developed by the SciOps framework\cite{johnson_sciops_2024}.
