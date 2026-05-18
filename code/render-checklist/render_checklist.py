@@ -25,7 +25,7 @@ URL = (
 )
 
 WIDTH_PX = 1800          # 4 columns needs more room
-OUTPUT = "checklist-figure.pdf"
+OUTPUT = "figures/checklist-figure.pdf"
 COLS = 5                 # 1, 2, 3, 4, or "auto"
 
 # Light-theme override CSS — force light mode, hide UI chrome that doesn't
