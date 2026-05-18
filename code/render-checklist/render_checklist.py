@@ -19,14 +19,14 @@ from playwright.sync_api import sync_playwright
 # all your answers.
 URL = (
     "https://checklist.stamped-principles.org/"
-    "?cols=3&sections=off"
+    "?cols=auto&sections=off"
     "&state=MTAwMDAwMDAwMTAwMDAxMDAwMDAwMDAwMDAwMDAw"
     "&responses=eyJzMF9wMF9pMCI6eyJ2YWx1ZSI6InllcyIsInJlYXNvbiI6IiJ9LCJzMF9wMF9pMSI6eyJ2YWx1ZSI6Im5vIiwicmVhc29uIjoiIn0sInMwX3AzX2kxIjp7InZhbHVlIjoieWVzIiwicmVhc29uIjoiIn0sInMwX3A2X2kwIjp7InZhbHVlIjoieWVzIiwicmVhc29uIjoiIn19"
 )
 
 WIDTH_PX = 1800          # 4 columns needs more room
 OUTPUT = "checklist-figure.pdf"
-COLS = 4                 # 1, 2, 3, 4, or "auto"
+COLS = 5                 # 1, 2, 3, 4, or "auto"
 
 # Light-theme override CSS — force light mode, hide UI chrome that doesn't
 # belong in a paper figure, and force the column count. We use very high
@@ -48,7 +48,8 @@ body {{ background: white !important; padding-top: 0 !important; }}
 #app .cards-grid.cols-1,
 #app .cards-grid.cols-2,
 #app .cards-grid.cols-3,
-#app .cards-grid.cols-4 {{
+#app .cards-grid.cols-4,
+#app .cards-grid.cols-5 {{
     display: grid !important;
     grid-template-columns: repeat({COLS}, minmax(0, 1fr)) !important;
     column-count: {COLS} !important;
