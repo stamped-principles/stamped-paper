@@ -1,6 +1,6 @@
 <div align="center">
   <picture>
-    <img alt="nwb2bids logo" src="https://raw.githubusercontent.com/stamped-principles/stamped-paper/main/figures/logo.png" width="600">
+    <img alt="stamped logo" src="https://raw.githubusercontent.com/stamped-principles/stamped-branding/c3191c404b734ba62ceddcad29f382ef51f9d249/ver-2/name-main%2Blogo/name-main%2Blogo_ver-2.svg" width="600">
   </picture>
 
   <h1 align="center">STAMPED Principles (Paper)</h1>
