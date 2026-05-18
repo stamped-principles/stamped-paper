@@ -109,7 +109,7 @@ The items containing keywords "MUST", "SHALL", "SHOULD", and "MAY" are to be int
 \end{itemize}
 
 Reproducibility fails when a research object depends on resources that are not part of it; an undocumented library, a dataset referenced by a broken URL, a script that assumes tools are installed on the host system.
-We call this the ``don't look up'' rule: a research object must never rely on implicit external state.
+We call this the ``don't look up'' rule: a research object must never rely on implicit external states.
 Instead, it must be a complete retrieval unit, where all modules and components essential to reproduce its results are contained within a single top-level boundary (S.1, Table~1).
 
 Components may be included literally (e.g., files committed directly) or by reference (e.g., as subdatasets, registered data URLs).
@@ -133,7 +133,7 @@ Tracking, Modularity, Portability, and Distributability each address a different
     all components involved.
 \end{itemize}
 
-Research data and code change constantly during a project, and each change compounds the difficulty of reconstructing any previous state: which version of a dataset was used for a particular analysis, what parameters were set, what code produced a given figure.
+Research data and code change constantly during a project, and each change compounds the difficulty of reconstructing any previous state (\textit{e.g.}, which version of a dataset was used for a particular analysis, what parameters were set, what code produced a given figure).
 Tracking addresses two concerns: 1) the identity of each component and its exact state at a point in time, and 2) \textbf{provenance}, the recorded history of what actions by which identities produced or modified it.
 These are often managed separately, which makes prior work harder to validate.
 
