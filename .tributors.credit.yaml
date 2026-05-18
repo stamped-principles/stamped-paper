@@ -36,11 +36,12 @@ contributors:
   asmacdo:
     # initials A.M. auto-derived
     roles:
-      - Methodology                   # DRAFT — stamped-examples reference implementations of the principles
-      - Software                      # DRAFT — CI workflow (overleaf-sync, build-pdf, diff-pdf wiring) and code/ scripts
-      - Resources                     # DRAFT — concrete example workflows used to evaluate the principles
-      - Writing – original draft      # DRAFT — heavy main.tex authorship (~60 commits)
-      - Writing – review & editing    # DRAFT
+      - Conceptualization              # Initial drafts, initial formalized requirements
+      - Methodology                   # stamped-examples reference implementations of the principles
+      - Software                      # CI workflow (overleaf-sync, build-pdf, diff-pdf wiring) and code/ scripts
+      - Resources                     # concrete example workflows used to evaluate the principles
+      - Writing – original draft      # heavy main.tex authorship
+      - Writing – review & editing 
 
   CodyCBakerPhD:
     # initials C.C.B. auto-derived
