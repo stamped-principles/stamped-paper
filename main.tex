@@ -207,7 +207,7 @@ Toward the ideal end, the full research object can be reassembled from its speci
 \anchoredsubsection{portability}{Portability}
 
 \begin{itemize}
-    \item \textbf{P.1}: Procedures MUST NOT depend on undocumented host environment state.
+    \item \textbf{P.1}: Procedures MUST NOT depend on an undocumented host environment state.
     \item \textbf{P.2}: Computational environments MUST be explicitly specified.
     \item \textbf{P.3}: Environment definitions MUST be version controlled.
 \end{itemize}
@@ -218,8 +218,9 @@ This coupling is often invisible on the original system and only surfaces when s
 Portability requires making all host dependencies explicit, so that the research object can be adapted to a new environment.
 
 Some degree of coupling to the host is unavoidable, such as path naming restrictions (``C:/'' vs. ``/mnt''), resource limits (minimum CPU/RAM requirements), or platform-specific flags.
-The spectrum of Portability begins with isolating this host-specific configuration from the rest of the research object, so that adapting to a new environment, however involved that may be, requires only changing configuration.
-Beyond this, several complementary approaches reduce host coupling: virtual machines provide full system-level isolation; container-based tools (Docker, Singularity/Apptainer) bundle OS-level environments; and declarative package managers (Nix, Guix) specify environments that can be reconstructed from a definition.
+The spectrum of Portability begins with isolating this host-specific configuration from the rest of the research object, so that adapting to a new environment, however involved that may be, requires only changing the configuration.
+Beyond this, several complementary approaches reduce host coupling.
+Virtual machines provide full system-level isolation; container-based tools (Docker, Singularity/Apptainer) bundle OS-level environments; declarative package managers (Nix, Guix) specify environments that can be reconstructed from a definition.
 Toward the ideal end, the computational environment is fully specified and version-controlled within the research object, enabling it to be instantiated on any compatible system.
 
 
@@ -235,12 +236,13 @@ During development, researchers routinely modify their environment by installing
 Each change is individually small but collectively difficult to document manually.
 The result is environment drift, where an environment that works but may not be reconstructable from its specification alone.
 When this occurs, undocumented steps can go unnoticed when internalized knowledge silently fills the gaps.
-Ephemerality eliminates this problem by construction: a disposable environment built from tracked specifications cannot carry undocumented state, so any successful execution exercises Self-containment, Actionability, and specification completeness.
+Ephemerality eliminates this problem by construction; a disposable environment built from tracked specifications cannot carry undocumented state, so any successful execution exercises Self-containment, Actionability, and specification completeness.
 
 The spectrum of Ephemerality ranges from manually setting up a fresh environment from the project's specification (which is usually sufficient to catch environment drift) to fully automated disposable environments created and destroyed per execution.
 At the ideal end, ephemeral computation also enables testing across different host systems, where same-host execution validates specification completeness and different-host execution validates that specifications are not coupled to a specific system.
 The FAIRly big workflow\cite{wagner_fairly_2022} and other approaches to using distributed computing platforms such as SLURM or Code Ocean operationalize this ideal, treating each computation as an ephemeral work unit.
-This approach easily enables horizontal scaling, as independent disposable instances that can be parallelized across subjects, parameters, or datasets.
+This approach easily enables horizontal scaling, as independent disposable instances can be parallelized across subjects, parameters, or datasets.
+
 Yet Ephemeral computation does not validate everything.
 For instance, an ephemeral environment with network access may fail to notice unpinned dependencies fetched at build time, a self-containment gap that only surfaces when those resources move or disappear.
 Nonetheless, the principle substantially raises confidence that the research object is self-contained, portable, and actionable.
@@ -262,11 +264,12 @@ The distinction mirrors the concept of a software distribution: a curated, versi
 Simply sharing a research object by uploading scripts to a repository with loose dependencies, or posting files on a website with no version or other persistence guarantees, does not constitute distribution in this sense.
 A distributable research object is packaged so that it can be retrieved in the same state as intended.
 
-Distributability also has a circular relationship with the other STAMPED principles: someone else's distribution effort often serves as the starting point for a new research object's self-containment.
+Distributability also has a circular relationship with the other STAMPED principles in that someone else's distribution effort often serves as the starting point for a new research object's self-containment.
 Researchers routinely begin by downloading containers, fetching published datasets, and installing released software---modularly composing the distributions of others to assemble their own self-contained research objects.
 
-The spectrum of Distributability begins where FAIR leaves off: publicly accessible components with documented retrieval instructions.
-Toward the ideal end, several complementary strategies reduce the risk that external changes will break a research object's reproducibility: bundling dependencies into containers or archives reduces the surface area of components that can independently change or disappear; hosting on archival infrastructure (Zenodo, DANDI, Software Heritage) with content-addressed identifiers allows recipients to verify integrity regardless of source; and mirroring across multiple platforms protects against the failure of any single registry.
+The spectrum of Distributability begins where FAIR leaves off, with publicly accessible components and documented retrieval instructions.
+Toward the ideal end, several complementary strategies reduce the risk that external changes will break a research object's reproducibility.
+Bundling dependencies into containers or archives reduces the surface area of components that can independently change or disappear; hosting on archival infrastructure (Zenodo, DANDI, Software Heritage) with content-addressed identifiers allows recipients to verify integrity regardless of source; mirroring across multiple platforms protects against the failure of any single registry.
 
 \begin{table}[htbp]
 \centering
