@@ -64,12 +64,12 @@ contributors:
     roles:
       - Conceptualization                                # confirmed by author
       - Funding acquisition                              # confirmed by author (ReproNim, OpenNeuro, DANDI, EMBER grants)
-      - {role: Supervision, degree: lead}                # DRAFT — overall project leadership across stamped-* repos
-      - Project administration                           # DRAFT — multi-repo coordination
-      - Methodology                                      # DRAFT — schema and principles-schema design
-      - Software                                         # DRAFT — build-pdf CI, diff-pdf containers, Zotero bib pipeline
-      - Resources                                        # DRAFT — grant-funded infrastructure (computing, tooling)
-      - Writing – review & editing                       # DRAFT — ~89 commits on main.tex
+      - {role: Supervision, degree: lead}                # overall project leadership across stamped-* repos
+      - Project administration                           # multi-repo coordination
+      - Methodology                                      # schema and principles-schema design
+      - Software                                         # build-pdf CI, diff-pdf containers, Zotero bib pipeline
+      - Resources                                        # grant-funded infrastructure (computing, tooling)
+      - Writing – review & editing                       # ~89 commits on main.tex
 
 # Render-time style. The renderer reads these to format the prose
 # section. Nature Scientific Data shows author contributions in
