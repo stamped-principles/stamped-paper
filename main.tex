@@ -181,7 +181,7 @@ At the ideal end, each principle is enacted not through documentation alone but 
 \end{itemize}
 The principle is tool-agnostic; any system that moves a property from documented to executable moves the research object further along the actionability spectrum.
 Actionability also extends from tooling to the operational layer of a research group.
-A SciOps-style workflow makes hand-offs between experimental, analytical, and engineering stages explicit so that artifacts move from one step to the next with unambiguous state\cite{johnson_sciops_2024}, an organizational counterpart to the per-component actionability described above.
+A SciOps-style workflow makes hand-offs between experimental, analytical, and engineering stages explicit so that artifacts move from one step to the next with unambiguous state transition\cite{johnson_sciops_2024}, an organizational counterpart to the per-component actionability described above.
 
 
 
@@ -213,7 +213,7 @@ Toward the ideal end, the full research object can be reassembled from its speci
     \item \textbf{P.3}: Environment definitions MUST be version controlled.
 \end{itemize}
 
-A research object that is self-contained, tracked, and modular may still fail to run on a different machine if it is silently affected by the inherited host state.
+A research object that is self-contained, tracked, and modular may still fail to run on a different machine if it is silently affected by any inherited host state.
 Common examples of such states include specific developer-level package installations with no released versions, unique system libraries exposed to custom user profiles, hardcoded system paths, or an assumed OS configuration (e.g., path character limits).
 This coupling is often invisible on the original system and only surfaces when someone else attempts to reproduce the work.
 Portability requires making all host dependencies explicit, so that the research object can be adapted to a new environment.
@@ -237,7 +237,7 @@ During development, researchers routinely modify their environment by installing
 Each change is individually small but collectively difficult to document manually.
 The result is environment drift, where an environment that works but may not be reconstructable from its specification alone.
 When this occurs, undocumented steps can go unnoticed when internalized knowledge silently fills the gaps.
-Ephemerality eliminates this problem by construction; a disposable environment built from tracked specifications cannot carry undocumented state, so any successful execution exercises Self-containment, Actionability, and specification completeness.
+Ephemerality eliminates this problem by construction; a disposable environment built from tracked specifications cannot carry any undocumented state, so that successful execution exercises Self-containment, Actionability, and specification completeness.
 
 The spectrum of Ephemerality ranges from manually setting up a fresh environment from the project's specification (which is usually sufficient to catch environment drift) to fully automated disposable environments created and destroyed per execution.
 At the ideal end, ephemeral computation also enables testing across different host systems, where same-host execution validates specification completeness and different-host execution validates that specifications are not coupled to a specific system.
@@ -318,7 +318,7 @@ Bundling dependencies into containers or archives reduces the surface area of co
 \begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
   \item computation can occur in temporary, disposable environments
   \item results are reproducible without knowledge of previous runs
-  \item no reliance on external configurations or host system states (such as OS registry modifications)
+  \item no reliance on any external configuration or host system state (such as OS registry modification)
 \end{itemize} \\
 \hline
 \textbf{To be Distributable:} &
@@ -609,7 +609,7 @@ AI coding assistants and specification-driven toolkits such as spec-kit move thi
 This holds provided the preceding extensions for models, provenance, and machine-actionable instructions are in place.
 This closes a loop with the end-to-end ``AI scientist'' systems that opened this section\cite{boiko_autonomous_2023, lu_ai_2024, mitchener_kosmos_2025}.
 As soon as an agentic pipeline takes a study specification and returns data, code, figures, and a draft manuscript, the specification and every downstream artifact must together satisfy STAMPED, not only to keep such pipelines efficient to re-run at lower cost but to make their outputs introspectable.
-Tracked and self-contained research objects let a researcher inspect which model, prompt, and decision led to a particular result, implement ``hand over'' between humans and agents alike and let subsequent actor re-enter a prior state and continue from it without rediscovering context.
+Tracked and self-contained research objects let a researcher inspect which model, prompt, and decision led to a particular result, implement ``hand over'' between humans and agents alike and let subsequent actor re-enter any prior state and continue from it without rediscovering context.
 At the end, human scientists authoring and iterating over the specification of a STAMPED research object would see how their edits propagate through the generated implementation.
 Without the STAMPED principles, the acceleration might be real but the accountability would be lost.
 Instead, spec-driven agentic research becomes a collaborative, transparent artifact between scientists and the AI systems that support them.
