@@ -114,13 +114,13 @@ We call this the ``don't look up'' rule: a research object must never rely on an
 Instead, it must be a complete retrieval unit, where all modules and components essential to reproduce its results are contained within a single top-level boundary (S.1, Table~1).
 
 Components may be included literally (e.g., files committed directly) or by reference (e.g., as subdatasets, registered data URLs).
-Both approaches satisfy Self-containment~(S), provided the references are explicit and part of the research object.
+Both approaches satisfy self-containment, provided the references are explicit and part of the research object.
 At a minimum, everything needed is gathered under one root and any external dependency is explicitly documented.
 This ensures that nothing is implicitly assumed about the host system, a concern further addressed by Portability.
 At the ideal end, every reference is precise enough that retrieval is unambiguous; how to achieve that precision is the concern of Tracking (T) and Distributability (D).
 
-Self-containment~(S) is the foundation upon which the remaining STAMPED principles are built.
-Tracking, Modularity, Portability, and Distributability each address a different aspect of how that boundary is organized, versioned, and shared---but none are meaningful without first establishing what is inside it.
+Self-containment is the foundation upon which the remaining STAMPED principles are built.
+Tracking~(T), Modularity~(M), Portability~(P), and Distributability~(D) each address a different aspect of how that boundary is organized, versioned, and shared---but none are meaningful without first establishing what is inside it.
 
 
 
@@ -150,11 +150,9 @@ Compatible tools such as git-annex, DataLad, or DVC extend content-addressed tra
 
 Toward the ideal end, provenance is captured programmatically by tooling rather than by manual annotation.
 Each computational step should record exactly what command was executed and what inputs were consumed, producing richer and more reliable records than a human would typically write.
-When modules are independently Tracked~(T) under compatible systems, the version of every module at the time of each commit is also discoverable, providing a complete picture of the state that produced a given result.
+When modules are independently Tracked under compatible systems, the version of every module at the time of each commit is also discoverable, providing a complete picture of the state that produced a given result.
 This enables not just inspection but re-execution.
 Beyond the research object itself, knowing the state of data and code at each hand-off between experimental, analytical, and engineering stages is what allows a team to coordinate updates without losing the provenance chain---an operational view of Tracking developed by the SciOps framework\cite{johnson_sciops_2024}.
-% TODO: cite Tek Raj paper, provenance format approaches
-% TODO: mention W3C PROV, RO-Crate, BEP028 as interoperable export targets
 
 
 
