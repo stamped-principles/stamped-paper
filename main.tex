@@ -116,8 +116,8 @@ Instead, it must be a complete retrieval unit, where all modules and components 
 Components may be included literally (e.g., files committed directly) or by reference (e.g., as subdatasets, registered data URLs).
 Both approaches satisfy self-containment, provided the references are explicit and part of the research object.
 At a minimum, everything needed is gathered under one root and any external dependency is explicitly documented.
-This ensures that nothing is implicitly assumed about the host system, a concern further addressed by Portability.
-At the ideal end, every reference is precise enough that retrieval is unambiguous; how to achieve that precision is the concern of Tracking (T) and Distributability (D).
+This ensures that nothing is implicitly assumed about the host system, a concern further addressed by Portability~(P).
+At the ideal end, every reference is precise enough that retrieval is unambiguous; how to achieve that precision is the concern of Tracking~(T) and Distributability~(D).
 
 Self-containment is the foundation upon which the remaining STAMPED principles are built.
 Tracking~(T), Modularity~(M), Portability~(P), and Distributability~(D) each address a different aspect of how that boundary is organized, versioned, and shared---but none are meaningful without first establishing what is inside it.
@@ -436,7 +436,7 @@ The pages tagged ``STAMPED-intro'' (\url{https://examples.stamped-principles.org
 Several research projects have already adopted and documented the YODA principles (the predecessor to STAMPED) demonstrating practical utility across domains.
 
 \textbf{BIDS Standard Evolution}: A significant validation of the ``do not look up'' principle occurred within the Brain Imaging Data Structure (BIDS)\cite{gorgolewski_brain_2016} community.
-Originally, the BIDS specification nested derived data under \texttt{derivatives/} within the original raw dataset, creating upward dependencies that violated portability.
+Originally, the BIDS specification nested derived data under \texttt{derivatives/} within the original raw dataset, creating upward dependencies that violated Portability~(P).
 Following YODA principles, the BIDS community reversed this relationship so that derivative datasets now exist independently and reference raw data as subdatasets, not vice versa.
 
 This architectural shift influenced major neuroimaging tools:
@@ -549,7 +549,7 @@ The cost of under-specified middleware is already visible in practice; the NARPS
 \anchoredsubsubsection{provenance-standards}{Provenance standards convergence}
 
 As FAIR leaves specific protocols and standards open, STAMPED likewise does not prescribe a serialization for provenance records, and in practice researchers rely on whatever their tooling emits.
-Convergence among existing approaches would let STAMPED research objects carry portable provenance across toolchains without lock-in.
+Convergence among existing approaches would let STAMPED research objects carry Portable~(P) provenance across toolchains without lock-in.
 Relevant efforts include cross-domain standards such as W3C PROV\cite{w3c_provenance_working_group_prov-overview_2013} and RO-Crate\cite{peroni_packaging_2022}, tool-level records such as DataLad's\cite{halchenko_datalad_2021} \texttt{datalad run} provenance, and domain-specific specifications such as BIDS-Prov (BEP028)\cite{bids_community_bep028_2025}.
 This is less a change to STAMPED itself than a call on these communities: Tracking (T) becomes substantially more useful when provenance records follow shared standards and can be exported, compared, and re-interpreted by tools other than the one that generated them.
 
