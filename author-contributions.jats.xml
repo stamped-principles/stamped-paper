@@ -6,6 +6,7 @@
       <surname>Macdonald</surname>
     </string-name>
     <contrib-id contrib-id-type="orcid">https://orcid.org/0000-0002-8124-807X</contrib-id>
+    <role vocab="credit" vocab-identifier="https://credit.niso.org/" vocab-term="Conceptualization" vocab-term-identifier="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>
     <role vocab="credit" vocab-identifier="https://credit.niso.org/" vocab-term="Methodology" vocab-term-identifier="https://credit.niso.org/contributor-roles/methodology/">Methodology</role>
     <role vocab="credit" vocab-identifier="https://credit.niso.org/" vocab-term="Software" vocab-term-identifier="https://credit.niso.org/contributor-roles/software/">Software</role>
     <role vocab="credit" vocab-identifier="https://credit.niso.org/" vocab-term="Resources" vocab-term-identifier="https://credit.niso.org/contributor-roles/resources/">Resources</role>
@@ -31,7 +32,6 @@
       <surname>To</surname>
     </string-name>
     <contrib-id contrib-id-type="orcid">https://orcid.org/0000-0002-4740-0824</contrib-id>
-    <role vocab="credit" vocab-identifier="https://credit.niso.org/" vocab-term="Validation" vocab-term-identifier="https://credit.niso.org/contributor-roles/validation/">Validation</role>
     <role vocab="credit" vocab-identifier="https://credit.niso.org/" vocab-term="Writing – review &amp; editing" vocab-term-identifier="https://credit.niso.org/contributor-roles/writing-review-editing/">Writing – review &amp; editing</role>
   </contrib>
   <contrib contrib-type="author">
