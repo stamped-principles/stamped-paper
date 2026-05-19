@@ -9,10 +9,11 @@
 \usepackage[super,sort&compress]{natbib}
 \usepackage{url}  % handles special chars in URLs/DOIs in bibliography
 
-\usepackage{color}
+\usepackage{xcolor} % superset of `color`; required because orcidlink pulls in tikz/xcolor
 \definecolor{darkblue}{rgb}{0,0.08,0.35}
 \definecolor{darkgreen}{rgb}{0,0.35,0.08}
 \usepackage[backref=false,breaklinks,colorlinks,citecolor=darkblue,linkcolor=darkgreen,urlcolor=darkblue,hyperindex,plainpages=false,pdftex]{hyperref} % Hyper-references
+\usepackage{orcidlink} % green ORCID iD logo next to each author (used by authors.tex)
 
 % Headings with a named PDF destination. Usage:
 %   \anchoredsection{intro}{Introduction}
@@ -33,7 +34,9 @@
 
 % Scientific Data: max 110 chars, no colons or parentheses, capitalize only first word + proper nouns
 \title{STAMPED principles for reproducible research objects}
-\author{Austin Macdonald, Cody C. Baker, Isaac To, Yaroslav O. Halchenko}
+% Byline + affiliations are rendered from .tributors + .tributors.credit.yaml.
+% Regenerate via `make authors` (renderer: code/render_authors.py).
+\input{authors}
 \newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
 \date{\monthyeardate\today}
 
@@ -642,6 +645,12 @@ The auxiliary code that supports it is distributed across the organization's rep
 \bibliography{references}
 
 \anchoredsection{author-contributions}{Author Contributions}
+
+% Contributions follow the CRediT taxonomy (https://credit.niso.org/,
+% ANSI/NISO Z39.104-2022). Single source of truth: .tributors.credit.yaml
+% (CRediT overlay) + .tributors (identity, con/tributors JSON cache).
+% Regenerate via `make author-contributions` (renderer: code/render_credit.py).
+\input{author-contributions}
 
 \anchoredsection{competing-interests}{Competing Interests}
 The authors declare no competing interests.

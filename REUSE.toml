@@ -1,11 +1,14 @@
 version = 1
 
 # Code, tooling, and build/CI configuration are licensed under Apache-2.0.
+# `code/**` is narrowed to exclude vendored MIT-licensed helpers
+# (see the MIT annotations block below).
 [[annotations]]
 path = [
     ".github/**",
     ".claude/**",
-    "code/**",
+    "code/*.sh",
+    "code/render-checklist/**",
     "containers/**",
     "Makefile",
     ".gitignore",
@@ -14,10 +17,28 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = "2025-2026 STAMPED Principles authors and contributors"
 SPDX-License-Identifier = "Apache-2.0"
 
+# Python helpers vendored from the credit-contributions skill, which
+# render the byline and Author Contributions section. Each file carries
+# its own SPDX header (MIT, Yaroslav Halchenko); this block is the
+# REUSE.toml-side declaration. precedence = "closest" defers to the
+# inline header, so re-vendoring an upstream that changes its license
+# does not require editing REUSE.toml.
+[[annotations]]
+path = [
+    "code/render_authors.py",
+    "code/render_credit.py",
+]
+precedence = "closest"
+SPDX-FileCopyrightText = "2026 Yaroslav Halchenko <yaroslav.o.halchenko@dartmouth.edu>"
+SPDX-License-Identifier = "MIT"
+
 # Manuscript text, bibliography, and figures are licensed under CC-BY-4.0.
 [[annotations]]
 path = [
     "main.tex",
+    "authors.tex",
+    "author-contributions.tex",
+    "author-contributions.jats.xml",
     "references.bib",
     "outline.md",
     "README.md",
@@ -26,6 +47,18 @@ path = [
     "proposals/**",
     "research/**",
     "figures/**",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2025-2026 STAMPED Principles authors and contributors"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+# Contributor identity (.tributors) and CRediT role overlay
+# (.tributors.credit.yaml). Authorship metadata — license as CC-BY-4.0
+# so attribution is preserved when the files are reused.
+[[annotations]]
+path = [
+    ".tributors",
+    ".tributors.credit.yaml",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2025-2026 STAMPED Principles authors and contributors"
