@@ -150,7 +150,7 @@ Compatible tools such as git-annex, DataLad, or DVC extend content-addressed tra
 
 Toward the ideal end, provenance is captured programmatically by tooling rather than by manual annotation.
 Each computational step should record exactly what command was executed and what inputs were consumed, producing richer and more reliable records than a human would typically write.
-When modules are independently tracked under compatible systems, the version of every module at the time of each commit is also discoverable, providing a complete picture of the state that produced a given result.
+When modules are independently Tracked~(T) under compatible systems, the version of every module at the time of each commit is also discoverable, providing a complete picture of the state that produced a given result.
 This enables not just inspection but re-execution.
 Beyond the research object itself, knowing the state of data and code at each hand-off between experimental, analytical, and engineering stages is what allows a team to coordinate updates without losing the provenance chain---an operational view of Tracking developed by the SciOps framework\cite{johnson_sciops_2024}.
 % TODO: cite Tek Raj paper, provenance format approaches
@@ -237,7 +237,7 @@ During development, researchers routinely modify their environment by installing
 Each change is individually small but collectively difficult to document manually.
 The result is environment drift, where an environment that works but may not be reconstructable from its specification alone.
 When this occurs, undocumented steps can go unnoticed when internalized knowledge silently fills the gaps.
-Ephemerality eliminates this problem by construction; a disposable environment built from tracked specifications cannot carry undocumented state, so any successful execution exercises Self-containment, Actionability, and specification completeness.
+Ephemerality eliminates this problem by construction; a disposable environment built from Tracked~(T) specifications cannot carry undocumented state, so any successful execution exercises Self-containment, Actionability, and specification completeness.
 
 The spectrum of Ephemerality ranges from manually setting up a fresh environment from the project's specification (which is usually sufficient to catch environment drift) to fully automated disposable environments created and destroyed per execution.
 At the ideal end, ephemeral computation also enables testing across different host systems, where same-host execution validates specification completeness and different-host execution validates that specifications are not coupled to a specific system.
@@ -304,7 +304,7 @@ Bundling dependencies into containers or archives reduces the surface area of co
 \hline
 \textbf{To be Modular:} &
 \begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
-  \item modules can be independently tracked, modified, and distributed
+  \item modules can be independently Tracked~(T), modified, and Distributed~(D)
   \item components are organized in logical, separable units
   \item modules can be composed together or used in isolation
 \end{itemize} \\
@@ -585,7 +585,7 @@ Because the agentic-AI ecosystem is evolving rapidly, the directions below are i
 Machine learning models are becoming standard components of research workflows, yet they are often fetched at runtime from external repositories with no guarantee of long-term availability or version stability.
 Users frequently interact with models through platforms without knowing which model version produced their results.
 Even where models are nominally versioned, the degree of control varies widely, with Hugging Face providing commit-level pinning while commercial APIs may silently update the model behind a fixed endpoint.
-Self-containment (S) extends naturally to this case: models are tracked components of the research object, just as data and code are today.
+Self-containment (S) extends naturally to this case: models are Tracked~(T) components of the research object, just as data and code are today.
 Practical mechanisms exist for open models, such as pinned revisions on Hugging Face or, for durable self-containment, archival copies managed via \texttt{git-annex}.
 Tracking what training data and procedures produced a given model remains an open problem that intersects copyright, benchmarking, and provenance, and is mostly beyond what STAMPED can prescribe.
 Community artifacts such as Model Cards\cite{mitchell_model_2019} and Datasheets for Datasets\cite{gebru_datasheets_2021} nonetheless point toward the shape of an answer.
@@ -598,7 +598,7 @@ Emerging tools such as Entire CLI\cite{entire_entire_2026} go further, automatin
 A practical tension follows wherein agent sessions can produce enormous transcripts, and including them wholesale may dilute the value of more targeted provenance records, so what to capture and at what granularity remain open questions.
 Bitwise reproducibility is not the target and rarely is the goal even for human-driven steps.
 Instead, what the record must preserve is the hypothesis, the method specification, and enough of the decision trail to support introspection.
-Self-contained~(S) models (above) strengthen this chain---when the model itself is tracked, the provenance record is more complete.
+Self-contained~(S) models (above) strengthen this chain---when the model itself is Tracked~(T), the provenance record is more complete.
 
 \paragraph{Machine-actionable instructions.}
 Actionability~(A) was defined with human operators in mind, including entry-point commands documented in READMEs, frequently incomplete or out of sync with the underlying workflow.
