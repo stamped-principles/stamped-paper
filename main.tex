@@ -114,12 +114,12 @@ We call this the ``don't look up'' rule: a research object must never rely on an
 Instead, it must be a complete retrieval unit, where all modules and components essential to reproduce its results are contained within a single top-level boundary (S.1, Table~1).
 
 Components may be included literally (e.g., files committed directly) or by reference (e.g., as subdatasets, registered data URLs).
-Both approaches satisfy self-containment, provided the references are explicit and part of the research object.
+Both approaches satisfy Self-containment~(S), provided the references are explicit and part of the research object.
 At a minimum, everything needed is gathered under one root and any external dependency is explicitly documented.
 This ensures that nothing is implicitly assumed about the host system, a concern further addressed by Portability.
 At the ideal end, every reference is precise enough that retrieval is unambiguous; how to achieve that precision is the concern of Tracking (T) and Distributability (D).
 
-Self-containment is the foundation upon which the remaining STAMPED principles are built.
+Self-containment~(S) is the foundation upon which the remaining STAMPED principles are built.
 Tracking, Modularity, Portability, and Distributability each address a different aspect of how that boundary is organized, versioned, and shared---but none are meaningful without first establishing what is inside it.
 
 
@@ -245,7 +245,7 @@ The FAIRly big workflow\cite{wagner_fairly_2022} and other approaches to using d
 This approach easily enables horizontal scaling, as independent disposable instances can be parallelized across subjects, parameters, or datasets.
 
 Yet Ephemeral computation does not validate everything.
-For instance, an ephemeral environment with network access may fail to notice unpinned dependencies fetched at build time, a self-containment gap that only surfaces when those resources move or disappear.
+For instance, an ephemeral environment with network access may fail to notice unpinned dependencies fetched at build time, a Self-containment~(S) gap that only surfaces when those resources move or disappear.
 Nonetheless, the principle substantially raises confidence that the research object is Self-contained~(S), Portable~(P), and Actionable~(A).
 
 
@@ -265,7 +265,7 @@ The distinction mirrors the concept of a software distribution: a curated, versi
 Simply sharing a research object by uploading scripts to a repository with loose dependencies, or posting files on a website with no version or other persistence guarantees, does not constitute distribution in this sense.
 A distributable research object is packaged so that it can be retrieved in the same state as intended.
 
-Distributability also has a circular relationship with the other STAMPED principles in that someone else's distribution effort often serves as the starting point for a new research object's self-containment.
+Distributability~(D) also has a circular relationship with the other STAMPED principles in that someone else's distribution effort often serves as the starting point for a new research object's Self-containment~(S).
 Researchers routinely begin by downloading containers, fetching published datasets, and installing released software---Modularly~(M) composing the distributions of others to assemble their own Self-contained~(S) research objects.
 
 The spectrum of Distributability begins where FAIR leaves off, with publicly accessible components and documented retrieval instructions.
@@ -362,9 +362,9 @@ Similarly, version control systems such as Git underpin both Tracking (content-a
 
 In practice, self-containing all data might be undesired or prohibitive due to size or other concerns. Extensions such as git-annex, DataLad, DVC, and Git LFS strike the balance between the two principles by tracking metadata that identifies specific data versions and obtainability information instead, e.g., content checksums and URLs of remote servers that act as a source, and providing actionable interfaces to obtain the data when necessary.
 
-This overlap is not incidental — it reflects the interdependence of the STAMPED principles themselves.
-Achieving Ephemerality, for instance, inherently exercises Portability and Actionability; a disposable environment must be reconstituted from explicit specifications, encouraging end-to-end automation.
-Likewise, Distributability builds on Self-containment and Tracking; a research object can only be shared in a consistent, retrievable state if its boundary is well-defined and all components are precisely identified.
+This overlap is not incidental --- it reflects the interdependence of the STAMPED principles themselves.
+Achieving Ephemerality~(E), for instance, inherently exercises Portability~(P) and Actionability~(A); a disposable environment must be reconstituted from explicit specifications, encouraging end-to-end automation.
+Likewise, Distributability~(D) builds on Self-containment~(S) and Tracking~(T); a research object can only be shared in a consistent, retrievable state if its boundary is well-defined and all components are precisely identified.
 The tools that enhance multiple properties of a research object do so precisely because they operationalize these connections.
 Table~\ref{tab:stamped-tools} maps some commonly used tools and technologies to each STAMPED principle.
 
@@ -375,8 +375,8 @@ What matters is that the underlying property is satisfied, regardless of which t
 Where multiple tools enhance the same STAMPED property of an object, the choice between them often involves trade-offs between flexibility and simplicity.
 
 A representative example is the choice between git-annex and Git LFS for large-file tracking.
-Both appear under Self-containment and Tracking in Table~\ref{tab:stamped-tools}, but they occupy different points on a complexity-flexibility spectrum.
-git-annex supports many remote types (e.g. other git repositories over SSH or HTTP, or simple cloud data stores such as S3, local drives, offline USB archives), making it well-suited to multi-institutional collaboration, long-term archival where data sovereignty or offline access is required, as well as local content tracking.
+Both appear under Self-containment~(S) and Tracking~(T) in Table~\ref{tab:stamped-tools}, but they occupy different points on a complexity-flexibility spectrum.
+git-annex supports many remote types (e.g., other git repositories over SSH or HTTP, or simple cloud data stores such as S3, local drives, offline USB archives), making it well-suited to multi-institutional collaboration, long-term archival where data sovereignty or offline access is required, as well as local content tracking.
 Git LFS offers a simpler alternative; it is transparent to users, natively supported by GitHub and GitLab, and broadly adopted.
 But it is centralized (requiring an LFS server), lacks offline capability, and provides less flexible remote configurations.
 Lightweight STAMPED implementations using Git LFS are entirely feasible for easier onboarding, trading flexibility for reduced operational overhead.
@@ -589,8 +589,8 @@ Because the agentic-AI ecosystem is evolving rapidly, the directions below are i
 Machine learning models are becoming standard components of research workflows, yet they are often fetched at runtime from external repositories with no guarantee of long-term availability or version stability.
 Users frequently interact with models through platforms without knowing which model version produced their results.
 Even where models are nominally versioned, the degree of control varies widely, with Hugging Face providing commit-level pinning while commercial APIs may silently update the model behind a fixed endpoint.
-Self-containment (S) extends naturally to this case: models are Tracked~(T) components of the research object, just as data and code are today.
-Practical mechanisms exist for open models, such as pinned revisions on Hugging Face or, for durable self-containment, archival copies managed via \texttt{git-annex}.
+Self-containment~(S) extends naturally to this case: models are Tracked~(T) components of the research object, just as data and code are today.
+Practical mechanisms exist for open models, such as pinned revisions on Hugging Face or, for durable Self-containment~(S), archival copies managed via \texttt{git-annex}.
 Tracking what training data and procedures produced a given model remains an open problem that intersects copyright, benchmarking, and provenance, and is mostly beyond what STAMPED can prescribe.
 Community artifacts such as Model Cards\cite{mitchell_model_2019} and Datasheets for Datasets\cite{gebru_datasheets_2021} nonetheless point toward the shape of an answer.
 
