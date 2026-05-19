@@ -1,11 +1,14 @@
 version = 1
 
 # Code, tooling, and build/CI configuration are licensed under Apache-2.0.
+# `code/**` is narrowed to exclude vendored MIT-licensed helpers
+# (see the MIT annotations block below).
 [[annotations]]
 path = [
     ".github/**",
     ".claude/**",
-    "code/**",
+    "code/*.sh",
+    "code/render-checklist/**",
     "containers/**",
     "Makefile",
     ".gitignore",
@@ -13,6 +16,21 @@ path = [
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2025-2026 STAMPED Principles authors and contributors"
 SPDX-License-Identifier = "Apache-2.0"
+
+# Python helpers vendored from the credit-contributions skill, which
+# render the byline and Author Contributions section. Each file carries
+# its own SPDX header (MIT, Yaroslav Halchenko); this block is the
+# REUSE.toml-side declaration. precedence = "closest" defers to the
+# inline header, so re-vendoring an upstream that changes its license
+# does not require editing REUSE.toml.
+[[annotations]]
+path = [
+    "code/render_authors.py",
+    "code/render_credit.py",
+]
+precedence = "closest"
+SPDX-FileCopyrightText = "2026 Yaroslav Halchenko <yaroslav.o.halchenko@dartmouth.edu>"
+SPDX-License-Identifier = "MIT"
 
 # Manuscript text, bibliography, and figures are licensed under CC-BY-4.0.
 [[annotations]]
