@@ -165,7 +165,7 @@ Beyond the research object itself, knowing the state of data and code at each ha
     \item \textbf{A.2}: Procedures SHOULD be specified as executable specifications.
 \end{itemize}
 
-A research object may be self-contained and fully tracked, yet having all ingredients and a record of what was done is insufficient without a recipe that can be followed.
+A research object may be Self-contained~(S) and fully Tracked~(T), yet having all ingredients and a record of what was done is insufficient without a recipe that can be followed.
 Requirement A.1 is what makes a research object operationally useful by bridging the gap between having the components and being able to use them.
 
 At a minimum, a research object must contain documentation thorough enough for another researcher to follow every step to reproduce results.
@@ -213,7 +213,7 @@ Toward the ideal end, the full research object can be reassembled from its speci
     \item \textbf{P.3}: Environment definitions MUST be version controlled.
 \end{itemize}
 
-A research object that is self-contained, tracked, and modular may still fail to run on a different machine if it is silently affected by the inherited host state.
+A research object that is Self-contained~(S), Tracked~(T), and Modular~(M) may still fail to run on a different machine if it is silently affected by the inherited host state.
 Common examples of such states include specific developer-level package installations with no released versions, unique system libraries exposed to custom user profiles, hardcoded system paths, or an assumed OS configuration (e.g., path character limits).
 This coupling is often invisible on the original system and only surfaces when someone else attempts to reproduce the work.
 Portability requires making all host dependencies explicit, so that the research object can be adapted to a new environment.
@@ -246,7 +246,8 @@ This approach easily enables horizontal scaling, as independent disposable insta
 
 Yet Ephemeral computation does not validate everything.
 For instance, an ephemeral environment with network access may fail to notice unpinned dependencies fetched at build time, a self-containment gap that only surfaces when those resources move or disappear.
-Nonetheless, the principle substantially raises confidence that the research object is self-contained, portable, and actionable.
+Nonetheless, the principle substantially raises confidence that the research object is Self-contained~(S), Portable~(
+P), and Actionable~(A).
 
 
 
@@ -257,16 +258,17 @@ Nonetheless, the principle substantially raises confidence that the research obj
     \item \textbf{D.2}: Environment specifications SHOULD support reproducible builds.
 \end{itemize}
 
-A research object that is self-contained on the author's machine but cannot be obtained by others in the same state is effectively unreproducible beyond its origin.
-Self-containment (S) establishes that everything needed is within the boundary and Tracking (T) records the state of each component.
-Distributability ensures that others can obtain the research object in that same state.
+A research object that is Self-contained~(S) on the author's machine but cannot be obtained by others in the same state is effectively unreproducible beyond its origin.
+Self-containment~(S) establishes that everything needed is within the boundary and Tracking~(T) records the state of each component.
+Distributability~(D) ensures that others can obtain the research object in that same state.
 
 The distinction mirrors the concept of a software distribution: a curated, versioned bundle in which all components are resolved to specific versions and packaged for consumption.
 Simply sharing a research object by uploading scripts to a repository with loose dependencies, or posting files on a website with no version or other persistence guarantees, does not constitute distribution in this sense.
 A distributable research object is packaged so that it can be retrieved in the same state as intended.
 
 Distributability also has a circular relationship with the other STAMPED principles in that someone else's distribution effort often serves as the starting point for a new research object's self-containment.
-Researchers routinely begin by downloading containers, fetching published datasets, and installing released software---modularly composing the distributions of others to assemble their own self-contained research objects.
+Researchers routinely begin by downloading containers, fetching published datasets, and installing released software---Modularly~(M) composing the distributions of others to assemble their own Self-contained~(S) research
+objects.
 
 The spectrum of Distributability begins where FAIR leaves off, with publicly accessible components and documented retrieval instructions.
 Toward the ideal end, several complementary strategies reduce the risk that external changes will break a research object's reproducibility.
@@ -535,7 +537,7 @@ A complementary view is emerging in which workflow implementations themselves be
 Declarative workflow languages such as CWL\cite{crusoe_methods_2022}, Snakemake\cite{molder_sustainable_2021}, and Nextflow\cite{di_tommaso_nextflow_2017}, together with fully-declarative environment managers such as Nix and Guix, already operate this way.
 The specification accumulates the domain knowledge, including inputs, constraints, expected outputs, and validation criteria, while any given implementation can be rebuilt or replaced without loss.
 Under this view, STAMPED principles apply to the specification first and the generated implementation second.
-The specification is what must be Self-contained, Tracked, Actionable, and Distributable, while the running code is ephemeral in the same sense as a container.
+The specification is what must be Self-contained~(S), Tracked~(T), Actionable~(A), and Distributable~(D), while the running code is ephemeral in the same sense as a container.
 The connection to pre-registration is direct and generalizes Ephemerality even further\cite{nosek_preregistration_2018}.
 A well-formulated study specification is a commitment that survives any particular implementation, and what is ephemeral expands from the compute environment to the full ``scientific middleware'' (data acquisition, harmonization, preprocessing, analytics), with each stage reduced to a specification from which implementations can be derived.
 That is where concentration on formalization and standardization of overall study specifications becomes the target to apply STAMPED principles, so that the middleware steps could also be automatically carried out in an ephemeral fashion and potentially while exploring various possible implementations.
@@ -552,7 +554,7 @@ This is less a change to STAMPED itself than a call on these communities: Tracki
 \anchoredsubsubsection{adoption-incentives}{Adoption incentives and tool certification}
 
 STAMPED compliance today is self-assessed against the checklist fulfilling a simple LinkML model\cite{stamped-checklist-schema:v0.1.0}, which then presented in this paper, and exposed to users in a convenient Web UI at \url{https://checklist.stamped-principles.org}.
-That Web UI provides self-contained stateful permalinks to render any particular state of the filled out checklist, so they could be shared easily.
+That Web UI provides Self-contained~(S) stateful permalinks to render any particular state of the filled out checklist,so they could be shared easily.
 Broader adoption will depend on promotion and external incentives, including funder mandates (e.g.,\ NIH Data Management and Sharing policies), journal reproducibility badges\cite{center_for_open_science_open_2023}, and venue-level review checklists that converge toward automated scoring. 
 Such a trajectory would parallel that of FAIR, which has moved from principles to machine-assessable indicators with tools such as F-UJI\cite{devaraju_automated_2021}.
 No automated tool yet available as of now certifies STAMPED compliance.
@@ -575,7 +577,7 @@ Continued community outreach, including a recent introduction to STAMPED\cite{ba
 AI agents are now generating analysis code, selecting methods, and in some systems running entire research cycles end-to-end\cite{boiko_autonomous_2023, lu_ai_2024, mitchener_kosmos_2025}.
 Without explicit structure, this automation can produce results whose provenance and reasoning are irrecoverable\cite{messeri_artificial_2024}.
 The STAMPED principles already carry most of what is needed.
-Self-contained workspaces alone give agents a well-defined boundary; Tracked histories make agent contributions auditable and contribute to their ``memory''; Actionable documentation serves humans and machines alike.
+Self-contained~(S) workspaces alone give agents a well-defined boundary; Tracked~(T) histories make agent contributions auditable and contribute to their ``memory''; Actionable~(A) documentation serves humans and machines alike.
 As with any new methodology or instrumentation entering science, several of these principles need AI-era extensions.
 Because the agentic-AI ecosystem is evolving rapidly, the directions below are indicative rather than exhaustive.
 
@@ -596,11 +598,11 @@ Emerging tools such as Entire CLI\cite{entire_entire_2026} go further, automatin
 A practical tension follows wherein agent sessions can produce enormous transcripts, and including them wholesale may dilute the value of more targeted provenance records, so what to capture and at what granularity remain open questions.
 Bitwise reproducibility is not the target and rarely is the goal even for human-driven steps.
 Instead, what the record must preserve is the hypothesis, the method specification, and enough of the decision trail to support introspection.
-Self-contained models (above) strengthen this chain---when the model itself is tracked, the provenance record is more complete.
+Self-contained~(S) models (above) strengthen this chain---when the model itself is tracked, the provenance record is more complete.
 
 \paragraph{Machine-actionable instructions.}
-Actionability (A) was defined with human operators in mind, including entry-point commands documented in READMEs, frequently incomplete or out of sync with the underlying workflow.
-AI agents are a second consumer of the same prose, one that can parse, follow, and correct instructions on the fly, and plain Markdown has effectively become the interface language: \texttt{CLAUDE.md} files, README-driven agent workflows, and spec-kit\cite{github_spec_2025} collections now function as machine-actionable interfaces, making Self-contained and Tracked research objects more Actionable.
+Actionability~(A) was defined with human operators in mind, including entry-point commands documented in READMEs, frequently incomplete or out of sync with the underlying workflow.
+AI agents are a second consumer of the same prose, one that can parse, follow, and correct instructions on the fly, and plain Markdown has effectively become the interface language: \texttt{CLAUDE.md} files, README-driven agent workflows, and spec-kit\cite{github_spec_2025} collections now function as machine-actionable interfaces, making Self-contained~(S) and Tracked~(T) research objects more Actionable~(A).
 Where prose instructions fail, the failure is legible (an audit mechanism that did not exist before) even if agent-driven execution remains less reliable than deterministic tooling.
 
 \paragraph{AI-accelerated specification-to-implementation.}
@@ -609,7 +611,7 @@ AI coding assistants and specification-driven toolkits such as spec-kit move thi
 This holds provided the preceding extensions for models, provenance, and machine-actionable instructions are in place.
 This closes a loop with the end-to-end ``AI scientist'' systems that opened this section\cite{boiko_autonomous_2023, lu_ai_2024, mitchener_kosmos_2025}.
 As soon as an agentic pipeline takes a study specification and returns data, code, figures, and a draft manuscript, the specification and every downstream artifact must together satisfy STAMPED, not only to keep such pipelines efficient to re-run at lower cost but to make their outputs introspectable.
-Tracked and self-contained research objects let a researcher inspect which model, prompt, and decision led to a particular result, implement ``hand over'' between humans and agents alike and let subsequent actor re-enter a prior state and continue from it without rediscovering context.
+Tracked~(T) and Self-contained~(S) research objects let a researcher inspect which model, prompt, and decision led to a particular result, implement ``hand over'' between humans and agents alike and let subsequent actor re-enter a prior state and continue from it without rediscovering context.
 At the end, human scientists authoring and iterating over the specification of a STAMPED research object would see how their edits propagate through the generated implementation.
 Without the STAMPED principles, the acceleration might be real but the accountability would be lost.
 Instead, spec-driven agentic research becomes a collaborative, transparent artifact between scientists and the AI systems that support them.
