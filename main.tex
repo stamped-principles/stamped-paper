@@ -493,6 +493,11 @@ Though not an exhaustive list: Galaxy\cite{afgan_galaxy_2018} (first released 20
 On the standards side, the W3C~PROV data model (2013), Frictionless Data (2007), RO-Crate\cite{peroni_packaging_2022}, and BioComputeObject (IEEE~2791-2020) each addressed interoperable packaging and provenance recording.
 The facts that FAIR required elaboration to accommodate software\cite{barker_introducing_2022} and workflows\cite{goble_fair_2020,wilkinson_applying_2025}, and that independent standards converged on provenance and packaging, confirms that these dimensions are recurrently demanded by research practice.
 
+Preregistration is the practice of committing to a study plan before outcomes are observed, which extends Tracking~(T) to the intent behind a study.
+It was established in clinical trials by the early 2000s and gradually expanded into behavioral, social, and computational research\cite{nosek_preregistration_2018}.
+The Open Science Framework\cite{foster_open_2017} (2013) combined that practice with a ``hub'' for collaboration and storage, producing read-only snapshots of a study's plan, data, code, and manuscripts under a single DOI, reflecting Self-containment~(S) and Distributability~(D).
+In some cases, pre-registration can also be considered a precursor to the Ephemerality~(E) of the actual scientific pipeline where work is concentrated on formulating hypothesis, planing and potentially simulations, thus making actual later implementation of it replaceable. 
+
 Framework tooling and domain standards reveal the same pattern at the project-layout level.
 Cookiecutter Data Science (2016), BIDS\cite{gorgolewski_brain_2016} (2016), Kedro (2019), nipoppy (2023), and others, all imposed opinionated directory structures and modular separation (independently motivated by the costs of ad-hoc layouts)---reflecting Modularity~(M) and Self-containment~(S).
 Each framework constrains where code and documentation reside, how raw data inputs and derived outputs are handled, which makes such projects navigable by \emph{convention}.
@@ -540,6 +545,7 @@ Under this view, STAMPED principles apply to the specification first and the gen
 The specification is what must be Self-contained~(S), Tracked~(T), Actionable~(A), and Distributable~(D), while the running code is ephemeral in the same sense as a container.
 The connection to pre-registration is direct and generalizes Ephemerality even further\cite{nosek_preregistration_2018}.
 A well-formulated study specification is a commitment that survives any particular implementation, and what is ephemeral expands from the compute environment to the full ``scientific middleware'' (data acquisition, harmonization, preprocessing, analytics), with each stage reduced to a specification from which implementations can be derived.
+OSF Registrations\cite{foster_open_2017} already operate this way for preregistered plans, fixing a study's specification under a DOI before any implementation begins.
 That is where concentration on formalization and standardization of overall study specifications becomes the target to apply STAMPED principles, so that the middleware steps could also be automatically carried out in an ephemeral fashion and potentially while exploring various possible implementations.
 The cost of under-specified middleware is already visible in practice; the NARPS study showed that 70 independent teams analyzing the same fMRI dataset with nominally similar hypotheses produced substantially divergent results\cite{botvinik-nezer_variability_2020}, precisely because the study specification left most of the middleware up to each team.
 
