@@ -5,7 +5,7 @@ FLAVORS = PDF
 # sudo apt install latex-make   on Debian systems
 include /usr/include/LaTeX.mk
 
-main.pdf: references.bib authors.tex author-contributions.tex
+main.pdf: references.bib authors.tex author-contributions.tex | author-contributions.jats.xml
 
 # Author byline and CRediT contributions are rendered from the
 # .tributors{,.credit.yaml} single source of truth. Renderers are vendored
