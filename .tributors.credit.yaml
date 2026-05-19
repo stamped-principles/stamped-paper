@@ -56,8 +56,7 @@ contributors:
   candleindark:
     initials: I.T.                    # explicit to disambiguate against potential future I.M.s, etc.
     roles:
-      - Validation                    # DRAFT — technical/editorial review on main.tex
-      - Writing – review & editing    # DRAFT — ~36 commits, all copy-edits on main.tex
+      - Writing – review & editing    # ~36 commits, all copy-edits on main.tex
 
   yarikoptic:
     # initials Y.O.H. auto-derived
