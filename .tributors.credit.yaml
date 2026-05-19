@@ -36,7 +36,7 @@ contributors:
   asmacdo:
     # initials A.M. auto-derived
     roles:
-      - Conceptualization              # Initial drafts, initial formalized requirements
+      - Conceptualization             # Initial drafts, initial formalized requirements
       - Methodology                   # stamped-examples reference implementations of the principles
       - Software                      # CI workflow (overleaf-sync, build-pdf, diff-pdf wiring) and code/ scripts
       - Resources                     # concrete example workflows used to evaluate the principles
