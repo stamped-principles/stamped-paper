@@ -217,7 +217,7 @@ This coupling is often invisible on the original system and only surfaces when s
 Portability requires making all host dependencies explicit, so that the research object can be adapted to a new environment.
 
 Some degree of coupling to the host is unavoidable, such as path naming restrictions (``C:/'' vs. ``/mnt''), resource limits (minimum CPU/RAM requirements), or platform-specific flags.
-The spectrum of Portability begins with isolating this host-specific configuration from the rest of the research object, so that adapting to a new environment, however involved that may be, requires only changing the configuration.
+The spectrum of portability begins with isolating this host-specific configuration from the rest of the research object, so that adapting to a new environment, however involved that may be, requires only changing the configuration.
 Beyond this, several complementary approaches reduce host coupling.
 Virtual machines provide full system-level isolation; container-based tools (Docker, Singularity/Apptainer) bundle OS-level environments; declarative package managers (Nix, Guix) specify environments that can be reconstructed from a definition.
 Toward the ideal end, the computational environment is fully specified and version-controlled within the research object, enabling it to be instantiated on any compatible system.
@@ -230,19 +230,19 @@ Toward the ideal end, the computational environment is fully specified and versi
     \item \textbf{E.1}: Computational results SHOULD be produced in ephemeral environments.
 \end{itemize}
 
-A research object may satisfy Self-containment, Tracking, and Portability while its computational environment has only ever been assembled once, incrementally, on the original researcher's machine.
+A research object may satisfy Self-containment~(S), Tracking~(T), and Portability~(P) while its computational environment has only ever been assembled once, incrementally, on the original researcher's machine.
 During development, researchers routinely modify their environment by installing packages, adjusting configurations, and setting variables.
 Each change is individually small but collectively difficult to document manually.
 The result is environment drift, where an environment that works but may not be reconstructable from its specification alone.
 When this occurs, undocumented steps can go unnoticed when internalized knowledge silently fills the gaps.
 Ephemerality eliminates this problem by construction; a disposable environment built from Tracked~(T) specifications cannot carry any undocumented state, so that successful execution exercises Self-containment~(S), Actionability~(A), and specification completeness.
 
-The spectrum of Ephemerality ranges from manually setting up a fresh environment from the project's specification (which is usually sufficient to catch environment drift) to fully automated disposable environments created and destroyed per execution.
+The spectrum of ephemerality ranges from manually setting up a fresh environment from the project's specification (which is usually sufficient to catch environment drift) to fully automated disposable environments created and destroyed per execution.
 At the ideal end, ephemeral computation also enables testing across different host systems, where same-host execution validates specification completeness and different-host execution validates that specifications are not coupled to a specific system.
 The FAIRly big workflow\cite{wagner_fairly_2022} and other approaches to using distributed computing platforms such as SLURM or Code Ocean operationalize this ideal, treating each computation as an ephemeral work unit.
 This approach easily enables horizontal scaling, as independent disposable instances can be parallelized across subjects, parameters, or datasets.
 
-Yet Ephemeral computation does not validate everything.
+Yet ephemeral computation does not validate everything.
 For instance, an ephemeral environment with network access may fail to notice unpinned dependencies fetched at build time, a Self-containment~(S) gap that only surfaces when those resources move or disappear.
 Nonetheless, the principle substantially raises confidence that the research object is Self-contained~(S), Portable~(P), and Actionable~(A).
 
@@ -257,16 +257,16 @@ Nonetheless, the principle substantially raises confidence that the research obj
 
 A research object that is Self-contained~(S) on the author's machine but cannot be obtained by others in the same state is effectively unreproducible beyond its origin.
 Self-containment~(S) establishes that everything needed is within the boundary and Tracking~(T) records the state of each component.
-Distributability~(D) ensures that others can obtain the research object in that same state.
+Distributability ensures that others can obtain the research object in that same state.
 
 The distinction mirrors the concept of a software distribution: a curated, versioned bundle in which all components are resolved to specific versions and packaged for consumption.
 Simply sharing a research object by uploading scripts to a repository with loose dependencies, or posting files on a website with no version or other persistence guarantees, does not constitute distribution in this sense.
 A distributable research object is packaged so that it can be retrieved in the same state as intended.
 
-Distributability~(D) also has a circular relationship with the other STAMPED principles in that someone else's distribution effort often serves as the starting point for a new research object's Self-containment~(S).
+Distributability also has a circular relationship with the other STAMPED principles in that someone else's distribution effort often serves as the starting point for a new research object's Self-containment~(S).
 Researchers routinely begin by downloading containers, fetching published datasets, and installing released software---Modularly~(M) composing the distributions of others to assemble their own Self-contained~(S) research objects.
 
-The spectrum of Distributability begins where FAIR leaves off, with publicly accessible components and documented retrieval instructions.
+The spectrum of distributability begins where FAIR leaves off, with publicly accessible components and documented retrieval instructions.
 Toward the ideal end, several complementary strategies reduce the risk that external changes will break a research object's reproducibility.
 Bundling dependencies into containers or archives reduces the surface area of components that can independently change or disappear; hosting on archival infrastructure (Zenodo, DANDI, Software Heritage) with content-addressed identifiers allows recipients to verify integrity regardless of source; mirroring across multiple platforms protects against the failure of any single registry.
 
@@ -355,7 +355,7 @@ The schema for this checklist is itself a living, version-tracked entity \cite{s
 \anchoredsubsection{enabling-tools}{Enabling tools}
 
 No single tool addresses all the dimensions of scientific rigor described above, though many tools contribute to one or several properties simultaneously.
-For example, container technologies such as Docker or Singularity serve Portability by providing OS-level isolation from explicit environment specifications, enable Ephemerality by disposing per-execution environments, and facilitate Distributability by producing frozen, shareable artifacts.
+For example, container technologies such as Docker or Singularity serve Portability by providing OS-level isolation from explicit environment specifications, enable Ephemerality~(E) by disposing per-execution environments, and facilitate Distributability~(D) by producing frozen, shareable artifacts.
 Similarly, version control systems such as Git underpin both Tracking (content-addressed identification and change history) and Self-containment (gathering all components under a single root).
 
 In practice, Self-containing~(S) all data might be undesired or prohibitive due to size or other concerns.
@@ -389,31 +389,31 @@ The same pattern of flexibility versus simplicity recurs across other tool choic
 \hline
 \textbf{Principle} & \textbf{Tools / Technologies} & \textbf{Role} \\
 \hline
-\textbf{Self-containment (S)} &
+\textbf{Self-containment~(S)} &
 Git submodules, DataLad, git-annex, DVC, Git LFS &
 Gather all components (code, data, environments) under a single root via direct inclusion or explicit references (e.g., subdatasets, registered URLs) \\
 \hline
-\textbf{Tracking (T)} &
+\textbf{Tracking~(T)} &
 Git, git-annex, DataLad, DVC, Docker and other containers, Kedro, Git LFS, OSF.io, Zenodo and other data archives providing DOIs &
 Version control for code and data; content-addressed identification; provenance recording (e.g., \texttt{datalad run} for programmatic provenance capture); persistent identifiers for content (DOIs) \\
 \hline
-\textbf{Actionability (A)} &
+\textbf{Actionability~(A)} &
 Make, Snakemake, Nextflow, CWL, \texttt{datalad run}, \texttt{git annex addcomputed} &
 Define executable specifications for workflows; provide clear entry points for reproducing results \\
 \hline
-\textbf{Modularity (M)} &
+\textbf{Modularity~(M)} &
 Git submodules, DataLad subdatasets, Kedro &
 Organize components into independently versioned, composable modules; provide project templates with logical directory separation \\
 \hline
-\textbf{Portability (P)} &
+\textbf{Portability~(P)} &
 Docker, Singularity, Nix, \texttt{conda}, \texttt{pip} (\texttt{pyproject.toml}, \texttt{requirements.txt}), \texttt{npm} &
 Explicitly specify and isolate computational environments; container-based (OS-level isolation) or package-based (declarative, reproducible builds) \\
 \hline
-\textbf{Ephemerality (E)} &
+\textbf{Ephemerality~(E)} &
 Docker, Singularity, Docker Compose, Slurm, cloud deployments (e.g., AWS, GCP, Azure, GitHub Actions) &
 Spawn disposable, temporary environments per execution; validate that specifications are complete by reconstituting from scratch \\
 \hline
-\textbf{Distributability (D)} &
+\textbf{Distributability~(D)} &
 Zenodo, PyPI, conda-forge, GitHub Release CDN, DockerHub/GHCR, RO-Crate, \texttt{npm ci}, \texttt{pip freeze}, executable compilers &
 Archive and persistently host frozen, versioned research objects and their components; enable retrieval by others in the intended state \\
 \hline
@@ -529,21 +529,22 @@ The milestones shown are illustrative rather than exhaustive; many other influen
 
 STAMPED principles provide a vocabulary rather than a closed specification, which is rooted in practices that continue to evolve with tooling, policy, and scientific convention.
 The directions below identify open fronts where the framework's vocabulary will need to stretch, and where complementary work by adjacent communities will shape how STAMPED assists researchers in the coming decade.
-We begin with directions that apply broadly across computational science, including generalizing Ephemerality to workflow specifications, aligning provenance standards, building adoption incentives, and seeding training pipelines.
+We begin with directions that apply broadly across computational science, including generalizing Ephemerality~(E) to workflow specifications, aligning provenance standards, building adoption incentives, and seeding training pipelines.
 The remainder of the section then addresses the more specific and fast-moving challenges introduced by AI, where several STAMPED principles need explicit extensions and where the stakes for transparent, reproducible research are most immediate.
 
 \anchoredsubsubsection{spec-centric}{Specification-centric research objects as the reproducibility ideal}
 
-Ephemerality (E), as formulated here, treats the compute environment as disposable while the code and data it runs on remain durable.
+Ephemerality~(E), as formulated here, treats the compute environment as disposable while the code and data it runs on remain durable.
 A complementary view is emerging in which workflow implementations themselves become regenerable from a durable specification.
 Declarative workflow languages such as CWL\cite{crusoe_methods_2022}, Snakemake\cite{molder_sustainable_2021}, and Nextflow\cite{di_tommaso_nextflow_2017}, together with fully-declarative environment managers such as Nix and Guix, already operate this way.
 The specification accumulates the domain knowledge, including inputs, constraints, expected outputs, and validation criteria, while any given implementation can be rebuilt or replaced without loss.
 Under this view, STAMPED principles apply to the specification first and the generated implementation second.
-The specification is what must be Self-contained~(S), Tracked~(T), Actionable~(A), and Distributable~(D), while the running code is ephemeral in the same sense as a container.
-The connection to pre-registration is direct and generalizes Ephemerality even further\cite{nosek_preregistration_2018}.
-A well-formulated study specification is a commitment that survives any particular implementation, and what is ephemeral expands from the compute environment to the full ``scientific middleware'' (data acquisition, harmonization, preprocessing, analytics), with each stage reduced to a specification from which implementations can be derived.
+The specification is what must be Self-contained~(S), Tracked~(T), Actionable~(A), and Distributable~(D), while the running code is Ephemeral~(E) in the same sense as a container.
+The connection to pre-registration is direct and generalizes Ephemerality~(E) even further\cite{nosek_preregistration_2018}.
+A well-formulated study specification is a commitment that survives any particular implementation, and what is Ephemeral~(E) expands from the compute environment to the full ``scientific middleware'' (data acquisition,
+harmonization, preprocessing, analytics), with each stage reduced to a specification from which implementations can be derived.
 OSF Registrations\cite{foster_open_2017} already operate this way for preregistered plans, fixing a study's specification under a DOI before any implementation begins.
-That is where concentration on formalization and standardization of overall study specifications becomes the target to apply STAMPED principles, so that the middleware steps could also be automatically carried out in an ephemeral fashion and potentially while exploring various possible implementations.
+That is where concentration on formalization and standardization of overall study specifications becomes the target to apply STAMPED principles, so that the middleware steps could also be automatically carried out in an Ephemeral~(E) fashion and potentially while exploring various possible implementations.
 The cost of under-specified middleware is already visible in practice; the NARPS study showed that 70 independent teams analyzing the same fMRI dataset with nominally similar hypotheses produced substantially divergent results\cite{botvinik-nezer_variability_2020}, precisely because the study specification left most of the middleware up to each team.
 
 \anchoredsubsubsection{provenance-standards}{Provenance standards convergence}
