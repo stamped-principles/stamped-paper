@@ -214,7 +214,7 @@ Toward the ideal end, the full research object can be reassembled from its speci
 \end{itemize}
 
 A research object that is self-contained, tracked, and modular may still fail to run on a different machine if it is silently affected by the inherited host state.
-Common examples of such states include specific developer-level package installations with no released versions, unique system libraries exposed to custom user profiles, hardcoded system paths, or an assumed OS configuration (\textit{e.g.}, path character limits).
+Common examples of such states include specific developer-level package installations with no released versions, unique system libraries exposed to custom user profiles, hardcoded system paths, or an assumed OS configuration (e.g., path character limits).
 This coupling is often invisible on the original system and only surfaces when someone else attempts to reproduce the work.
 Portability requires making all host dependencies explicit, so that the research object can be adapted to a new environment.
 
@@ -407,7 +407,7 @@ Git submodules, DataLad subdatasets, Kedro &
 Organize components into independently versioned, composable modules; provide project templates with logical directory separation \\
 \hline
 \textbf{Portability (P)} &
-Docker, Singularity, Nix, conda, pip (\texttt{pyproject.toml}, \texttt{requirements.txt}), npm &
+Docker, Singularity, Nix, \texttt{conda}, \texttt{pip} (\texttt{pyproject.toml}, \texttt{requirements.txt}), \texttt{npm} &
 Explicitly specify and isolate computational environments; container-based (OS-level isolation) or package-based (declarative, reproducible builds) \\
 \hline
 \textbf{Ephemerality (E)} &
