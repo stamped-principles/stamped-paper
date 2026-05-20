@@ -149,14 +149,15 @@ This unifies identity and provenance in a single system and also provides a safe
 For tracking to be effective, all components of the research object must be under version control: code, data, environment definitions, and configuration.
 
 Traditional version control is designed for code and other text files, but research objects often include large binary datasets, container images, and other assets that do not fit this model.
-Compatible tools such as git-annex, DataLad, or DVC extend content-addressed tracking to these components, ensuring that all parts of the research object are managed under the same system.
+Compatible tools such as git-annex, DataLad\cite{halchenko_datalad_2021}, or DVC\cite{ruslan_kuprieiev_dvc_2026} extend content-addressed tracking to these components, ensuring that all parts of the research object are managed under the same system.
 
 Toward the ideal end, provenance is captured programmatically by tooling rather than by manual annotation.
 Each computational step should record exactly what command was executed and what inputs were consumed, producing richer and more reliable records than a human would typically write.
 When modules are independently tracked under compatible systems, the version of every module at the time of each commit is also discoverable, providing a complete picture of the state that produced a given result.
 This enables not just inspection but re-execution.
 Beyond the research object itself, knowing the state of data and code at each hand-off between experimental, analytical, and engineering stages is what allows a team to coordinate updates without losing the provenance chain---an operational view of Tracking developed by the SciOps framework\cite{johnson_sciops_2024}.
-
+Across communities, multiple ontologies and packaging standards have emerged to make these provenance records portable across tools, including cross-domain models such as W3C~PROV\cite{w3c_provenance_working_group_prov-overview_2013}, packaging formats such as RO-Crate\cite{peroni_packaging_2022}, and domain-specific specifications such as BIDS-Prov (BEP028)\cite{bids_community_bep028_2025}.
+The relationships among such provenance, assertion, and evidence ontologies have been surveyed recently\cite{chhetri_bridging_2025}, emphasing already available reach ecosystem to be promoted and wider adopted for improving Tracking of scentific results.
 
 
 \anchoredsubsection{actionability}{Actionability}
@@ -222,7 +223,7 @@ Portability requires making all host dependencies explicit, so that the research
 Some degree of coupling to the host is unavoidable, such as path naming restrictions (``C:/'' vs. ``/mnt''), resource limits (minimum CPU/RAM requirements), or platform-specific flags.
 The spectrum of portability begins with isolating this host-specific configuration from the rest of the research object, so that adapting to a new environment, however involved that may be, requires only changing the configuration.
 Beyond this, several complementary approaches reduce host coupling.
-Virtual machines provide full system-level isolation; container-based tools (Docker, Singularity/Apptainer) bundle OS-level environments; declarative package managers (Nix, Guix) specify environments that can be reconstructed from a definition.
+Virtual machines provide full system-level isolation; container-based tools (Docker, Singularity/Apptainer) bundle OS-level environments; declarative package managers (Nix\cite{kowalewski_sustainable_2022}, Guix\cite{courtes_reproducible_2015}) specify environments that can be reconstructed from a definition.
 Toward the ideal end, the computational environment is fully specified and version-controlled within the research object, enabling it to be instantiated on any compatible system.
 
 
@@ -242,7 +243,7 @@ Ephemerality eliminates this problem by construction; a disposable environment b
 
 The spectrum of ephemerality ranges from manually setting up a fresh environment from the project's specification (which is usually sufficient to catch environment drift) to fully automated disposable environments created and destroyed per execution.
 At the ideal end, ephemeral computation also enables testing across different host systems, where same-host execution validates specification completeness and different-host execution validates that specifications are not coupled to a specific system.
-The FAIRly big workflow\cite{wagner_fairly_2022} and other approaches to using Distributed!(D) computing platforms such as SLURM or Code Ocean operationalize this ideal, treating each computation as an ephemeral work unit.
+The FAIRly big workflow\cite{wagner_fairly_2022} and other approaches to using Distributed~(D) computing platforms such as SLURM or Code Ocean\cite{cheifet_promoting_2021} operationalize this ideal, treating each computation as an ephemeral work unit.
 This approach easily enables horizontal scaling, as independent disposable instances can be parallelized across subjects, parameters, or datasets.
 
 Yet ephemeral computation does not validate everything.
@@ -444,9 +445,9 @@ Following YODA principles, the BIDS community reversed this relationship so that
 
 This architectural shift influenced major neuroimaging tools:
 \begin{itemize}
-    \item \textbf{fMRIPrep}: Switched default output layout to follow YODA structure
+    \item \textbf{fMRIPrep}\cite{esteban_analysis_2020}: Switched default output layout to follow YODA structure
     % TODO: add GitHub issue reference for "yoda" layout proposal
-    \item \textbf{OpenNeuroDerivatives}: Entire derivative dataset collection now follows YODA organization, separating processed outputs from raw data dependencies
+    \item \textbf{OpenNeuroDerivatives}\cite{markiewicz_openneuro_2021}: Entire derivative dataset collection now follows YODA organization, separating processed outputs from raw data dependencies
     \item \textbf{BIDS specification}: Updated to accommodate and recommend YODA-compliant layouts for derivative datasets
 \end{itemize}
 
@@ -483,14 +484,14 @@ Building on YODA and this emphasis on actionability, the VAMP formulation\cite{h
 Notably, the WCI-FW framework\cite{wilkinson_applying_2025} extended FAIR to computational workflows but explicitly declined to define new principles, leaving the operational gap  that STAMPED fills (how a research object should be structured and managed).
 
 Independent of these normative efforts, a parallel ``Git for data'' convergence occurred in tooling.
-git-annex (2010), Git~LFS (2015), DVC (2017), Pachyderm (2014), and Icechunk (2024) all independently arrived at content-addressed identification of large files, logical separation of metadata from bulk storage, and derivation records linking inputs to outputs.
+git-annex (2010), Git~LFS (2015), DVC (2017), Pachyderm (2014), and Icechunk\cite{abernathey_icechunk_2024} (2024) all independently arrived at content-addressed identification of large files, logical separation of metadata from bulk storage, and derivation records linking inputs to outputs.
 These systems vary widely in architecture, ranging from cloud-native to local-first and from centralized to distributed.
 Despite these differences, each converged on the same core insight, that version-control semantics proven for code could and should extend to data.
 This convergence is evidence not of influence but of shared need, and maps most directly onto Tracking~(T).
 
 A complementary convergence emerged in platforms and metadata standards.
-Though not an exhaustive list: Galaxy\cite{afgan_galaxy_2018} (first released 2005), Code~Ocean (2017), and brainlife.io\cite{hayashi_brainlifeio_2024} each provided turnkey reproducibility services, each implementing separation of code, data, and environment as a first-class abstraction---reflecting Self-containment~(S), Actionability~(A), and Portability~(P).
-On the standards side, the W3C~PROV data model (2013), Frictionless Data (2007), RO-Crate\cite{peroni_packaging_2022}, and BioComputeObject (IEEE~2791-2020) each addressed interoperable packaging and provenance recording.
+Though not an exhaustive list: Galaxy\cite{afgan_galaxy_2018} (first released 2005), Code~Ocean\cite{cheifet_promoting_2021} (2017), and brainlife.io\cite{hayashi_brainlifeio_2024} each provided turnkey reproducibility services, each implementing separation of code, data, and environment as a first-class abstraction---reflecting Self-containment~(S), Actionability~(A), and Portability~(P).
+On the standards side, the W3C~PROV data model (2013), Frictionless Data\cite{fowler_frictionless_2018} (2007), RO-Crate\cite{peroni_packaging_2022}, and BioComputeObject\cite{ferrer_biocompute_2017} (IEEE~2791-2020, \url{https://biocomputeobject.org}) each addressed interoperable packaging and provenance recording.
 The facts that FAIR required elaboration to accommodate software\cite{barker_introducing_2022} and workflows\cite{goble_fair_2020,wilkinson_applying_2025}, and that independent standards converged on provenance and packaging, confirms that these dimensions are recurrently demanded by research practice.
 
 Preregistration is the practice of committing to a study plan before outcomes are observed, which extends Tracking~(T) to the intent behind a study.
@@ -499,7 +500,7 @@ The Open Science Framework\cite{foster_open_2017} (2013) combined that practice 
 In some cases, pre-registration can also be considered a precursor to the Ephemerality~(E) of the actual scientific pipeline where work is concentrated on formulating hypothesis, planing and potentially simulations, thus making actual later implementation of it replaceable. 
 
 Framework tooling and domain standards reveal the same pattern at the project-layout level.
-Cookiecutter Data Science (2016), BIDS\cite{gorgolewski_brain_2016} (2016), Kedro (2019), nipoppy (2023), and others, all imposed opinionated directory structures and modular separation (independently motivated by the costs of ad-hoc layouts)---reflecting Modularity~(M) and Self-containment~(S).
+Cookiecutter Data Science (2016), BIDS\cite{gorgolewski_brain_2016} (2016), Kedro (2019), nipoppy\cite{wang_open_2026} (2023), and others, all imposed opinionated directory structures and modular separation (independently motivated by the costs of ad-hoc layouts)---reflecting Modularity~(M) and Self-containment~(S).
 Each framework constrains where code and documentation reside, how raw data inputs and derived outputs are handled, which makes such projects navigable by \emph{convention}.
 
 Viewed together, these independent lines of development map onto every STAMPED principle.
@@ -539,7 +540,7 @@ The remainder of the section then addresses the more specific and fast-moving ch
 
 Ephemerality~(E), as formulated here, treats the compute environment as disposable while the code and data it runs on remain durable.
 A complementary view is emerging in which workflow implementations themselves become regenerable from a durable specification.
-Declarative workflow languages such as CWL\cite{crusoe_methods_2022}, Snakemake\cite{molder_sustainable_2021}, and Nextflow\cite{di_tommaso_nextflow_2017}, together with fully-declarative environment managers such as Nix and Guix, already operate this way.
+Declarative workflow languages such as CWL\cite{crusoe_methods_2022}, Snakemake\cite{molder_sustainable_2021}, and Nextflow\cite{di_tommaso_nextflow_2017}, together with fully-declarative environment managers such as Nix\cite{kowalewski_sustainable_2022} and Guix\cite{courtes_reproducible_2015}, already operate this way.
 The specification accumulates the domain knowledge, including inputs, constraints, expected outputs, and validation criteria, while any given implementation can be rebuilt or replaced without loss.
 Under this view, STAMPED principles apply to the specification first and the generated implementation second.
 The specification is what must be Self-contained~(S), Tracked~(T), Actionable~(A), and Distributable~(D), while the running code is Ephemeral~(E) in the same sense as a container.
