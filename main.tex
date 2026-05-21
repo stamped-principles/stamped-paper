@@ -28,6 +28,9 @@
 \newcommand{\hyanchor}[1]{\texorpdfstring{\Hy@raisedlink{\hypertarget{#1}{}}}{}}
 \makeatother
 
+\newcommand{\httpsurl}[1]{\href{https://#1}{#1}}
+\newcommand{\ghurl}[1]{\httpsurl{github.com/#1}}
+
 \newcommand{\anchoredsection}[2]{\section[#2]{\hyanchor{#1}#2}}
 \newcommand{\anchoredsubsection}[2]{\subsection[#2]{\hyanchor{#1}#2}}
 \newcommand{\anchoredsubsubsection}[2]{\subsubsection[#2]{\hyanchor{#1}#2}}
@@ -342,7 +345,7 @@ Bundling dependencies into containers or archives reduces the surface area of co
 
 We hope that the preceding sections have provided a clear understanding of the STAMPED principles and their rationale.
 While this understanding is essential, researchers may also benefit from a practical checklist to assess their research objects against these principles.
-Similar to the living examples repository, an interactive checklist has been provided at the webpage \url{https://checklist.stamped-principles.org} to guide assessments of compliance with STAMPED principles, ordered by the strength of the requirement (MUST, SHOULD, MAY).
+Similar to the living examples repository, an interactive checklist has been provided at the \httpsurl{checklist.stamped-principles.org} webpage to guide assessments of compliance with STAMPED principles, ordered by the strength of the requirement (MUST, SHOULD, MAY).
 The schema for this checklist is itself a living, version-tracked entity\cite{stamped-checklist-schema:v0.1.0} that is likely to grow over time as more common violations of the principles are discovered in practice.
 
 \begin{figure}[htbp]
@@ -431,9 +434,9 @@ Archive and persistently host frozen, versioned research objects and their compo
 \anchoredsubsubsection{pedagogical-examples}{Pedagogical examples}
 
 A comprehensive up-to-date review of existing tools is out of scope for this formalization paper and would quickly become outdated.
-To fill that niche, we initiated a satellite project \texttt{stamped-examples}\citep{yaroslav_halchenko_stamped-principlesstamped-examples_2026} with a website to describe tools and examples, and characterize them in terms of STAMPED and FAIR principles at \url{https://examples.stamped-principles.org}.
+To fill that niche, we initiated a satellite project \texttt{stamped-examples}\citep{yaroslav_halchenko_stamped-principlesstamped-examples_2026} with a website to describe tools and examples, and characterize them in terms of STAMPED and FAIR principles at the \httpsurl{examples.stamped-principles.org} website.
 These complement the formal definitions and walk a reader through the STAMPED properties using concrete examples.
-The pages tagged ``STAMPED-intro'' (\url{https://examples.stamped-principles.org/tags/stamped-intro/}) trace how each property applies to the same simple research object, providing a gentle on-ramp before the real-world adoptions below.
+The pages tagged ``STAMPED-intro'' (\httpsurl{examples.stamped-principles.org/tags/stamped-intro/}) trace how each property applies to the same simple research object, providing a gentle on-ramp before the real-world adoptions below.
 
 \anchoredsubsubsection{real-world-adoptions}{Real-world adoptions}
 
@@ -491,7 +494,7 @@ This convergence is evidence not of influence but of shared need, and maps most 
 
 A complementary convergence emerged in platforms and metadata standards.
 Though not an exhaustive list: Galaxy\cite{afgan_galaxy_2018} (first released 2005), Code~Ocean\cite{cheifet_promoting_2021} (2017), and brainlife.io\cite{hayashi_brainlifeio_2024} each provided turnkey reproducibility services, each implementing separation of code, data, and environment as a first-class abstraction---reflecting Self-containment~(S), Actionability~(A), and Portability~(P).
-On the standards side, the W3C~PROV data model (2013), Frictionless Data\cite{fowler_frictionless_2018} (2007), RO-Crate\cite{peroni_packaging_2022}, and BioComputeObject\cite{ferrer_biocompute_2017} (IEEE~2791-2020, \url{https://biocomputeobject.org}) each addressed interoperable packaging and provenance recording.
+On the standards side, the W3C~PROV data model (2013), Frictionless Data\cite{fowler_frictionless_2018} (2007), RO-Crate\cite{peroni_packaging_2022}, and BioComputeObject\cite{ferrer_biocompute_2017} (IEEE~2791-2020, \httpsurl{biocomputeobject.org}) each addressed interoperable packaging and provenance recording.
 The facts that FAIR required elaboration to accommodate software\cite{barker_introducing_2022} and workflows\cite{goble_fair_2020,wilkinson_applying_2025}, and that independent standards converged on provenance and packaging, confirms that these dimensions are recurrently demanded by research practice.
 
 Preregistration is the practice of committing to a study plan before outcomes are observed, which extends Tracking~(T) to the intent behind a study.
@@ -561,12 +564,12 @@ This is less a change to STAMPED itself than a call on these communities: Tracki
 
 \anchoredsubsubsection{adoption-incentives}{Adoption incentives and tool certification}
 
-STAMPED compliance today is self-assessed against the checklist fulfilling a simple LinkML model\cite{stamped-checklist-schema:v0.1.0}, which then presented in this paper, and exposed to users in a convenient Web UI at \url{https://checklist.stamped-principles.org}.
+STAMPED compliance today is self-assessed against the checklist fulfilling a simple LinkML model\cite{stamped-checklist-schema:v0.1.0}, which then presented in this paper, and exposed to users in a convenient Web UI at the \httpsurl{checklist.stamped-principles.org} webpage.
 That Web UI provides Self-contained~(S) stateful permalinks to render any particular state of the filled out checklist,so they could be shared easily.
 Broader adoption will depend on promotion and external incentives, including funder mandates (e.g.,\ NIH Data Management and Sharing policies), journal reproducibility badges\cite{center_for_open_science_open_2023}, and venue-level review checklists that converge toward automated scoring. 
 Such a trajectory would parallel that of FAIR, which has moved from principles to machine-assessable indicators with tools such as F-UJI\cite{devaraju_automated_2021}.
 No automated tool yet available as of now certifies STAMPED compliance.
-A community-maintained benchmark suite, seeded by the satellite examples project associated with this paper (\url{https://examples.stamped-principles.org}), is a natural precursor.
+A community-maintained benchmark suite, seeded by the satellite examples project associated with this paper (\httpsurl{examples.stamped-principles.org}), is a natural precursor.
 
 
 \anchoredsubsubsection{teaching}{Teaching and onboarding}
@@ -627,19 +630,19 @@ Instead, spec-driven agentic research becomes a collaborative, transparent artif
 
 \anchoredsection{data-availability}{Data Availability}
 
-All materials, data and code alike, are shared as part of the \url{https://github.com/stamped-principles} GitHub organization, and released under OSI-approved licenses, with per-file licensing metadata maintained via the REUSE specification.
+All materials, data and code alike, are shared as part of the \ghurl{stamped-principles} GitHub organization, and released under OSI-approved licenses, with per-file licensing metadata maintained via the REUSE specification.
 
-The STAMPED principles\cite{stamped-principles-schema:v0.1.0} (\url{https://github.com/stamped-principles/stamped-principles-schema}) and their accompanying compliance checklist\cite{stamped-checklist-schema:v0.1.0} (\url{https://github.com/stamped-principles/stamped-checklist-schema}) are formally encoded as LinkML schemas with corresponding JSON instances, separating the data model from the principle content so that each can evolve independently.
-All sources for this manuscript (e.g., LaTeX file, figures; \url{https://github.com/stamped-principles/stamped-paper}) have a rendered version at \url{https://paper.stamped-principles.org}.
-Examples illustrating the principles are published as a Hugo-built static website and collected in \url{https://github.com/stamped-principles/stamped-examples}, open for submissions from the community.
-Examples in that repository are metadata-tagged to allow classification and filtering by principle, domain, and tooling as presented at \url{https://examples.stamped-principles.org}.
-Visual identity materials (e.g., logos, favicons, etc) are maintained at \url{https://github.com/stamped-principles/stamped-branding}, and organization-level landing content is served from \url{https://github.com/stamped-principles/.github} at \url{https://stamped-principles.org}.
-The bibliography for this work is curated in the Center for Open Neuroscience public Zotero group library at \url{https://www.zotero.org/groups/6197458/centerforopenneuroscience/library}, which is openly reusable.
+The STAMPED principles\cite{stamped-principles-schema:v0.1.0} (\ghurl{stamped-principles/stamped-principles-schema}) and their accompanying compliance checklist\cite{stamped-checklist-schema:v0.1.0} (\ghurl{principles/stamped-checklist-schema}) are formally encoded as LinkML schemas with corresponding JSON instances, separating the data model from the principle content so that each can evolve independently.
+All sources for this manuscript (e.g., LaTeX file, figures; \ghurl{stamped-principles/stamped-paper}) have a rendered version at \httpsurl{paper.stamped-principles.org}.
+Examples illustrating the principles are published as a Hugo-built static website and collected in \ghurl{stamped-principles/stamped-examples}, open for submissions from the community.
+Examples in that repository are metadata-tagged to allow classification and filtering by principle, domain, and tooling as presented at \httpsurl{examples.stamped-principles.org}.
+Visual identity materials (e.g., logos, favicons, etc) are maintained at \ghurl{stamped-principles/stamped-branding}, and organization-level landing content is served from \ghurl{stamped-principles/.github} at \httpsurl{stamped-principles.org}.
+The bibliography for this work is curated in the Center for Open Neuroscience public Zotero group library at \httpsurl{www.zotero.org/groups/6197458/centerforopenneuroscience/library}, which is openly reusable.
 
 \anchoredsection{code-availability}{Code Availability}
 
 This work is a documentation and formalization project, and the production of scientific software is not its primary aim.
-The auxiliary code that supports it is distributed across the organization's repositories and includes tooling around the LinkML schemas in \texttt{stamped-principles-schema} and \texttt{stamped-checklist-schema}; the front-end JavaScript that powers the interactive compliance checklist deployed at \url{https://checklist.stamped-principles.org}; the Hugo-based site that renders worked examples in \texttt{stamped-examples}; and continuous-integration workflows in \texttt{stamped-paper} that build the manuscript PDF and post diff previews on pull requests.
+The auxiliary code that supports it is distributed across the organization's repositories and includes tooling around the LinkML schemas in \texttt{stamped-principles-schema} and \texttt{stamped-checklist-schema}; the front-end JavaScript that powers the interactive compliance checklist deployed at \httpsurl{checklist.stamped-principles.org}; the Hugo-based site that renders worked examples in \texttt{stamped-examples}; and continuous-integration workflows in \texttt{stamped-paper} that build the manuscript PDF and post diff previews on pull requests.
 
 
 \bibliographystyle{unsrtnat}
@@ -661,7 +664,7 @@ The authors declare no competing interests.
 STAMPED builds directly on prior community efforts to articulate principles for reproducible research data management.
 We are grateful to Michael Hanke and Adina S.\ Wagner for the conceptual development of VAMP\cite{hanke_what_2023}, and to the authors of the original YODA poster\cite{hanke_yoda_2018}---Michael Hanke, Matteo Visconti di Oleggio Castello, Kyle Meyer, and Benjamin Poldrack---whose work laid the foundations on which this formalization rests.
 
-This manuscript and companion materials in the \href{STAMPED Principles GitHub organization}{https://github.com/stamped-principles/} were prepared with the assistance of agentic AI coding tools and large language models (primarily Claude Opus).
+This manuscript and companion materials in the \ghurl{stamped-principles} organization were prepared with the assistance of agentic AI coding tools and large language models (primarily Claude Opus).
 All final text, figures, and specifications were edited and/or confirmed by the human authors, who are responsible for the content.
 Where AI tools notably contributed to a change, we have strived to annotate the corresponding commits with a \texttt{Co-Authored-By} trailer, or analogous comments, to identify the tool and potentially the model version, so that the provenance of individual contributions is inspectable in the public git history of the \texttt{stamped-*} repositories.
 
