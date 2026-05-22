@@ -137,8 +137,7 @@ Tracking~(T), Modularity~(M), Portability~(P), and Distributability~(D) each add
     \item \textbf{T.1}: Persistent content identification MUST be recorded for all components.
     \item \textbf{T.2}: All components SHOULD be tracked using the same content-addressed version control system.
     \item \textbf{T.3}: Provenance of all modifications MUST be recorded.
-    \item \textbf{T.4}: Code-driven provenance SHOULD be recorded programmatically and MUST include the versions of
-    all components involved.
+    \item \textbf{T.4}: Code-driven provenance SHOULD be recorded programmatically and MUST include the versions of all components involved.
 \end{itemize}
 
 Research data and code change constantly during a project, and each change compounds the difficulty of reconstructing any previous state, such as which version of a dataset was used for a particular analysis, what parameters were set, and what code produced a given figure.
@@ -149,11 +148,13 @@ The spectrum of Tracking begins with content-addressed version control.
 Rather than relying on semantic version labels, content-addressed systems identify each state by a checksum of its contents.
 This distinction matters; two datasets labeled ``version 1.0'' by different labs are ambiguous whereas two datasets with identical content hashes are provably identical.
 Version control commits also capture basic provenance of who made the change, when, and a description of why.
+Cryptographic signatures (e.g., signed git commits and tags, sigstore-signed releases) strengthen these records from self-reported to verifiable, allowing recipients to confirm that components and changes originate from the claimed identities.
 This unifies identity and provenance in a single system and also provides a safety net since any change can be reverted and any prior state restored, making it easier to modify and experiment.
 For tracking to be effective, all components of the research object must be under version control: code, data, environment definitions, and configuration.
 
 Traditional version control is designed for code and other text files, but research objects often include large binary datasets, container images, and other assets that do not fit this model.
 Compatible tools such as git-annex, DataLad\cite{halchenko_datalad_2021}, or DVC\cite{ruslan_kuprieiev_dvc_2026} extend content-addressed tracking to these components, ensuring that all parts of the research object are managed under the same system.
+Cryptographic signatures (e.g., signed git commits and tags, sigstore-signed releases, in-toto attestations) strengthen these records from self-reported to verifiable, allowing recipients to confirm that components and changes originate from the claimed identities.
 
 Toward the ideal end, provenance is captured programmatically by tooling rather than by manual annotation.
 Each computational step should record exactly what command was executed and what inputs were consumed, producing richer and more reliable records than a human would typically write.
@@ -283,6 +284,8 @@ Additionally, each module should carry an easily identifiable license or set of 
 The spectrum of distributability begins where FAIR leaves off, with publicly accessible components and documented retrieval instructions.
 Toward the ideal end, several complementary strategies reduce the risk that external changes will break a research object's reproducibility.
 Bundling dependencies into containers or archives reduces the surface area of components that can independently change or disappear; hosting on archival infrastructure (Zenodo, DANDI, Software Heritage) with content-addressed identifiers allows recipients to verify integrity regardless of source; mirroring across multiple platforms protects against the failure of any single registry.
+Where downstream consumers must verify not only integrity but also origin and build process, signed releases and supply-chain attestations (e.g., sigstore, in-toto, SLSA) provide cryptographic evidence that an artifact was produced by the claimed identity from the claimed sources.
+This becomes important when distributed artifacts will execute in environments enforcing code-signing policies, such as notarization or signed container admission.
 
 \begin{table}[htbp]
 \centering
