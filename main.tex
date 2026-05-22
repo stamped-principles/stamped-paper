@@ -469,7 +469,7 @@ The pages tagged ``STAMPED-intro'' (\httpsurl{examples.stamped-principles.org/ta
 Several research projects have already adopted and documented the YODA principles (the predecessor to STAMPED) demonstrating practical utility across domains.
 
 \textbf{BIDS Standard Evolution}: A significant validation of the ``do not look up'' principle occurred within the Brain Imaging Data Structure (BIDS)\cite{gorgolewski_brain_2016} community.
-Originally, the BIDS specification nested derived data under \texttt{derivatives/} within the original raw dataset, creating upward dependencies that violated Modularity~(M) and, as a consequence, Portability~(P).
+Originally, the BIDS specification nested derived data under \texttt{derivatives/} within the original raw dataset, creating upward dependencies that violated Self-containment~(S) and Modularity~(M), which broke Portability~(P).
 Following YODA principles, the BIDS community reversed this relationship so that derivative datasets now exist independently and reference raw data as subdatasets, not vice versa.
 
 This architectural shift influenced major neuroimaging tools:
