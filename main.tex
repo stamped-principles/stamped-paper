@@ -105,13 +105,13 @@ STAMPED provides a descriptive vocabulary and a framework for evaluation that ca
 \hline
 \textbf{Letter} & \textbf{Principle} & \textbf{Description} \\
 \hline
-S & Self-containment & A research object contains all modules and components needed to understand and reproduce its results, without relying on external resources. \\
-T & Tracking & Every component's identity and provenance are recorded and version-controlled. \\
-A & Actionability & The research object provides sufficient information to carry out all procedures needed to obtain and reproduce its content. \\
-M & Modularity & The research object is organized into independent, reusable modules with explicit boundaries. \\
-P & Portability & The research object can be moved to different host systems while retaining its STAMPED properties. \\
-E & Ephemerality & Procedural execution can be performed within a throwaway environment. \\
-D & Distributability & All modules and procedures are shareable with others in a persistent state. \\
+S & Self-containment & A research object is a complete retrieval unit; it can be obtained and understood in its intended scope without needing to reference external resources. \\
+T & Tracking & The state and provenance of all components is recorded. \\
+A & Actionability & Research object contains machine-actionable information to carry out procedures to obtain or reproduce content. \\
+M & Modularity & All modules are independent and composable. \\
+P & Portability & Research object could be moved to different environments while retaining its STAMPED properties. \\
+E & Ephemerality & Procedural execution is performed within a throwaway environment. \\
+D & Distributability & All modules and procedures are shareable externally in a persistent state. \\
 \hline
 \end{tabular}
 \end{table}
@@ -138,7 +138,7 @@ This ensures that nothing is implicitly assumed about the host system, a concern
 At the ideal end, every reference is precise enough that retrieval is unambiguous; how to achieve that precision is the concern of Tracking~(T) and Distributability~(D).
 
 Self-containment is the foundation upon which the remaining STAMPED principles are built.
-Tracking~(T), Actionability~(A), Modularity~(M), Portability~(P), Ephemerality~(E), and Distributability~(D) each address a different aspect of how that content is structured, versioned, and shared---but none are meaningful without first establishing what is inside it.
+Tracking~(T), Modularity~(M), Portability~(P), and Distributability~(D) each address a different aspect of how that boundary is organized, versioned, and shared---but none are meaningful without first establishing what is inside it.
 
 
 
@@ -146,8 +146,8 @@ Tracking~(T), Actionability~(A), Modularity~(M), Portability~(P), Ephemerality~(
 
 \begin{itemize}
     \item \textbf{T.1}: Persistent content identification MUST be recorded for all components.
-    \item \textbf{T.2}: Provenance of all modifications MUST be recorded.
-    \item \textbf{T.3}: All components SHOULD be tracked using the same content-addressed version control system.
+    \item \textbf{T.2}: All components SHOULD be tracked using the same content-addressed version control system.
+    \item \textbf{T.3}: Provenance of all modifications MUST be recorded.
     \item \textbf{T.4}: Code-driven provenance SHOULD be recorded programmatically and MUST include the versions of all components involved.
 \end{itemize}
 
@@ -168,7 +168,7 @@ Traditional version control is designed for code and other text files, but resea
 Compatible tools such as git-annex, DataLad\cite{halchenko_datalad_2021}, or DVC\cite{ruslan_kuprieiev_dvc_2026} extend content-addressed tracking to these components, ensuring that all parts of the research object are managed under the same system.
 
 Toward the ideal end, provenance is captured programmatically by tooling rather than by manual annotation.
-Each computational step should be recorded in terms of exactly what command was executed and what inputs were consumed, producing richer and more reliable records than a human would typically write.
+Each computational step should record exactly what command was executed and what inputs were consumed, producing richer and more reliable records than a human would typically write.
 When modules are independently tracked under compatible systems, the version of every module at the time of each commit is also discoverable, providing a complete picture of the state that produced a given result.
 This enables not just inspection but re-execution.
 Beyond the research object itself, knowing the state of data and code at each hand-off between experimental, analytical, and engineering stages is what allows a team to coordinate updates without losing the provenance chain---an operational view of Tracking developed by the SciOps framework\cite{johnson_sciops_2024}.
@@ -211,7 +211,7 @@ A SciOps-style workflow makes hand-offs between experimental, analytical, and en
     \item \textbf{M.3}: Each module's license SHOULD be declared independently and checked for compatibility at the boundaries where modules are combined
 \end{itemize}
 
-A research object may be Self-contained~(S) and Tracked~(T), yet when all components are interleaved in a single monolithic directory, updating one part risks breaking another, reusing a component requires extracting it by hand, and collaborators must navigate the entire object to find what they need.
+A research object may be Self-contained~(S) and Tracked~(T), yet when all components are interleaved in a single monolithic directory, it can be fragile and difficult to navigate.
 Separation of concerns is a foundational engineering practice: organizing a system so that each piece has a clear, distinct role.
 With clear boundaries between the conceptual components of a research object, it becomes more navigable and maintainable.
 We define a \textbf{module} as a separately Distributable~(D) unit of a research object.
@@ -345,14 +345,14 @@ This becomes important when distributed artifacts will execute in environments e
 \begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
   \item computation can occur in temporary, disposable environments
   \item results are reproducible without knowledge of previous runs
-  \item the environment is rebuilt from its specification before each execution, ensuring no undocumented state carries over
+  \item the environment is rebuilt from its specification before each execution, ensuring no reliance on undocumented state
 \end{itemize} \\
 \hline
 \textbf{To be Distributable:} &
 \begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
   \item all modules and components can be shared in a persistent, retrievable state
   \item dependencies are frozen or pinned to specific versions across systems
-  \item recipients can verify that what they obtained matches the intended state (e.g., via content-addressed identifiers)
+  \item the Research Object can be obtained by others in the same state as intended
 \end{itemize} \\
 \hline
 \end{tabular}
@@ -387,7 +387,8 @@ No single tool addresses all the dimensions of scientific rigor described above,
 For example, container technologies such as Docker or Singularity serve Portability by providing OS-level isolation from explicit environment specifications, enable Ephemerality~(E) by disposing per-execution environments, and facilitate Distributability~(D) by producing frozen, shareable artifacts.
 Similarly, version control systems such as Git underpin both Tracking (content-addressed identification and change history) and Self-containment (gathering all components under a single root).
 
-In practice, Self-containing~(S) all data by storing it directly within the research object may be undesired or prohibitive due to size, licensing, or privacy concerns, creating a tension with Tracking~(T), which requires that every component be identified and versioned.
+In practice, Self-containing~(S) all data by storing it directly within the research object may be undesired or prohibitive due to size, licensing, or privacy concerns.
+This creates a tension with Tracking~(T), which requires that every component be identified and versioned.
 Extensions such as git-annex, DataLad, DVC, and Git LFS strike the balance between the two principles by tracking metadata that identifies specific data versions and obtainability information instead, e.g., content checksums and URLs of remote servers that act as a source, and providing Actionable~(A) interfaces to obtain the data when necessary.
 
 This overlap is not incidental --- it reflects the interdependence of the STAMPED principles themselves.
