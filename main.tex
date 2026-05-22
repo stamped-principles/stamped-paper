@@ -154,7 +154,6 @@ For tracking to be effective, all components of the research object must be unde
 
 Traditional version control is designed for code and other text files, but research objects often include large binary datasets, container images, and other assets that do not fit this model.
 Compatible tools such as git-annex, DataLad\cite{halchenko_datalad_2021}, or DVC\cite{ruslan_kuprieiev_dvc_2026} extend content-addressed tracking to these components, ensuring that all parts of the research object are managed under the same system.
-Cryptographic signatures (e.g., signed git commits and tags, sigstore-signed releases, in-toto attestations) strengthen these records from self-reported to verifiable, allowing recipients to confirm that components and changes originate from the claimed identities.
 
 Toward the ideal end, provenance is captured programmatically by tooling rather than by manual annotation.
 Each computational step should record exactly what command was executed and what inputs were consumed, producing richer and more reliable records than a human would typically write.
