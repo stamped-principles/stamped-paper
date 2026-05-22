@@ -7,6 +7,9 @@ main.pdf
 main.pdf.mk
 main.bbl
 main.blg
+main.fdb_latexmk
+main.fls
+
 conversation-*.md
 *.DS_Store
 .cache/
