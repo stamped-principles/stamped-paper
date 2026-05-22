@@ -384,7 +384,7 @@ The schema for this checklist is itself a living, version-tracked entity\cite{st
 \anchoredsubsection{enabling-tools}{Enabling tools}
 
 No single tool addresses all the dimensions of scientific rigor described above, though many tools contribute to one or several properties simultaneously.
-For example, container technologies such as Docker or Singularity serve Portability by providing OS-level isolation from explicit environment specifications, enable Ephemerality~(E) by disposing per-execution environments, and facilitate Distributability~(D) by producing frozen, shareable artifacts.
+For example, container technologies such as Docker or Singularity serve Portability~(P) by providing OS-level isolation from explicit environment specifications, enable Ephemerality~(E) by disposing per-execution environments, and facilitate Distributability~(D) by producing frozen, shareable artifacts.
 Similarly, version control systems such as Git underpin both Tracking (content-addressed identification and change history) and Self-containment (gathering all components under a single root).
 
 In practice, Self-containing~(S) all data by storing it directly within the research object may be undesired or prohibitive due to size, licensing, or privacy concerns.
@@ -636,7 +636,7 @@ Self-contained~(S) models (above) strengthen this chain---when the model itself 
 
 \paragraph{Machine-actionable instructions.}
 Actionability~(A) was defined with human operators in mind, including entry-point commands documented in READMEs, frequently incomplete or out of sync with the underlying workflow.
-AI agents are a second consumer of the same prose, one that can parse, follow, and correct instructions on the fly, and plain Markdown has effectively become the interface language: \texttt{CLAUDE.md} files, README-driven agent workflows, and spec-kit\cite{github_spec_2025} collections now function as machine-actionable interfaces, making Self-contained~(S) and Tracked~(T) research objects more Actionable~(A).
+AI agents are a second consumer of the same prose, one that can parse, follow, and correct instructions on the fly, and plain Markdown has effectively become the interface language: \texttt{AGENTS.md} files, README-driven agent workflows, and spec-kit\cite{github_spec_2025} collections now function as machine-actionable interfaces, making Self-contained~(S) and Tracked~(T) research objects more Actionable~(A).
 Where prose instructions fail, the failure is legible (an audit mechanism that did not exist before) even if agent-driven execution remains less reliable than deterministic tooling.
 
 \paragraph{AI-accelerated specification-to-implementation.}
