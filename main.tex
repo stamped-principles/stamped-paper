@@ -131,7 +131,7 @@ This ensures that nothing is implicitly assumed about the host system, a concern
 At the ideal end, every reference is precise enough that retrieval is unambiguous; how to achieve that precision is the concern of Tracking~(T) and Distributability~(D).
 
 Self-containment is the foundation upon which the remaining STAMPED principles are built.
-Tracking~(T), Modularity~(M), Portability~(P), and Distributability~(D) each address a different aspect of how that boundary is organized, versioned, and shared---but none are meaningful without first establishing what is inside it.
+Tracking~(T), Actionability~(A), Modularity~(M), Portability~(P), Ephemerality~(E), and Distributability~(D) each address a different aspect of how that content is structured, versioned, and shared---but none are meaningful without first establishing what is inside it.
 
 
 
@@ -139,12 +139,13 @@ Tracking~(T), Modularity~(M), Portability~(P), and Distributability~(D) each add
 
 \begin{itemize}
     \item \textbf{T.1}: Persistent content identification MUST be recorded for all components.
-    \item \textbf{T.2}: All components SHOULD be tracked using the same content-addressed version control system.
-    \item \textbf{T.3}: Provenance of all modifications MUST be recorded.
+    \item \textbf{T.2}: Provenance of all modifications MUST be recorded.
+    \item \textbf{T.3}: All components SHOULD be tracked using the same content-addressed version control system.
     \item \textbf{T.4}: Code-driven provenance SHOULD be recorded programmatically and MUST include the versions of
     all components involved.
 \end{itemize}
 
+A Self-contained~(S) research object gathers everything needed in one place, but without a record of how each component arrived at its current state, reproducing a prior result becomes guesswork.
 Research data and code change constantly during a project, and each change compounds the difficulty of reconstructing any previous state, such as which version of a dataset was used for a particular analysis, what parameters were set, and what code produced a given figure.
 Tracking addresses two concerns: 1) the identity of each component and its exact state at a point in time, and 2) \textbf{provenance}, the recorded history of the actions by which identities produced or modified it.
 These are often managed separately, which makes reproducing and validating past work harder.
@@ -202,6 +203,7 @@ A SciOps-style workflow makes hand-offs between experimental, analytical, and en
     \item \textbf{M.2}: Components MAY be included directly or linked as subdatasets.
 \end{itemize}
 
+A research object may be Self-contained~(S) and Tracked~(T), yet when all components are interleaved in a single monolithic directory, updating one part risks breaking another, reusing a component requires extracting it by hand, and collaborators must navigate the entire object to find what they need.
 Separation of concerns is a foundational engineering practice: organizing a system so that each piece has a clear, distinct role.
 With clear boundaries between the conceptual components of a research object, it becomes more navigable and maintainable.
 We define a \textbf{module} as a separately Distributable~(D) unit of a research object.
