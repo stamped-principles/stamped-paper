@@ -83,7 +83,7 @@ figures/%.svg: figures/%.mmd
 		$(if $(wildcard figures/$*.css),-C figures/$*.css)
 
 figures/%.pdf: figures/%.mmd
-	npx @mermaid-js/mermaid-cli -i $< -o $@ \
+	npx @mermaid-js/mermaid-cli -i $< -o $@ --pdfFit \
 		$(if $(wildcard figures/$*.css),-C figures/$*.css)
 
 # Zotero group library — public, no API key needed
