@@ -49,7 +49,17 @@
 
 \anchoredsection{abstract}{Abstract}
 
-% TODO: compose later when other stuff filled out
+Scientific claims increasingly rely upon the interplay of code, data, and computational environments.
+Yet the record of how they are used together is often incomplete, scattered, or lost.
+This undermines rigor, reproducibility, reusability, and efficiency.
+Previous approaches have improved the governance of digital objects but do not specify how research objects ought to be structured and managed so they can be re-executed and extended.
+The community is missing a shared vocabulary for this operational layer.
+Building on recurrent practices and convergent patterns across disciplines, we formalize seven principles: Self-containment, Tracking, Actionability, Modularity, Portability, Ephemerality, and Distributability (STAMPED).
+Together they give researchers guidelines for building and assessing research objects that others can trust, rerun, and build upon.
+We frame each principle as a spectrum so that adoption is incremental and starts from existing practice.
+We support each principle with normative requirements, an interactive checklist, and a map of enabling tools.
+As conventions mature, tooling improves, and AI agents become increasingly involved in research workflows, the goals of rigor, reproducibility, reusability, and efficiency are becoming more attainable.
+STAMPED gives researchers, collaborators, reviewers, and agents a common language, concrete goals, and an aligned direction for making computational research more durable.
 
 \anchoredsection{introduction}{Introduction}
 
@@ -61,7 +71,7 @@ Even when its components are gathered in one place, a research object is often t
 
 The FAIR principles\cite{wilkinson_fair_2016} and FAIR4RS guidelines\cite{barker_introducing_2022} provide structured guidance for making digital objects "Findable, Accessible, Interoperable, and Reusable".
 The Workflow Community Initiative (WCI-FW)\cite{wilkinson_applying_2025} mapped these principles onto computational workflows but explicitly chose not to define new ones, instead treating workflows as hybrid data \& software objects.
-STAMPED addresses a complementary question: how a research object should be organized and managed so it can actually be re-executed, extended, and redistributed.
+STAMPED addresses a complementary layer: the day-to-day practices that underpin re-execution, extension, and redistribution of a research object.
 Both the FAIR and STAMPED frameworks cover overlapping concerns.
 For example, persistent identifiers serve both Findability and Tracking but accent different aspects.
 FAIR emphasizes discovery and interoperability across repositories, while STAMPED emphasizes improving the operational maturity of scientific workflows in day-to-day research practice.
