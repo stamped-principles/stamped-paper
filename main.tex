@@ -260,6 +260,7 @@ Nonetheless, the principle substantially raises confidence that the research obj
 \begin{itemize}
     \item \textbf{D.1}: All referenced modules and components MUST be persistently retrievable by others.
     \item \textbf{D.2}: Environment specifications SHOULD support reproducible builds.
+    \item \textbf{D.3}: Each module SHOULD carry an explicit license with a resolvable identifier.
 \end{itemize}
 
 A research object that is Self-contained~(S) on the author's machine but cannot be obtained by others in the same state is effectively unreproducible beyond its origin.
@@ -272,6 +273,8 @@ A distributable research object is packaged so that it can be retrieved in the s
 
 Distributability also has a circular relationship with the other STAMPED principles in that someone else's distribution effort often serves as the starting point for a new research object's Self-containment~(S).
 Researchers routinely begin by downloading containers, fetching published datasets, and installing released software---Modularly~(M) composing the distributions of others to assemble their own Self-contained~(S) research objects.
+Though persistent retrievability is a necessary but not sufficient condition for redistribution.
+Additionally, each module should carry an easily identifiable license or set of licenses for any bundled assets (e.g., via SPDX identifiers\cite{} or the REUSE specification\cite{}) so that downstream researchers can compose, modify, and re-share components without legal ambiguity.
 
 The spectrum of distributability begins where FAIR leaves off, with publicly accessible components and documented retrieval instructions.
 Toward the ideal end, several complementary strategies reduce the risk that external changes will break a research object's reproducibility.
