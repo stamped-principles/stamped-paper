@@ -49,7 +49,17 @@
 
 \anchoredsection{abstract}{Abstract}
 
-% TODO: compose later when other stuff filled out
+Scientific claims increasingly rely upon the interplay of code, data, and computational environments.
+Yet the record of how they are used together is often incomplete, scattered, or lost.
+This undermines rigor, reproducibility, reusability, and efficiency.
+Previous approaches have improved the governance of digital objects but do not specify how research objects ought to be structured and managed so they can be re-executed and extended.
+The community is missing a shared vocabulary for this operational layer.
+Building on recurrent practices and convergent patterns across disciplines, we formalize seven principles: Self-containment, Tracking, Actionability, Modularity, Portability, Ephemerality, and Distributability (STAMPED).
+Together they give researchers guidelines for building and assessing research objects that others can trust, rerun, and build upon.
+We frame each principle as a spectrum so that adoption is incremental and starts from existing practice.
+We support each principle with normative requirements, an interactive checklist, and a map of enabling tools.
+As conventions mature, tooling improves, and AI agents become increasingly involved in research workflows, the goals of rigor, reproducibility, reusability, and efficiency are becoming more attainable.
+STAMPED gives researchers, collaborators, reviewers, and agents a common language, concrete goals, and an aligned direction for making computational research more durable.
 
 \anchoredsection{introduction}{Introduction}
 
@@ -61,7 +71,7 @@ Even when its components are gathered in one place, a research object is often t
 
 The FAIR principles\cite{wilkinson_fair_2016} and FAIR4RS guidelines\cite{barker_introducing_2022} provide structured guidance for making digital objects "Findable, Accessible, Interoperable, and Reusable".
 The Workflow Community Initiative (WCI-FW)\cite{wilkinson_applying_2025} mapped these principles onto computational workflows but explicitly chose not to define new ones, instead treating workflows as hybrid data \& software objects.
-STAMPED addresses a complementary question: how a research object should be organized and managed so it can actually be re-executed, extended, and redistributed.
+STAMPED addresses a complementary layer: the day-to-day practices that underpin re-execution, extension, and redistribution of a research object.
 Both the FAIR and STAMPED frameworks cover overlapping concerns.
 For example, persistent identifiers serve both Findability and Tracking but accent different aspects.
 FAIR emphasizes discovery and interoperability across repositories, while STAMPED emphasizes improving the operational maturity of scientific workflows in day-to-day research practice.
@@ -118,6 +128,7 @@ The formal requirements use the graded keywords of RFC~2119\cite{bradner_key_199
 
 \begin{itemize}
     \item \textbf{S.1}: All modules and components essential to replicate computational execution MUST be reachable within a single top-level research object.
+    \item \textbf{S.2}: License declarations for all components are themselves part of the research object and MUST be retrievable alongside the content they govern.
 \end{itemize}
 
 Reproducibility fails when a research object depends on resources that are not part of it; an undocumented library, a dataset referenced by a broken URL, a script that assumes tools are installed on the host system.
@@ -141,8 +152,7 @@ Tracking~(T), Actionability~(A), Modularity~(M), Portability~(P), Ephemerality~(
     \item \textbf{T.1}: Persistent content identification MUST be recorded for all components.
     \item \textbf{T.2}: Provenance of all modifications MUST be recorded.
     \item \textbf{T.3}: All components SHOULD be tracked using the same content-addressed version control system.
-    \item \textbf{T.4}: Code-driven provenance SHOULD be recorded programmatically and MUST include the versions of
-    all components involved.
+    \item \textbf{T.4}: Code-driven provenance SHOULD be recorded programmatically and MUST include the versions of all components involved.
 \end{itemize}
 
 A Self-contained~(S) research object gathers everything needed in one place, but without a record of how each component arrived at its current state, reproducing a prior result becomes guesswork.
@@ -154,6 +164,7 @@ The spectrum of Tracking begins with content-addressed version control.
 Rather than relying on semantic version labels, content-addressed systems identify each state by a checksum of its contents.
 This distinction matters; two datasets labeled ``version 1.0'' by different labs are ambiguous whereas two datasets with identical content hashes are provably identical.
 Version control commits also capture basic provenance of who made the change, when, and a description of why.
+Cryptographic signatures (e.g., signed git commits and tags, sigstore-signed releases) strengthen these records from self-reported to verifiable, allowing recipients to confirm that components and changes originate from the claimed identities.
 This unifies identity and provenance in a single system and also provides a safety net since any change can be reverted and any prior state restored, making it easier to modify and experiment.
 For tracking to be effective, all components of the research object must be under version control: code, data, environment definitions, and configuration.
 
@@ -201,6 +212,7 @@ A SciOps-style workflow makes hand-offs between experimental, analytical, and en
 \begin{itemize}
     \item \textbf{M.1}: Components SHOULD be organized in a modular structure.
     \item \textbf{M.2}: Components MAY be included directly or linked as subdatasets.
+    \item \textbf{M.3}: Each module's license SHOULD be declared independently and checked for compatibility at the boundaries where modules are combined
 \end{itemize}
 
 A research object may be Self-contained~(S) and Tracked~(T), yet when all components are interleaved in a single monolithic directory, updating one part risks breaking another, reusing a component requires extracting it by hand, and collaborators must navigate the entire object to find what they need.
@@ -210,7 +222,9 @@ We define a \textbf{module} as a separately Distributable~(D) unit of a research
 This can include a subdataset, a collection of analysis scripts, or the definition for some computational environment.
 In practice, module boundaries often align with repository boundaries, but a module may also be a published container, a registered dataset, or any independently versioned unit.
 Modularity applies this principle to research objects, structuring them as assemblies of modules whose boundaries are explicit.
-At a minimum, a research object should separate analysis code, input datasets, computational environments, configuration settings, and results into distinct directories.
+Module boundaries are also where license compatibility must be checked, since combining modules with incompatible terms can prevent the assembled research object from being lawfully redistributed.
+
+At a minimum, a research object should separate analysis code, input datasets, computational environments, licenses, configuration settings, and results into distinct directories.
 Beyond this, independent versioning of modules enables reuse; a dataset or environment can be updated to a newer version, or swapped for an alternative, without disrupting the rest of the research object.
 This is possible through manual management but becomes practical when handled by tooling that automates module installation, versioning, and composition.
 Toward the ideal end, the full research object can be reassembled from its specification through automated, recursive installation of its modules.
@@ -267,6 +281,7 @@ Nonetheless, the principle substantially raises confidence that the research obj
 \begin{itemize}
     \item \textbf{D.1}: All referenced modules and components MUST be persistently retrievable by others.
     \item \textbf{D.2}: Environment specifications SHOULD support reproducible builds.
+    \item \textbf{D.3}: Each module SHOULD carry an explicit license with a resolvable identifier.
 \end{itemize}
 
 A research object that is Self-contained~(S) on the author's machine but cannot be obtained by others in the same state is effectively unreproducible beyond its origin.
@@ -279,10 +294,14 @@ A distributable research object is packaged so that it can be retrieved in the s
 
 Distributability also has a circular relationship with the other STAMPED principles in that someone else's distribution effort often serves as the starting point for a new research object's Self-containment~(S).
 Researchers routinely begin by downloading containers, fetching published datasets, and installing released software---Modularly~(M) composing the distributions of others to assemble their own Self-contained~(S) research objects.
+Though persistent retrievability is a necessary but not sufficient condition for redistribution.
+Additionally, each module should carry an easily identifiable license or set of licenses for any bundled assets (e.g., via SPDX identifiers\cite{stewart_software_2010} or the REUSE specification\cite{fsfe_reuse_2024}) so that downstream researchers can compose, modify, and re-share components without legal ambiguity.
 
 The spectrum of distributability begins where FAIR leaves off, with publicly accessible components and documented retrieval instructions.
 Toward the ideal end, several complementary strategies reduce the risk that external changes will break a research object's reproducibility.
 Bundling dependencies into containers or archives reduces the surface area of components that can independently change or disappear; hosting on archival infrastructure (Zenodo, DANDI, Software Heritage) with content-addressed identifiers allows recipients to verify integrity regardless of source; mirroring across multiple platforms protects against the failure of any single registry.
+Where downstream consumers must verify not only integrity but also origin and build process, signed releases and supply-chain attestations (e.g., sigstore, in-toto, SLSA) provide cryptographic evidence that an artifact was produced by the claimed identity from the claimed sources.
+This becomes important when distributed artifacts will execute in environments enforcing code-signing policies, such as notarization or signed container admission.
 
 \begin{table}[htbp]
 \centering
