@@ -83,7 +83,8 @@ These originate from both the YODA Principles\cite{hanke_yoda_2018}, as well as 
 Rather than a compliance threshold, each STAMPED principle is a spectrum from a practical minimum---often what researchers are already doing---to an aspirational ideal.
 A researcher who stores everything under one project directory, version-controls analysis scripts, and documents how to run them is already meeting the practical minimum for Self-containment, Tracking, and Actionability.
 As complexity grows, such as for multi-institutional collaborations with heterogeneous workflows spanning platforms enforcing long-term reproducibility, these same principles guide researchers toward more rigorous practices without requiring wholesale adoption of new tools.
-STAMPED provides a descriptive vocabulary and a framework for evaluation that can incrementally improve the operational properties of research objects towards enhanced rigor, reproducibility, reusability, and efficiency.
+STAMPED provides a descriptive vocabulary and a framework for evaluation that can incrementally improve the operational properties of research objects towards enhanced rigor, reproducibility, reusability, transparency, and efficiency.
+
 
 \begin{figure}[htbp]
 \centering
@@ -94,7 +95,7 @@ STAMPED provides a descriptive vocabulary and a framework for evaluation that ca
 
 
 
-\anchoredsection{comments}{Comments}
+\anchoredsection{principles}{The STAMPED Principles}
 
 \begin{table}[htbp]
 \centering
@@ -115,7 +116,7 @@ D & Distributability & All modules and procedures are shareable externally in a 
 \end{tabular}
 \end{table}
 
-The items containing keywords "MUST", "SHALL", "SHOULD", and "MAY" are to be interpreted as described in RFC 2119\cite{bradner_key_1997}.
+The formal requirements use the graded keywords of RFC~2119\cite{bradner_key_1997}: MUST defines the practical minimum, while SHOULD and MAY indicate progressively more aspirational practices.
 
 
 
@@ -151,8 +152,9 @@ Tracking~(T), Modularity~(M), Portability~(P), and Distributability~(D) each add
 \end{itemize}
 
 Research data and code change constantly during a project, and each change compounds the difficulty of reconstructing any previous state, such as which version of a dataset was used for a particular analysis, what parameters were set, and what code produced a given figure.
-Tracking addresses two concerns: 1) the identity of each component and its exact state at a point in time, and 2) \textbf{provenance}, the recorded history of what actions by which identities produced or modified it.
-These are often managed separately, which makes prior work harder to validate.
+A Self-contained~(S) research object gathers everything needed in one place, but without a record of how each component arrived at its current state, reproducing a prior result becomes guesswork.
+Tracking addresses two concerns: 1) the identity of each component and its exact state at a point in time, and 2) \textbf{provenance}, the recorded history of the actions by which identities produced or modified it.
+These are often managed separately, which makes validating past work harder.
 
 The spectrum of Tracking begins with content-addressed version control.
 Rather than relying on semantic version labels, content-addressed systems identify each state by a checksum of its contents.
@@ -171,7 +173,7 @@ When modules are independently tracked under compatible systems, the version of 
 This enables not just inspection but re-execution.
 Beyond the research object itself, knowing the state of data and code at each hand-off between experimental, analytical, and engineering stages is what allows a team to coordinate updates without losing the provenance chain---an operational view of Tracking developed by the SciOps framework\cite{johnson_sciops_2024}.
 Across communities, multiple ontologies and packaging standards have emerged to make these provenance records portable across tools, including cross-domain models such as W3C~PROV\cite{w3c_provenance_working_group_prov-overview_2013}, packaging formats such as RO-Crate\cite{peroni_packaging_2022}, and domain-specific specifications such as BIDS-Prov (BEP028)\cite{bids_community_bep028_2025}.
-The relationships among such provenance, assertion, and evidence ontologies have been surveyed recently\cite{chhetri_bridging_2025}, emphasing already available reach ecosystem to be promoted and wider adopted for improving Tracking of scentific results.
+The relationships among such provenance, assertion, and evidence ontologies have been surveyed recently\cite{chhetri_bridging_2025}, emphasizing the already available rich ecosystem to be promoted and wider adopted for improving Tracking of scientific processes.
 
 
 \anchoredsubsection{actionability}{Actionability}
@@ -209,6 +211,7 @@ A SciOps-style workflow makes hand-offs between experimental, analytical, and en
     \item \textbf{M.3}: Each module's license SHOULD be declared independently and checked for compatibility at the boundaries where modules are combined
 \end{itemize}
 
+A research object may be Self-contained~(S) and Tracked~(T), yet when all components are interleaved in a single monolithic directory, it can be fragile and difficult to navigate.
 Separation of concerns is a foundational engineering practice: organizing a system so that each piece has a clear, distinct role.
 With clear boundaries between the conceptual components of a research object, it becomes more navigable and maintainable.
 We define a \textbf{module} as a separately Distributable~(D) unit of a research object.
@@ -342,7 +345,7 @@ This becomes important when distributed artifacts will execute in environments e
 \begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
   \item computation can occur in temporary, disposable environments
   \item results are reproducible without knowledge of previous runs
-  \item no reliance on any external configuration or host system state (such as OS registry modification)
+  \item the environment is rebuilt from its specification before each execution, ensuring no reliance on undocumented state
 \end{itemize} \\
 \hline
 \textbf{To be Distributable:} &
@@ -384,7 +387,8 @@ No single tool addresses all the dimensions of scientific rigor described above,
 For example, container technologies such as Docker or Singularity serve Portability by providing OS-level isolation from explicit environment specifications, enable Ephemerality~(E) by disposing per-execution environments, and facilitate Distributability~(D) by producing frozen, shareable artifacts.
 Similarly, version control systems such as Git underpin both Tracking (content-addressed identification and change history) and Self-containment (gathering all components under a single root).
 
-In practice, Self-containing~(S) all data might be undesired or prohibitive due to size or other concerns.
+In practice, Self-containing~(S) all data by storing it directly within the research object may be undesired or prohibitive due to size, licensing, or privacy concerns.
+This creates a tension with Tracking~(T), which requires that every component be identified and versioned.
 Extensions such as git-annex, DataLad, DVC, and Git LFS strike the balance between the two principles by tracking metadata that identifies specific data versions and obtainability information instead, e.g., content checksums and URLs of remote servers that act as a source, and providing Actionable~(A) interfaces to obtain the data when necessary.
 
 This overlap is not incidental --- it reflects the interdependence of the STAMPED principles themselves.
@@ -462,7 +466,7 @@ The pages tagged ``STAMPED-intro'' (\httpsurl{examples.stamped-principles.org/ta
 Several research projects have already adopted and documented the YODA principles (the predecessor to STAMPED) demonstrating practical utility across domains.
 
 \textbf{BIDS Standard Evolution}: A significant validation of the ``do not look up'' principle occurred within the Brain Imaging Data Structure (BIDS)\cite{gorgolewski_brain_2016} community.
-Originally, the BIDS specification nested derived data under \texttt{derivatives/} within the original raw dataset, creating upward dependencies that violated Portability~(P).
+Originally, the BIDS specification nested derived data under \texttt{derivatives/} within the original raw dataset, creating upward dependencies that violated Self-containment~(S) and Modularity~(M), which broke Portability~(P).
 Following YODA principles, the BIDS community reversed this relationship so that derivative datasets now exist independently and reference raw data as subdatasets, not vice versa.
 
 This architectural shift influenced major neuroimaging tools:

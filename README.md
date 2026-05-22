@@ -27,7 +27,7 @@ Associated examples: [stamped-principles.github.io/stamped-examples](https://sta
 
 Target venue: **Nature Scientific Data** (Article format).
 
-See [CLAUDE.md](CLAUDE.md) for project conventions and file map.
+See [.claude/CLAUDE.md](.claude/CLAUDE.md) for project conventions and file map.
 
 ## Licensing
 
