@@ -330,14 +330,14 @@ Bundling dependencies into containers or archives reduces the surface area of co
 \begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
   \item computation can occur in temporary, disposable environments
   \item results are reproducible without knowledge of previous runs
-  \item no reliance on any external configuration or host system state (such as OS registry modification)
+  \item the environment is rebuilt from its specification before each execution, ensuring no undocumented state carries over
 \end{itemize} \\
 \hline
 \textbf{To be Distributable:} &
 \begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
   \item all modules and components can be shared in a persistent, retrievable state
   \item dependencies are frozen or pinned to specific versions across systems
-  \item the Research Object can be obtained by others in the same state as intended
+  \item recipients can verify that what they obtained matches the intended state (e.g., via content-addressed identifiers)
 \end{itemize} \\
 \hline
 \end{tabular}
