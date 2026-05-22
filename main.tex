@@ -156,7 +156,7 @@ A Self-contained~(S) research object gathers everything needed in one place, but
 Tracking addresses two concerns: 1) the identity of each component and its exact state at a point in time, and 2) \textbf{provenance}, the recorded history of the actions by which identities produced or modified it.
 These are often managed separately, which makes validating past work harder.
 
-The spectrum of Tracking begins with content-addressed version control.
+The spectrum of tracking begins with content-addressed version control.
 Rather than relying on semantic version labels, content-addressed systems identify each state by a checksum of its contents.
 This distinction matters; two datasets labeled ``version 1.0'' by different labs are ambiguous whereas two datasets with identical content hashes are provably identical.
 Version control commits also capture basic provenance of who made the change, when, and a description of why.
@@ -171,9 +171,9 @@ Toward the ideal end, provenance is captured programmatically by tooling rather 
 Each computational step should record exactly what command was executed and what inputs were consumed, producing richer and more reliable records than a human would typically write.
 When modules are independently tracked under compatible systems, the version of every module at the time of each commit is also discoverable, providing a complete picture of the state that produced a given result.
 This enables not just inspection but re-execution.
-Beyond the research object itself, knowing the state of data and code at each hand-off between experimental, analytical, and engineering stages is what allows a team to coordinate updates without losing the provenance chain---an operational view of Tracking developed by the SciOps framework\cite{johnson_sciops_2024}.
+Beyond the research object itself, knowing the state of data and code at each hand-off between experimental, analytical, and engineering stages is what allows a team to coordinate updates without losing the provenance chain---an operational view of tracking developed by the SciOps framework\cite{johnson_sciops_2024}.
 Across communities, multiple ontologies and packaging standards have emerged to make these provenance records portable across tools, including cross-domain models such as W3C~PROV\cite{w3c_provenance_working_group_prov-overview_2013}, packaging formats such as RO-Crate\cite{peroni_packaging_2022}, and domain-specific specifications such as BIDS-Prov (BEP028)\cite{bids_community_bep028_2025}.
-The relationships among such provenance, assertion, and evidence ontologies have been surveyed recently\cite{chhetri_bridging_2025}, emphasizing the already available rich ecosystem to be promoted and wider adopted for improving Tracking of scientific processes.
+The relationships among such provenance, assertion, and evidence ontologies have been surveyed recently\cite{chhetri_bridging_2025}, emphasizing the already available rich ecosystem to be promoted and wider adopted for improving tracking of scientific processes.
 
 
 \anchoredsubsection{actionability}{Actionability}
