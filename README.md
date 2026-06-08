@@ -27,7 +27,9 @@ Associated examples: [stamped-principles.github.io/stamped-examples](https://sta
 
 Target venue: **Nature Scientific Data** (Article format).
 
-See [.claude/CLAUDE.md](.claude/CLAUDE.md) for project conventions and file map.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for project conventions (writing style,
+terminology, build, licensing, and workflow). AI agents should also read
+[.claude/CLAUDE.md](.claude/CLAUDE.md).
 
 ## Licensing
 
