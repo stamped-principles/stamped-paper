@@ -13,9 +13,7 @@ Do not duplicate convention text here; if a convention changes, change it in `CO
 
 ## Agent-specific operating notes
 
-- If `local-notes/CLAUDE.md` exists, load it into context immediately.
-  `local-notes/` is gitignored scratch space and may hold session-specific guidance.
-- Read the relevant GitHub issues and PR discussion into context before acting; decisions are made in those threads, not only in the code.
+- Read the relevant GitHub issues and PR discussion into context before acting, including inline review comments, which are easy to miss and often must be fetched explicitly; decisions are made in those threads, not only in the code.
 - Changes land via pull requests only; never edit `main` in place (see `CONTRIBUTING.md` → Workflow).
 - Commit co-authorship is **required** for AI-assisted commits.
   Discover your actual tool and model versions from the tool itself and do not guess them.

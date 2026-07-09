@@ -29,12 +29,12 @@ Where a convention serves a STAMPED principle, we say so, so that the repository
 - Changes land through pull requests.
   Do not edit `main` in place.
 - Use GitHub issues for discussion.
-  Do not leave comments on Overleaf; an Overleaf mirror may exist for convenience, but GitHub is authoritative.
+  Do not leave comments, suggestions, or edits on Overleaf; an Overleaf mirror may exist for convenience, but GitHub is authoritative.
 - A PR triggers a CI build of the manuscript PDF and posts a diff preview comment.
   Check it before requesting review.
 - Keep posts on GitHub (issues, PR descriptions, comments) concise: lead with the point.
   Wrap long contextual material (logs, large snippets, more than ~10 lines) in a `<details>` block with a `<summary>` label so the prose stays readable.
-- In a PR description with a test plan, mark completed steps `- [x]` and pending steps `- [ ]`.
+- If a PR is not yet ready to merge, add a TODO section at the bottom of its description; mark completed steps `- [x]` and pending steps `- [ ]`.
 
 ## Prose and writing style
 
@@ -80,7 +80,8 @@ These apply to the manuscript (`main.tex`) and, where sensible, to Markdown docu
 
 ### How to write a principle reference
 
-When referring to one of the seven principles in running prose, write the **capitalized name followed by its letter in parentheses**: "Tracking (T)", "Distributability (D)".
+When referring to one of the seven principles in running prose, write the **capitalized name followed by its letter in parentheses**.
+In LaTeX, join the two with a non-breaking space (`~`) so the name and its letter never split across a line break: `Tracking~(T)`, `Distributability~(D)`.
 
 Exceptions (from the standardization in PR #158, tracked by issue #147):
 
@@ -180,8 +181,9 @@ The project follows the [REUSE specification](https://reuse.software/) so copyri
 
 ## Version control and data
 
-- The repository is a DataLad dataset; large and binary files are managed with git-annex, while text files live in Git.
-- `.gitattributes` routes content by type: binary content goes to the annex (content-addressed, MD5E backend), and text and `.git*` files stay in Git.
+- The repository is a DataLad dataset with git-annex available for large or binary content.
+  `.gitattributes` is configured so that `datalad save` / `git annex add` route binary content to the annex (content-addressed, MD5E backend); text and `.git*` files stay in Git.
+- A plain `git add` bypasses that rule and commits a file directly to Git regardless of type, so use `datalad save` when adding large binaries you want annexed.
 - Do not commit build artifacts; they are listed in `.gitignore` (for example `main.pdf`, `main.aux`, `main.log`).
 - `local-notes/` is gitignored scratch space for non-committed notes.
 
