@@ -5,7 +5,7 @@ Originating from the YODA Principles.
 
 ## Read this first
 
-**All project conventions live in [`CONTRIBUTING.md`](../CONTRIBUTING.md).**
+**All project conventions live in [`CONTRIBUTING.md`](../CONTRIBUTING.md).** @CONTRIBUTING.md
 That file is the single source of truth for writing style, terminology, LaTeX/markup conventions, tables, the section pattern, authorship rendering, bibliography, licensing, build, version control, and commit co-authorship.
 Read it in full and follow it.
 This file holds only the few things specific to AI agents that do not belong in a human-facing contributing guide.
