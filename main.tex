@@ -220,8 +220,8 @@ In practice, module boundaries often align with repository boundaries, but a mod
 Modularity applies this principle to research objects, structuring them as assemblies of modules whose boundaries are explicit.
 Module boundaries are also where license compatibility must be checked, since combining modules with incompatible terms can prevent the assembled research object from being lawfully redistributed.
 In addition to licenses, data use agreements and other legal, ethical, institutional, or technical constraints may impose different conditions on access and redistribution across a research object.
-For example, ABCD Study data are available to approved researchers under a Data Use Certification but not for unrestricted redistribution, even when organized to be technically distributable.
-These conditions may be managed through separate modules or permissions on individual files or objects, depending on which is most practical.
+For example, the U.S. Census Bureau releases disclosure-protected public-use data while reserving detailed microdata for secure research environments \citep{united_states_census_bureau_dissemination_2025}; GBIF guidance similarly recommends publishing generalized species locations while providing precise coordinates only under agreement \citep{chapman_current_2020}.
+These conditions may be managed through separate modules, alternate representations, or permissions on individual files or objects, depending on the access-control mechanisms supported by the underlying technologies.
 Accounting for them during design is consistent with FAIR Accessibility, which accommodates controlled access.
 
 At a minimum, a research object should separate analysis code, input datasets, computational environments, licenses, configuration settings, and results into distinct directories.
@@ -297,7 +297,7 @@ Researchers routinely begin by downloading containers, fetching published datase
 Though persistent retrievability is a necessary but not sufficient condition for redistribution.
 Additionally, each module should carry an easily identifiable license or set of licenses for any bundled assets (e.g., via SPDX identifiers\cite{stewart_software_2010} or the REUSE specification\cite{fsfe_reuse_2024}) so that downstream researchers can compose, modify, and re-share components without legal ambiguity.
 
-The spectrum of distributability intersects with FAIR Accessibility: components may be publicly retrievable or subject to authentication and authorization, while STAMPED additionally asks whether they are packaged and maintained in a persistent state that can be distributed when permission allows.
+The spectrum of Distributability~(D) intersects with FAIR Accessibility: whether access is public or restricted, STAMPED addresses operational aspects of distribution, such as persistent packaging and documented retrieval.
 Toward the ideal end, several complementary strategies reduce the risk that external changes will break a research object's reproducibility.
 Bundling dependencies into containers or archives reduces the surface area of components that can independently change or disappear; hosting on archival infrastructure (Zenodo, DANDI, Software Heritage) with content-addressed identifiers allows recipients to verify integrity regardless of source; mirroring across multiple platforms protects against the failure of any single registry.
 Where downstream consumers must verify not only integrity but also origin and build process, signed releases and supply-chain attestations (e.g., sigstore, in-toto, SLSA) provide cryptographic evidence that an artifact was produced by the claimed identity from the claimed sources.
