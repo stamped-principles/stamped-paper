@@ -298,7 +298,8 @@ Researchers routinely begin by downloading containers, fetching published datase
 Though persistent retrievability is a necessary but not sufficient condition for redistribution.
 Additionally, each module should carry an easily identifiable license or set of licenses for any bundled assets (e.g., via SPDX identifiers\cite{stewart_software_2010} or the REUSE specification\cite{fsfe_reuse_2024}) so that downstream researchers can compose, modify, and re-share components without legal ambiguity.
 
-The spectrum of Distributability~(D) intersects with FAIR Accessibility: whether access is public or restricted, STAMPED addresses operational aspects of distribution, such as persistent packaging and documented retrieval.
+Distributability~(D) intersects with FAIR Accessibility, which establishes that an identified component can be retrieved through a documented protocol, including authentication or authorization where required.
+Distributability extends this concern to the research object as a whole: its referenced components remain obtainable in their intended versions as a coherent distribution.
 Toward the ideal end, several complementary strategies reduce the risk that external changes will break a research object's reproducibility.
 Bundling dependencies into containers or archives reduces the surface area of components that can independently change or disappear; hosting on archival infrastructure (Zenodo, DANDI, Software Heritage) with content-addressed identifiers allows recipients to verify integrity regardless of source; mirroring across multiple platforms protects against the failure of any single registry.
 Where downstream consumers must verify not only integrity but also origin and build process, signed releases and supply-chain attestations (e.g., sigstore, in-toto, SLSA) provide cryptographic evidence that an artifact was produced by the claimed identity from the claimed sources.
