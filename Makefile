@@ -3,7 +3,14 @@ FLAVORS = PDF
 
 # https://gitlab.inria.fr/latex-utils/latex-make
 # sudo apt install latex-make   on Debian systems
-include /usr/include/LaTeX.mk
+# Debian's latex-make package installs this at /usr/include/LaTeX.mk,
+# while TeX Live installs it under its active TEXMFROOT. Prefer the latter
+# so the build also works with MacTeX and other TeX Live installations.
+LATEX_MK := $(shell kpsewhich -var-value=TEXMFROOT 2>/dev/null)/texmf-dist/source/support/latex-make/LaTeX.mk
+ifeq ($(wildcard $(LATEX_MK)),)
+LATEX_MK := /usr/include/LaTeX.mk
+endif
+include $(LATEX_MK)
 
 main.pdf: references.bib authors.tex author-contributions.tex | author-contributions.jats.xml
 

@@ -16,6 +16,12 @@
         "orcid": "0000-0002-4740-0824",
         "affiliation": "Center for Open Neuroscience, Department of Psychological and Brain Sciences, Dartmouth College, NH, USA 03755"
     },
+    "leej3": {
+        "name": "John A Lee",
+        "email": "John.A.Lee@dartmouth.edu",
+        "orcid": "0000-0001-5884-4247",
+        "affiliation": "Center for Open Neuroscience, Department of Psychological and Brain Sciences, Dartmouth College, NH, USA 03755"
+    },
     "yarikoptic": {
         "name": "Yaroslav O. Halchenko",
         "email": "debian@onerussian.com",
