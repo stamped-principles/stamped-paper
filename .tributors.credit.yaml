@@ -29,6 +29,7 @@ byline:
   - asmacdo            # Austin Macdonald
   - CodyCBakerPhD      # Cody C. Baker
   - candleindark       # Isaac To
+  - leej3              # John Lee
   - yarikoptic         # Yaroslav O. Halchenko
 
 contributors:
@@ -57,6 +58,12 @@ contributors:
     initials: I.T.                    # explicit to disambiguate against potential future I.M.s, etc.
     roles:
       - Writing – review & editing    # ~36 commits, all copy-edits on main.tex
+
+  leej3:
+    # initials J.L.
+    roles:
+      - Writing – original draft      # Authored the M.4 and controlled-access passages
+      - Writing – review & editing    # Substantive revisions and examples in main.tex
 
   yarikoptic:
     # initials Y.O.H. auto-derived
