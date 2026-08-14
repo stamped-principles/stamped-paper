@@ -173,6 +173,11 @@ The project follows the [REUSE specification](https://reuse.software/) so copyri
 ## Build
 
 - `make` (default) builds `main.pdf` and then fails if any citations or references are undefined.
+- Author metadata targets have lightweight, non-interactive Podman variants
+  that require no host Python or LaTeX setup: `make container-authors`,
+  `make container-author-contributions`,
+  `make container-author-contributions-jats`, and
+  `make container-credit-validate`.
 - `make reuse-lint` checks licensing compliance.
 - `make diagrams` renders Mermaid sources (`figures/*.mmd`) to SVG and PDF via `mermaid-cli`.
 - `references.bib` is fetched from Zotero (see Bibliography).
