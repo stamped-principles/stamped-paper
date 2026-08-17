@@ -175,6 +175,8 @@ The project follows the [REUSE specification](https://reuse.software/) so copyri
 ## Build
 
 - `make` (default) builds `main.pdf` and then fails if any citations or references are undefined.
+  Building needs TeX Live and [latex-make](https://gitlab.inria.fr/latex-utils/latex-make); when latex-make is not installed, `make` instead runs the same build inside the `ghcr.io/stamped-principles/build-latex` container via Podman (also available explicitly as `make container-pdf`).
+- The build container is defined in `containers/build-latex.Dockerfile` and published to GHCR by the build-containers workflow when it changes on `main`; CI builds the PDF in the same container.
 - Author metadata targets have lightweight, non-interactive Podman variants
   that require no host Python or LaTeX setup: `make container-authors`,
   `make container-author-contributions`,

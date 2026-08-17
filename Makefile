@@ -5,7 +5,7 @@ AUTHOR_TARGETS := authors author-contributions author-contributions-jats \
                   credit-validate
 CONTAINER_AUTHOR_TARGETS := $(addprefix container-,$(AUTHOR_TARGETS))
 NON_LATEX_GOALS := $(AUTHOR_TARGETS) $(CONTAINER_AUTHOR_TARGETS) \
-                   container-author-image
+                   container-author-image container-pdf
 
 # Author metadata targets do not need LaTeX.mk. Skipping the include lets
 # their container-prefixed variants run on hosts without a LaTeX installation.
@@ -18,7 +18,12 @@ endif
 ifndef SKIP_LATEX_MK
 # https://gitlab.inria.fr/latex-utils/latex-make
 # sudo apt install latex-make   on Debian systems
+# Also provided by the build container (containers/build-latex.Dockerfile).
+# When absent, the default target runs the same build there (container-pdf).
+HAVE_LATEX_MK := $(wildcard /usr/include/LaTeX.mk)
+ifneq ($(HAVE_LATEX_MK),)
 include /usr/include/LaTeX.mk
+endif
 endif
 
 main.pdf: references.bib authors.tex author-contributions.tex | author-contributions.jats.xml
@@ -98,15 +103,38 @@ fetch-credit-renderer:
 fetch-authors-renderer:
 	$(call _fetch_renderer,render_authors.py)
 
-# Override default goal so bare "make" builds PDF then checks for problems
+# Override default goal so bare "make" builds PDF then checks for problems.
+# Without latex-make installed, delegate the build to the container instead.
 .DEFAULT_GOAL := default
 .PHONY: default
+ifneq ($(HAVE_LATEX_MK),)
 default: pdf
 	@if grep -sq -E 'There were undefined (citations|references)' main.log; then \
 	  echo "ERROR: Undefined references remain after build:"; \
 	  grep 'Citation.*undefined' main.log; \
 	  false; \
 	fi
+else
+default: container-pdf
+endif
+
+# Containerized full PDF build: the same image CI uses (see the
+# build-container workflow). Unlike the author metadata image, it is
+# published to GHCR because building TeX Live locally is slow.
+BUILD_CONTAINER_IMAGE ?= ghcr.io/stamped-principles/build-latex:latest
+
+.PHONY: container-pdf
+container-pdf:
+	@command -v podman >/dev/null 2>&1 || { \
+	  echo "ERROR: Podman is required for container-* targets."; \
+	  exit 1; \
+	}
+	podman run --rm --userns=keep-id \
+	  --security-opt label=disable \
+	  --env HOME=/tmp \
+	  --volume "$(CURDIR):/work" \
+	  --workdir /work \
+	  $(BUILD_CONTAINER_IMAGE) make
 
 # Mermaid diagrams — render .mmd to .svg and .pdf via mermaid-cli
 MMD_SRCS := $(wildcard figures/*.mmd)
