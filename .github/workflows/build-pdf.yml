@@ -21,22 +21,22 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      BUILD_IMAGE: ghcr.io/stamped-principles/build-latex:latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install LaTeX and latex-make
+      - name: Pull build container
+        # Fall back to building the image locally so PRs that change the
+        # container still build before the image is published to GHCR.
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            texlive-latex-base \
-            texlive-latex-recommended \
-            texlive-latex-extra \
-            texlive-fonts-recommended \
-            texlive-bibtex-extra \
-            latex-make
+          docker pull "$BUILD_IMAGE" || \
+            docker build -t "$BUILD_IMAGE" -f containers/build-latex.Dockerfile containers
 
       - name: Build PDF
-        run: make
+        run: |
+          docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp \
+            -v "$PWD:/work" -w /work "$BUILD_IMAGE" make
 
       - name: Prepare Pages artifact
         run: |
