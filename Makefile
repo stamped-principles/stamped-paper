@@ -1,9 +1,25 @@
 LU_MASTERS = main
 FLAVORS = PDF
 
+AUTHOR_TARGETS := authors author-contributions author-contributions-jats \
+                  credit-validate
+CONTAINER_AUTHOR_TARGETS := $(addprefix container-,$(AUTHOR_TARGETS))
+NON_LATEX_GOALS := $(AUTHOR_TARGETS) $(CONTAINER_AUTHOR_TARGETS) \
+                   container-author-image
+
+# Author metadata targets do not need LaTeX.mk. Skipping the include lets
+# their container-prefixed variants run on hosts without a LaTeX installation.
+ifneq ($(strip $(MAKECMDGOALS)),)
+ifeq ($(strip $(filter-out $(NON_LATEX_GOALS),$(MAKECMDGOALS))),)
+SKIP_LATEX_MK := 1
+endif
+endif
+
+ifndef SKIP_LATEX_MK
 # https://gitlab.inria.fr/latex-utils/latex-make
 # sudo apt install latex-make   on Debian systems
 include /usr/include/LaTeX.mk
+endif
 
 main.pdf: references.bib authors.tex author-contributions.tex | author-contributions.jats.xml
 
@@ -35,6 +51,28 @@ author-contributions-jats: author-contributions.jats.xml
 
 credit-validate:
 	python3 $(CREDIT_RENDERER) --validate-only .tributors.credit.yaml
+
+# Lightweight, non-interactive Podman alternatives for the author metadata
+# targets. The host needs Podman, but does not need Python, PyYAML, or LaTeX.
+AUTHOR_CONTAINER_IMAGE ?= localhost/stamped-paper-author-metadata:latest
+AUTHOR_CONTAINER_FILE  := containers/author-metadata.Dockerfile
+
+.PHONY: container-author-image $(CONTAINER_AUTHOR_TARGETS)
+container-author-image:
+	@command -v podman >/dev/null 2>&1 || { \
+	  echo "ERROR: Podman is required for container-* targets."; \
+	  exit 1; \
+	}
+	podman build --file $(AUTHOR_CONTAINER_FILE) \
+	  --tag $(AUTHOR_CONTAINER_IMAGE) containers
+
+$(CONTAINER_AUTHOR_TARGETS): container-%: container-author-image
+	podman run --rm --userns=keep-id \
+	  --security-opt label=disable \
+	  --env HOME=/tmp \
+	  --volume "$(CURDIR):/work" \
+	  --workdir /work \
+	  $(AUTHOR_CONTAINER_IMAGE) $*
 
 # Refresh a vendored renderer from the user's installed skill.
 # Compares first; only copies (and reports) when the upstream differs.
