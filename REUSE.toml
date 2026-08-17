@@ -12,10 +12,21 @@ path = [
     "containers/**",
     "Makefile",
     ".gitignore",
+    ".gitattributes",
+    ".datalad/**",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2025-2026 STAMPED Principles authors and contributors"
 SPDX-License-Identifier = "Apache-2.0"
+
+# `arxiv_collector.py` is vendored verbatim from
+# https://github.com/djsutherland/arxiv-collector (BSD-3-Clause).
+# See `git log arxiv_collector.py` for the datalad download provenance.
+[[annotations]]
+path = ["arxiv_collector.py"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2018-2020 D.J. Sutherland"
+SPDX-License-Identifier = "BSD-3-Clause"
 
 # Python helpers vendored from the credit-contributions skill, which
 # render the byline and Author Contributions section. Each file carries
@@ -43,7 +54,6 @@ path = [
     "outline.md",
     "README.md",
     "CONTRIBUTING.md",
-    "CLAUDE.md",
     "REFERENCES-TODO.md",
     "proposals/**",
     "research/**",

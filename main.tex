@@ -64,7 +64,7 @@ STAMPED gives researchers, collaborators, reviewers, and agents a common languag
 \anchoredsection{introduction}{Introduction}
 
 Data-driven research depends on specific versions of datasets, software, and computational environments, together with a record of how they were used to produce results.
-We adopt the term \textbf{research object} to denote a collection of data, code, and metadata that together represent the research as a complete unit.
+We adopt the term \textbf{research object}\cite{bechhofer_why_2013,peroni_packaging_2022} to denote a collection of data, code, and metadata that together represent the research as a complete unit.
 It is common for the components of a research object to be organized independently with code in one repository, data on a shared drive, environment setup in a wiki page, and provenance in a lab notebook.
 This separation undermines rigor, reproducibility, reusability, and efficiency.
 Even when its components are gathered in one place, a research object is often tightly coupled to specific software versions and environments which may be opaque to outside collaborators, making it difficult to reuse or redistribute.
@@ -296,7 +296,7 @@ A distributable research object is packaged so that it can be retrieved in the s
 Distributability also has a circular relationship with the other STAMPED principles in that someone else's distribution effort often serves as the starting point for a new research object's Self-containment~(S).
 Researchers routinely begin by downloading containers, fetching published datasets, and installing released software---Modularly~(M) composing the distributions of others to assemble their own Self-contained~(S) research objects.
 Though persistent retrievability is a necessary but not sufficient condition for redistribution.
-Additionally, each module should carry an easily identifiable license or set of licenses for any bundled assets (e.g., via SPDX identifiers\cite{stewart_software_2010} or the REUSE specification\cite{fsfe_reuse_2024}) so that downstream researchers can compose, modify, and re-share components without legal ambiguity.
+Additionally, each module should carry an easily identifiable license or set of licenses for any bundled assets (e.g., via SPDX identifiers\cite{stewart_software_2010} or the REUSE specification\cite{free_software_foundation_europe_reuse_2024}) so that downstream researchers can compose, modify, and re-share components without legal ambiguity.
 
 Distributability~(D) intersects with FAIR Accessibility, which establishes that an identified component can be retrieved through a documented protocol, including authentication or authorization where required.
 Distributability extends this concern to the research object as a whole: its referenced components remain obtainable in their intended versions as a coherent distribution.
@@ -374,7 +374,7 @@ This becomes important when distributed artifacts will execute in environments e
 We hope that the preceding sections have provided a clear understanding of the STAMPED principles and their rationale.
 While this understanding is essential, researchers may also benefit from a practical checklist to assess their research objects against these principles.
 Similar to the living examples repository, an interactive checklist has been provided at the \httpsurl{checklist.stamped-principles.org} webpage to guide assessments of compliance with STAMPED principles, ordered by the strength of the requirement (MUST, SHOULD, MAY).
-The schema for this checklist is itself a living, version-tracked entity\cite{stamped-checklist-schema:v0.1.0} that is likely to grow over time as more common violations of the principles are discovered in practice.
+The schema for this checklist is itself a living, version-tracked entity\cite{cody_baker_stamped-principlesstamped-checklist-schema_2026} that is likely to grow over time as more common violations of the principles are discovered in practice.
 
 \begin{figure}[htbp]
 \centering
@@ -593,7 +593,7 @@ This is less a change to STAMPED itself than a call on these communities: Tracki
 
 \anchoredsubsubsection{adoption-incentives}{Adoption incentives and tool certification}
 
-STAMPED compliance today is self-assessed against the checklist fulfilling a simple LinkML model\cite{stamped-checklist-schema:v0.1.0} presented in this paper, and exposed to users in a convenient Web UI at the \httpsurl{checklist.stamped-principles.org} webpage.
+STAMPED compliance today is self-assessed against the checklist fulfilling a simple LinkML model\cite{cody_baker_stamped-principlesstamped-checklist-schema_2026} presented in this paper, and exposed to users in a convenient Web UI at the \httpsurl{checklist.stamped-principles.org} webpage.
 That Web UI provides Self-contained~(S) stateful permalinks to render any particular state of the filled out checklist, so they could be shared easily.
 Broader adoption will depend on promotion and external incentives, including funder mandates (e.g.,\ NIH Data Management and Sharing policies), journal reproducibility badges\cite{center_for_open_science_open_2023}, and venue-level review checklists that converge toward automated scoring. 
 Such a trajectory would parallel that of FAIR, which has moved from principles to machine-assessable indicators with tools such as F-UJI\cite{devaraju_automated_2021}.
@@ -661,7 +661,7 @@ Instead, spec-driven agentic research becomes a collaborative, transparent artif
 
 All materials, data and code alike, are shared as part of the \ghurl{stamped-principles} GitHub organization, and released under OSI-approved licenses, with per-file licensing metadata maintained via the REUSE specification.
 
-The STAMPED principles\cite{stamped-principles-schema:v0.1.0} (\ghurl{stamped-principles/stamped-principles-schema}) and their accompanying compliance checklist\cite{stamped-checklist-schema:v0.1.0} (\ghurl{stamped-principles/stamped-checklist-schema}) are formally encoded as LinkML schemas with corresponding JSON instances, separating the data model from the principle content so that each can evolve independently.
+The STAMPED principles\cite{cody_baker_stamped-principlesstamped-principles-schema_2026} (\ghurl{stamped-principles/stamped-principles-schema}) and their accompanying compliance checklist\cite{cody_baker_stamped-principlesstamped-checklist-schema_2026} (\ghurl{stamped-principles/stamped-checklist-schema}) are formally encoded as LinkML schemas with corresponding JSON instances, separating the data model from the principle content so that each can evolve independently.
 All sources for this manuscript (e.g., LaTeX file, figures; \ghurl{stamped-principles/stamped-paper}) have a rendered version at \httpsurl{paper.stamped-principles.org}.
 Examples illustrating the principles are published as a Hugo-built static website and collected in \ghurl{stamped-principles/stamped-examples}, open for submissions from the community.
 Examples in that repository are metadata-tagged to allow classification and filtering by principle, domain, and tooling as presented at \httpsurl{examples.stamped-principles.org}.
