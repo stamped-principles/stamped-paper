@@ -31,7 +31,7 @@ are optional and do not expedite review, but are welcome. -->
 3. **Sarah Cohen-Boulakia** — LISN, CNRS / Univ. Paris-Saclay — 2024 CNRS Silver Medal; IUF senior member; coordinates ShareFAIR; workflow reuse and reproducibility in life sciences.
 4. **Konrad Hinsen** — Centre de Biophysique Moléculaire, CNRS, Orléans — co-EiC of *ReScience C*; two decades of computational-reproducibility formalization (ActivePapers, Guix-in-science).
 5. **Ewa Deelman** — USC Information Sciences Institute; USC Computer Science — 2025 IEEE Sidney Fernbach Award for scientific workflows (Pegasus WMS); authority on Actionability/Portability/Ephemerality.
-6. **Kyle Chard** — Univ. of Chicago; Argonne National Laboratory (Globus Labs, Parsl) — Co-author of the 2026 FGCS paper "A terminology for scientific workflow systems", a directly analogous vocabulary-standardization effort.
+6. **Kyle Chard** — Univ. of Chicago; Argonne National Laboratory (Globus Labs, Parsl) — Co-author of the 2026 FGCS paper "A terminology for scientific workflow systems", a community taxonomy of workflow management systems.
 
 Due to a possible conflict of interest, we suggest the following reviewer not be invited:
 
