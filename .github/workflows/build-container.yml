@@ -1,10 +1,11 @@
-name: Build diff-pdf container
+name: Build containers
 
 on:
   push:
     branches: [main]
     paths:
       - 'containers/diff-pdf*'
+      - 'containers/build-latex*'
       - '.github/workflows/build-container.yml'
   workflow_dispatch:
 
@@ -15,6 +16,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image: [diff-pdf, build-latex]
     steps:
       - uses: actions/checkout@v4
 
@@ -29,6 +33,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: containers
-          file: containers/diff-pdf.Dockerfile
+          file: containers/${{ matrix.image }}.Dockerfile
           push: true
-          tags: ghcr.io/stamped-principles/diff-pdf:latest
+          tags: ghcr.io/stamped-principles/${{ matrix.image }}:latest
