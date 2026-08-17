@@ -23,8 +23,15 @@ We are happy to discuss alternatives if the editors prefer.
 Corresponding author: Austin Macdonald, Dartmouth College (austin@dartmouth.edu, ORCID: 0000-0002-8124-807X).
 
 Suggested reviewers:
-<!-- PENDING (Yarik): 3–5 entries — name, affiliation, email, one-line rationale, screened against his collaborator list for conflicts.
+<!-- DONE: name, affiliation, email, one-line rationale, screened against his collaborator list for conflicts.
 Journal auto-checks public conflicts (recent co-authorship, shared institution); suggestions are optional and do not expedite review, but are welcome. -->
+ 
+1. **Stian Soiland-Reyes** — Univ. of Manchester (also Univ. of Amsterdam) — `EMAILTODO`* — Co-editor of the RO-Crate specification cited in the paper; expert on research-object packaging and workflow provenance.
+2. **Neil Chue Hong** — Software Sustainability Institute / EPCC, Univ. of Edinburgh — `EMAILTODO` — FAIR4RS Principles co-author; RSE-community and research-software-sustainability lead.
+3. **Sarah Cohen-Boulakia** — LISN, CNRS / Univ. Paris-Saclay — `EMAILTODO` — 2024 CNRS Silver Medal; IUF senior member; coordinates ShareFAIR; workflow reuse and reproducibility in life sciences.
+4. **Konrad Hinsen** — Centre de Biophysique Moléculaire, CNRS, Orléans — `EMAILTODO` — co-EiC of *ReScience C*; two decades of computational-reproducibility formalization (ActivePapers, Guix-in-science).
+5. **Ewa Deelman** — USC Information Sciences Institute; USC Computer Science — `EMAILTODO` — 2025 IEEE Sidney Fernbach Award for scientific workflows (Pegasus WMS); authority on Actionability/Portability/Ephemerality.
+6. **Kyle Chard** — Univ. of Chicago; Argonne National Laboratory (Globus Labs, Parsl) — `EMAILTODO` — Co-author of the 2026 FGCS paper "A terminology for scientific workflow systems", a directly analogous vocabulary-standardization effort.
 
 - TBD
 
