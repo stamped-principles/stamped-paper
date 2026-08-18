@@ -33,7 +33,7 @@ are optional and do not expedite review, but are welcome. -->
 
 Due to a possible conflict of interest, we suggest the following reviewer not be invited:
 
-- Carole Goble — Univ. of Manchester — member of the External Advisory Board of ReproNim, which funds this work (listed in the manuscript's Funding section).
+- Carole Goble — Univ. of Manchester — member of the External Advisory Board of NIH P41 ReproNim Center project, which is among funders of this work (listed in the manuscript's Funding section).
 
 On behalf of the authors, thank you for your consideration.
 
