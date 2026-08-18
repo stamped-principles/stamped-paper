@@ -293,10 +293,8 @@ The distinction mirrors the concept of a software distribution: a curated, versi
 Simply sharing a research object by uploading scripts to a repository with loose dependencies, or posting files on a website with no version or other persistence guarantees, does not constitute distribution in this sense.
 A distributable research object is packaged so that it can be retrieved in the same state as intended.
 
-Distributability also has a circular relationship with the other STAMPED principles in that someone else's distribution effort often serves as the starting point for a new research object's Self-containment~(S).
-Researchers routinely begin by downloading containers, fetching published datasets, and installing released software---Modularly~(M) composing the distributions of others to assemble their own Self-contained~(S) research objects.
-Though persistent retrievability is a necessary but not sufficient condition for redistribution.
-Additionally, each module should carry an easily identifiable license or set of licenses for any bundled assets (e.g., via SPDX identifiers\cite{stewart_software_2010} or the REUSE specification\cite{free_software_foundation_europe_reuse_2024}) so that downstream researchers can compose, modify, and re-share components without legal ambiguity.
+Distributability also bootstraps new research objects; researchers frequently begin by Modularly~(M) composing the distributions of others into their own Self-contained~(S) research objects, downloading containers, fetching published datasets, and installing released software.
+Persistent retrievability alone does not make a research object redistributable: each module should also carry an easily identifiable license or set of licenses for any bundled assets (e.g., via SPDX identifiers\cite{stewart_software_2010} or the REUSE specification\cite{free_software_foundation_europe_reuse_2024}) so that downstream researchers can compose, modify, and re-share components without legal ambiguity.
 
 Distributability~(D) intersects with FAIR Accessibility, which establishes that an identified component can be retrieved through a documented protocol, including authentication or authorization where required.
 Distributability extends this concern to the research object as a whole: its referenced components remain obtainable in their intended versions as a coherent distribution.
