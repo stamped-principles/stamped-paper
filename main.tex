@@ -268,7 +268,7 @@ Ephemerality eliminates this problem by construction; a disposable environment b
 
 The spectrum of ephemerality ranges from manually setting up a fresh environment from the project's specification (which is usually sufficient to catch environment drift) to fully automated disposable environments created and destroyed per execution.
 At the ideal end, ephemeral computation also enables testing across different host systems, where same-host execution validates specification completeness and different-host execution validates that specifications are not coupled to a specific system.
-The FAIRly big workflow\cite{wagner_fairly_2022} and other approaches to using Distributed~(D) computing platforms such as SLURM or Code Ocean\cite{cheifet_promoting_2021} operationalize this ideal, treating each computation as an ephemeral work unit.
+The FAIRly big workflow\cite{wagner_fairly_2022} and other approaches to using distributed computing platforms such as Slurm or Code Ocean\cite{cheifet_promoting_2021} operationalize this ideal, treating each computation as an ephemeral work unit.
 This approach easily enables horizontal scaling, as independent disposable instances can be parallelized across subjects, parameters, or datasets.
 
 Yet ephemeral computation does not validate everything.
