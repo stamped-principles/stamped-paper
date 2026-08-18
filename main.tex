@@ -262,7 +262,7 @@ Toward the ideal end, the computational environment is fully specified and versi
 A research object may satisfy Self-containment~(S), Tracking~(T), and Portability~(P) while its computational environment has only ever been assembled once, incrementally, on the original researcher's machine.
 During development, researchers routinely modify their environment by installing packages, adjusting configurations, and setting variables.
 Each change is individually small but collectively difficult to document manually.
-The result is environment drift, where an environment that works but may not be reconstructable from its specification alone.
+The result is environment drift, where an environment works but may not be reconstructable from its specification alone.
 When this occurs, undocumented steps can go unnoticed when internalized knowledge silently fills the gaps.
 Ephemerality eliminates this problem by construction; a disposable environment built from Tracked~(T) specifications cannot carry any undocumented state, so that successful execution exercises Self-containment~(S), Actionability~(A), and specification completeness.
 
