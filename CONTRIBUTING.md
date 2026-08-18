@@ -52,6 +52,8 @@ These apply to the manuscript (`main.tex`) and, where sensible, to Markdown docu
 - **Plain word choice.**
   Avoid inflated or trendy vocabulary when a plainer word is clearer.
   In particular, avoid "federated" unless it is technically precise; there is almost always a better choice.
+- **Sentence-case headings.**
+  Section and subsection titles capitalize only the first word and proper nouns (Nature style, matching the title constraint below).
 - **Do not italicize Latin abbreviations** such as "e.g.", "i.e.", and "et al.".
 - **Use "any" to disambiguate "state".**
   Prefer "any undocumented host state" over bare "state" where the scope is otherwise ambiguous.
