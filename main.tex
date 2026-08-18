@@ -240,11 +240,11 @@ Toward the ideal end, the full research object can be reassembled from its speci
 \end{itemize}
 
 A research object that is Self-contained~(S), Tracked~(T), and Modular~(M) may still fail to run on a different machine if it is silently affected by any inherited host state.
-Common examples of such states include specific developer-level package installations with no released versions, unique system libraries exposed to custom user profiles, hardcoded system paths, or an assumed OS configuration (e.g., path character limits).
+Common examples of such states include untracked package dependencies, hardcoded system paths, or assumed OS configurations (e.g., path character limits).
 This coupling is often invisible on the original system and only surfaces when someone else attempts to reproduce the work.
 Portability requires making all host dependencies explicit, so that the research object can be adapted to a new environment.
 
-Some degree of coupling to the host is unavoidable, such as path naming restrictions (``C:/'' vs. ``/mnt''), resource limits (minimum CPU/RAM requirements), or platform-specific flags.
+Some degree of coupling to the host is often unavoidable, such as path naming restrictions (``C:/'' vs. ``/mnt''), resource limits (minimum CPU/RAM requirements), or platform-specific flags.
 The spectrum of portability begins with isolating this host-specific configuration from the rest of the research object, so that adapting to a new environment, however involved that may be, requires only changing the configuration.
 Beyond this, several complementary approaches reduce host coupling.
 Virtual machines provide full system-level isolation; container-based tools (Docker, Singularity/Apptainer) bundle OS-level environments; declarative package managers (Nix\cite{kowalewski_sustainable_2022}, Guix\cite{courtes_reproducible_2015}) specify environments that can be reconstructed from a definition.
