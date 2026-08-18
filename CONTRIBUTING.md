@@ -68,7 +68,7 @@ These apply to the manuscript (`main.tex`) and, where sensible, to Markdown docu
   Untangling the two senses in specific sentences is an ongoing refinement (see issue #178).
 - **Term hierarchy: Research Object > Module > Component.**
   - A **research object** is a collection of data, code, and metadata that together represent the research as a complete unit.
-  - A **module** is a separately Distributable unit of a research object (a subdataset, a collection of scripts, an environment definition).
+  - A **module** is a conceptually separate unit of a research object (a subdataset, a collection of scripts, an environment definition).
   - A **component** is a trackable element that is part of a module (a file, a script, a config).
 - **Workflow** is defined externally by WCI-FW and cited, not redefined by us.
 - **Provenance** is the recorded history of how components were produced or modified.
