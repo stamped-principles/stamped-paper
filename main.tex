@@ -105,7 +105,7 @@ STAMPED provides a descriptive vocabulary and a framework for evaluation that ca
 \hline
 \textbf{Letter} & \textbf{Principle} & \textbf{Description} \\
 \hline
-S & Self-containment & A research object is a complete unit that can be obtained and understood in its intended scope; components are included directly or by references that are themselves part of the object. \\
+S & Self-containment & A research object is a complete unit that can be obtained and understood in its intended scope; components are included directly or by persistent references that are themselves part of the object. \\
 T & Tracking & The state and provenance of all components is recorded. \\
 A & Actionability & A research object contains sufficient instructions to obtain or reproduce its content, ideally as executable specifications. \\
 M & Modularity & All modules are independent and composable. \\
@@ -214,7 +214,7 @@ A SciOps-style workflow makes hand-offs between experimental, analytical, and en
 
 A research object may be Self-contained~(S) and Tracked~(T), yet when all components are interleaved in a single monolithic directory, it can be fragile and difficult to navigate.
 Separation of concerns is a foundational engineering practice; clear boundaries keep the system navigable and maintainable.
-We define a \textbf{module} as a conceptually separate unit of a research object.
+We define a \textbf{module} as a separable unit of a research object.
 This can include a subdataset, a collection of analysis scripts, or the definition for some computational environment.
 In practice, module boundaries often align with repository boundaries, but a module may also be a published container, a registered dataset, or any independently versioned unit.
 Modularity applies this principle to research objects, structuring them as assemblies with clear module boundaries.
