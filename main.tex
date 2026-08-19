@@ -1,7 +1,6 @@
 \documentclass{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{datetime}
-\usepackage{microtype}
 \usepackage{flafter}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{enumitem} % Required for itemize options in normative table
@@ -14,6 +13,12 @@
 \definecolor{darkgreen}{rgb}{0,0.35,0.08}
 \usepackage[backref=false,breaklinks,colorlinks,citecolor=darkblue,linkcolor=darkgreen,urlcolor=darkblue,hyperindex,plainpages=false,pdftex]{hyperref} % Hyper-references
 \usepackage{orcidlink} % green ORCID iD logo next to each author (used by authors.tex)
+
+% no hyphenation (not using microtype since issues a warning)
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
 
 % Headings with a named PDF destination. Usage:
 %   \anchoredsection{intro}{Introduction}
