@@ -52,6 +52,8 @@ These apply to the manuscript (`main.tex`) and, where sensible, to Markdown docu
 - **Plain word choice.**
   Avoid inflated or trendy vocabulary when a plainer word is clearer.
   In particular, avoid "federated" unless it is technically precise; there is almost always a better choice.
+- **Sentence-case headings.**
+  Section and subsection titles capitalize only the first word and proper nouns (Nature style, matching the title constraint below).
 - **Do not italicize Latin abbreviations** such as "e.g.", "i.e.", and "et al.".
 - **Use "any" to disambiguate "state".**
   Prefer "any undocumented host state" over bare "state" where the scope is otherwise ambiguous.
@@ -68,7 +70,7 @@ These apply to the manuscript (`main.tex`) and, where sensible, to Markdown docu
   Untangling the two senses in specific sentences is an ongoing refinement (see issue #178).
 - **Term hierarchy: Research Object > Module > Component.**
   - A **research object** is a collection of data, code, and metadata that together represent the research as a complete unit.
-  - A **module** is a separately Distributable unit of a research object (a subdataset, a collection of scripts, an environment definition).
+  - A **module** is a separable unit of a research object (a subdataset, a collection of scripts, an environment definition).
   - A **component** is a trackable element that is part of a module (a file, a script, a config).
 - **Workflow** is defined externally by WCI-FW and cited, not redefined by us.
 - **Provenance** is the recorded history of how components were produced or modified.
