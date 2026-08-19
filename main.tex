@@ -69,7 +69,7 @@ It is common for the components of a research object to be organized independent
 This separation undermines rigor, reproducibility, reusability, and efficiency.
 Even when its components are gathered in one place, a research object is often tightly coupled to specific software versions and environments which may be opaque to outside collaborators, making it difficult to reuse or redistribute.
 
-The FAIR principles\cite{wilkinson_fair_2016} and FAIR4RS guidelines\cite{barker_introducing_2022} provide structured guidance for making digital objects "Findable, Accessible, Interoperable, and Reusable".
+The FAIR principles\cite{wilkinson_fair_2016} and FAIR4RS guidelines\cite{barker_introducing_2022} provide structured guidance for making digital objects ``Findable, Accessible, Interoperable, and Reusable''.
 The Workflow Community Initiative (WCI-FW)\cite{wilkinson_applying_2025} mapped these principles onto computational workflows but explicitly chose not to define new ones, instead treating workflows as hybrid data \& software objects.
 STAMPED addresses a complementary layer: the day-to-day practices that underpin re-execution, extension, and redistribution of a research object.
 Both the FAIR and STAMPED frameworks cover overlapping concerns.
@@ -79,7 +79,7 @@ FAIR emphasizes discovery and interoperability across repositories, while STAMPE
 Many researchers already employ practices that address these operational properties, such as version control, containerized environments, structured project directories, and documented analysis steps.
 Yet the community lacks a shared vocabulary for referring to these ideas, evaluating how thoroughly they are applied, and communicating that evaluation to collaborators and reviewers.
 Here we provide that vocabulary by introducing seven principles which articulate how Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable (STAMPED) a research object is, thus describing its operational maturity.
-These originate from both the YODA Principles\cite{hanke_yoda_2018}, as well as VAMP\cite{hanke_what_2023}.
+These originate from both the YODA principles\cite{hanke_yoda_2018} and VAMP\cite{hanke_what_2023}.
 Rather than a compliance threshold, each STAMPED principle is a spectrum from a practical minimum---often what researchers are already doing---to an aspirational ideal.
 A researcher who stores everything under one project directory, version-controls analysis scripts, and documents how to run them is already meeting the practical minimum for Self-containment, Tracking, and Actionability.
 As complexity grows, such as for multi-institutional collaborations with heterogeneous workflows spanning platforms enforcing long-term reproducibility, these same principles guide researchers toward more rigorous practices without requiring wholesale adoption of new tools.
@@ -95,21 +95,21 @@ STAMPED provides a descriptive vocabulary and a framework for evaluation that ca
 
 
 
-\anchoredsection{principles}{The STAMPED Principles}
+\anchoredsection{principles}{The STAMPED principles}
 
 \begin{table}[htbp]
 \centering
-\caption{The STAMPED Principles where each one addresses a distinct property of research object organization that contributes to reproducibility. Together, they provide a framework for evaluating and improving the reproducibility of computational research.}
+\caption{The STAMPED principles where each one addresses a distinct property of research object organization that contributes to reproducibility. Together, they provide a framework for evaluating and improving the reproducibility of computational research.}
 \label{tab:stamped}
 \begin{tabular}{c l p{0.65\textwidth}}
 \hline
 \textbf{Letter} & \textbf{Principle} & \textbf{Description} \\
 \hline
-S & Self-containment & A research object is a complete retrieval unit; it can be obtained and understood in its intended scope without needing to reference external resources. \\
+S & Self-containment & A research object is a complete unit that can be obtained and understood in its intended scope; components are included directly or by persistent references that are themselves part of the object. \\
 T & Tracking & The state and provenance of all components is recorded. \\
-A & Actionability & Research object contains machine-actionable information to carry out procedures to obtain or reproduce content. \\
+A & Actionability & A research object contains sufficient instructions to obtain or reproduce its content, ideally as executable specifications. \\
 M & Modularity & All modules are independent and composable. \\
-P & Portability & Research object could be moved to different environments while retaining its STAMPED properties. \\
+P & Portability & A research object could be moved to different environments while retaining its STAMPED properties. \\
 E & Ephemerality & Procedural execution is performed within a throwaway environment. \\
 D & Distributability & All modules and procedures are shareable externally in a persistent state. \\
 \hline
@@ -129,7 +129,7 @@ The formal requirements use the graded keywords of RFC~2119\cite{bradner_key_199
 
 Reproducibility fails when a research object depends on resources that are not part of it; an undocumented library, a dataset referenced by a broken URL, a script that assumes tools are installed on the host system.
 We call this the ``don't look up'' rule: a research object must never rely on any implicit external state.
-Instead, it must be a complete retrieval unit, where all modules and components essential to reproduce its results are contained within a single top-level boundary (S.1, Table~1).
+Instead, it must be a complete unit, where all modules and components essential to reproduce its results are contained within a single top-level boundary (S.1, Table~1).
 
 Components may be included literally (e.g., files committed directly) or by reference (e.g., as subdatasets, registered data URLs).
 Both approaches satisfy self-containment, provided the references are explicit and part of the research object.
@@ -170,17 +170,17 @@ Compatible tools such as git-annex, DataLad\cite{halchenko_datalad_2021}, or DVC
 Toward the ideal end, provenance is captured programmatically by tooling rather than by manual annotation.
 Each computational step should record exactly what command was executed and what inputs were consumed, producing richer and more reliable records than a human would typically write.
 When modules are independently tracked under compatible systems, the version of every module at the time of each commit is also discoverable, providing a complete picture of the state that produced a given result.
-This enables not just inspection but re-execution.
+This enables inspection and provides a foundation for re-execution.
 Beyond the research object itself, knowing the state of data and code at each hand-off between experimental, analytical, and engineering stages is what allows a team to coordinate updates without losing the provenance chain---an operational view of tracking developed by the SciOps framework\cite{johnson_sciops_2024}.
 Across communities, multiple ontologies and packaging standards have emerged to make these provenance records portable across tools, including cross-domain models such as W3C~PROV\cite{w3c_provenance_working_group_prov-overview_2013}, packaging formats such as RO-Crate\cite{peroni_packaging_2022}, and domain-specific specifications such as BIDS-Prov (BEP028)\cite{bids_community_bep028_2025}.
-The relationships among such provenance, assertion, and evidence ontologies have been surveyed recently\cite{chhetri_bridging_2025}, emphasizing the already available rich ecosystem to be promoted and wider adopted for improving tracking of scientific processes.
+The relationships among such provenance, assertion, and evidence ontologies have been surveyed recently\cite{chhetri_bridging_2025}, highlighting a rich existing ecosystem that deserves promotion and wider adoption to improve tracking of scientific processes.
 
 
 \anchoredsubsection{actionability}{Actionability}
 
 \begin{itemize}
     \item \textbf{A.1}: Research object MUST contain sufficient instructions to reproduce all computational results.
-    \item \textbf{A.2}: Procedures SHOULD be specified as executable specifications.
+    \item \textbf{A.2}: Procedures SHOULD be expressed as executable specifications.
 \end{itemize}
 
 A research object may be Self-contained~(S) and fully Tracked~(T), yet having all ingredients and a record of what was done is insufficient without a recipe that can be followed.
@@ -194,7 +194,7 @@ At the ideal end, each principle is enacted not through documentation alone but 
   \item \textbf{Tracking} is more actionable when provenance records are re-executable (e.g., \texttt{datalad rerun}), not just inspectable.
   \item \textbf{Modularity} is more actionable when components can be composed, updated, and replaced via tooling (e.g., \texttt{git submodule}), not just organized into directories.
   \item \textbf{Portability} is more actionable when environment specifications are machine-readable and can be resolved on different hosts (e.g., \texttt{conda env create}, Nix flakes), not just documented in a README.
-  \item \textbf{Ephemerality} is more actionable when computation can be orchestrated in disposable environments (e.g., \texttt{docker compose}, Slurm), not just instructed to ``run in a clean environment.''
+  \item \textbf{Ephemerality} is more actionable when computation can be programmatically orchestrated in disposable environments (e.g., \texttt{docker compose}, Slurm), not just instructed to ``run in a clean environment.''
   \item \textbf{Distributability} is more actionable when a frozen state can be produced and retrieved by others (e.g., containers, \texttt{npm ci}), not just described with pinning instructions.
 \end{itemize}
 The principle is tool-agnostic; any system that moves a property from documented to executable moves the research object further along the actionability spectrum.
@@ -208,17 +208,16 @@ A SciOps-style workflow makes hand-offs between experimental, analytical, and en
 \begin{itemize}
     \item \textbf{M.1}: Components SHOULD be organized in a modular structure.
     \item \textbf{M.2}: Components MAY be included directly or linked as subdatasets.
-    \item \textbf{M.3}: Each module's license SHOULD be declared independently and checked for compatibility at the boundaries where modules are combined
+    \item \textbf{M.3}: Each module's license SHOULD be declared independently and checked for compatibility at the boundaries where modules are combined.
     \item \textbf{M.4}: Components governed by different access requirements SHOULD be isolated in separate modules where practical.
 \end{itemize}
 
 A research object may be Self-contained~(S) and Tracked~(T), yet when all components are interleaved in a single monolithic directory, it can be fragile and difficult to navigate.
-Separation of concerns is a foundational engineering practice: organizing a system so that each piece has a clear, distinct role.
-With clear boundaries between the conceptual components of a research object, it becomes more navigable and maintainable.
-We define a \textbf{module} as a separately Distributable~(D) unit of a research object.
+Separation of concerns is a foundational engineering practice; clear boundaries keep the system navigable and maintainable.
+We define a \textbf{module} as a separable unit of a research object.
 This can include a subdataset, a collection of analysis scripts, or the definition for some computational environment.
 In practice, module boundaries often align with repository boundaries, but a module may also be a published container, a registered dataset, or any independently versioned unit.
-Modularity applies this principle to research objects, structuring them as assemblies of modules whose boundaries are explicit.
+Modularity applies this principle to research objects, structuring them as assemblies with clear module boundaries.
 Module boundaries are also where license compatibility must be checked, since combining modules with incompatible terms can prevent the assembled research object from being lawfully redistributed.
 In addition to licenses, data use agreements and other legal, ethical, institutional, or technical constraints may impose different conditions on access and redistribution across a research object.
 For example, the U.S. Census Bureau releases disclosure-protected public-use data while reserving detailed microdata for secure research environments \citep{united_states_census_bureau_dissemination_2025}; GBIF guidance similarly recommends publishing generalized species locations while providing precise coordinates only under agreement \citep{chapman_current_2020}.
@@ -241,11 +240,11 @@ Toward the ideal end, the full research object can be reassembled from its speci
 \end{itemize}
 
 A research object that is Self-contained~(S), Tracked~(T), and Modular~(M) may still fail to run on a different machine if it is silently affected by any inherited host state.
-Common examples of such states include specific developer-level package installations with no released versions, unique system libraries exposed to custom user profiles, hardcoded system paths, or an assumed OS configuration (e.g., path character limits).
+Common examples of such states include untracked package dependencies, hardcoded system paths, or assumed OS configurations (e.g., path character limits).
 This coupling is often invisible on the original system and only surfaces when someone else attempts to reproduce the work.
 Portability requires making all host dependencies explicit, so that the research object can be adapted to a new environment.
 
-Some degree of coupling to the host is unavoidable, such as path naming restrictions (``C:/'' vs. ``/mnt''), resource limits (minimum CPU/RAM requirements), or platform-specific flags.
+Some degree of coupling to the host is often unavoidable, such as path naming restrictions (``C:/'' vs. ``/mnt''), resource limits (minimum CPU/RAM requirements), or platform-specific flags.
 The spectrum of portability begins with isolating this host-specific configuration from the rest of the research object, so that adapting to a new environment, however involved that may be, requires only changing the configuration.
 Beyond this, several complementary approaches reduce host coupling.
 Virtual machines provide full system-level isolation; container-based tools (Docker, Singularity/Apptainer) bundle OS-level environments; declarative package managers (Nix\cite{kowalewski_sustainable_2022}, Guix\cite{courtes_reproducible_2015}) specify environments that can be reconstructed from a definition.
@@ -262,13 +261,13 @@ Toward the ideal end, the computational environment is fully specified and versi
 A research object may satisfy Self-containment~(S), Tracking~(T), and Portability~(P) while its computational environment has only ever been assembled once, incrementally, on the original researcher's machine.
 During development, researchers routinely modify their environment by installing packages, adjusting configurations, and setting variables.
 Each change is individually small but collectively difficult to document manually.
-The result is environment drift, where an environment that works but may not be reconstructable from its specification alone.
+The result is environment drift, where an environment works but may not be reconstructable from its specification alone.
 When this occurs, undocumented steps can go unnoticed when internalized knowledge silently fills the gaps.
 Ephemerality eliminates this problem by construction; a disposable environment built from Tracked~(T) specifications cannot carry any undocumented state, so that successful execution exercises Self-containment~(S), Actionability~(A), and specification completeness.
 
 The spectrum of ephemerality ranges from manually setting up a fresh environment from the project's specification (which is usually sufficient to catch environment drift) to fully automated disposable environments created and destroyed per execution.
 At the ideal end, ephemeral computation also enables testing across different host systems, where same-host execution validates specification completeness and different-host execution validates that specifications are not coupled to a specific system.
-The FAIRly big workflow\cite{wagner_fairly_2022} and other approaches to using Distributed~(D) computing platforms such as SLURM or Code Ocean\cite{cheifet_promoting_2021} operationalize this ideal, treating each computation as an ephemeral work unit.
+The FAIRly big workflow\cite{wagner_fairly_2022} and other approaches to using distributed computing platforms such as Slurm or Code Ocean\cite{cheifet_promoting_2021} operationalize this ideal, treating each computation as an ephemeral work unit.
 This approach easily enables horizontal scaling, as independent disposable instances can be parallelized across subjects, parameters, or datasets.
 
 Yet ephemeral computation does not validate everything.
@@ -293,10 +292,8 @@ The distinction mirrors the concept of a software distribution: a curated, versi
 Simply sharing a research object by uploading scripts to a repository with loose dependencies, or posting files on a website with no version or other persistence guarantees, does not constitute distribution in this sense.
 A distributable research object is packaged so that it can be retrieved in the same state as intended.
 
-Distributability also has a circular relationship with the other STAMPED principles in that someone else's distribution effort often serves as the starting point for a new research object's Self-containment~(S).
-Researchers routinely begin by downloading containers, fetching published datasets, and installing released software---Modularly~(M) composing the distributions of others to assemble their own Self-contained~(S) research objects.
-Though persistent retrievability is a necessary but not sufficient condition for redistribution.
-Additionally, each module should carry an easily identifiable license or set of licenses for any bundled assets (e.g., via SPDX identifiers\cite{stewart_software_2010} or the REUSE specification\cite{free_software_foundation_europe_reuse_2024}) so that downstream researchers can compose, modify, and re-share components without legal ambiguity.
+Distributability also bootstraps new research objects; researchers frequently begin by Modularly~(M) composing the distributions of others into their own Self-contained~(S) research objects, downloading containers, fetching published datasets, and installing released software.
+Persistent retrievability alone does not make a research object redistributable: each module should also carry an easily identifiable license or set of licenses for any bundled assets (e.g., via SPDX identifiers\cite{stewart_software_2010} or the REUSE specification\cite{free_software_foundation_europe_reuse_2024}) so that downstream researchers can compose, modify, and re-share components without legal ambiguity.
 
 Distributability~(D) intersects with FAIR Accessibility, which establishes that an identified component can be retrieved through a documented protocol, including authentication or authorization where required.
 Distributability extends this concern to the research object as a whole: its referenced components remain obtainable in their intended versions as a coherent distribution.
@@ -343,7 +340,7 @@ This becomes important when distributed artifacts will execute in environments e
 \textbf{To be Portable:} &
 \begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
   \item system requirements and dependencies are explicitly documented
-  \item the Research Object is flexible enough to execute on different host environments without modification by the user
+  \item the Research Object executes on different host environments without modification beyond its host-specific configuration
   \item environment specifications are machine-readable where possible
 \end{itemize} \\
 \hline
@@ -380,7 +377,7 @@ The schema for this checklist is itself a living, version-tracked entity\cite{co
 \centering
 \includegraphics[width=\textwidth]{figures/checklist-figure.pdf}
 \caption{Screenshot of the interactive checklist for helping guide a workflow developer through common cases.}
-\label{fig:stamped-screnshot}
+\label{fig:stamped-screenshot}
 \end{figure}
 
 
@@ -395,7 +392,7 @@ Similarly, version control systems such as Git underpin both Tracking (content-a
 
 In practice, Self-containing~(S) all data by storing it directly within the research object may be undesired or prohibitive due to size, licensing, or privacy concerns.
 This creates a tension with Tracking~(T), which requires that every component be identified and versioned.
-Extensions such as git-annex, DataLad, DVC, and Git LFS strike the balance between the two principles by tracking metadata that identifies specific data versions and obtainability information instead, e.g., content checksums and URLs of remote servers that act as a source, and providing Actionable~(A) interfaces to obtain the data when necessary.
+Tools such as git-annex, DataLad, DVC, and Git LFS strike the balance between the two principles by tracking metadata that identifies specific data versions and obtainability information instead, e.g., content checksums and URLs of remote servers that act as a source, and providing Actionable~(A) interfaces to obtain the data when necessary.
 
 This overlap is not incidental --- it reflects the interdependence of the STAMPED principles themselves.
 Achieving Ephemerality~(E), for instance, inherently exercises Portability~(P) and Actionability~(A); a disposable environment must be reconstituted from explicit specifications, encouraging end-to-end automation.
@@ -458,7 +455,7 @@ Archive and persistently host frozen, versioned research objects and their compo
 
 
 
-\anchoredsubsection{examples}{Examples and Case Studies}
+\anchoredsubsection{examples}{Examples and case studies}
 
 \anchoredsubsubsection{pedagogical-examples}{Pedagogical examples}
 
@@ -469,9 +466,9 @@ The pages tagged ``STAMPED-intro'' (\httpsurl{examples.stamped-principles.org/ta
 
 \anchoredsubsubsection{real-world-adoptions}{Real-world adoptions}
 
-Several research projects have already adopted and documented the YODA principles (the predecessor to STAMPED) demonstrating practical utility across domains.
+Several research projects have already adopted and documented the YODA principles (the predecessor to STAMPED), demonstrating practical utility across domains.
 
-\textbf{BIDS Standard Evolution}: A significant validation of the ``do not look up'' principle occurred within the Brain Imaging Data Structure (BIDS)\cite{gorgolewski_brain_2016} community.
+\textbf{BIDS Standard Evolution}: A significant validation of the ``don't look up'' rule occurred within the Brain Imaging Data Structure (BIDS)\cite{gorgolewski_brain_2016} community.
 Originally, the BIDS specification nested derived data under \texttt{derivatives/} within the original raw dataset, creating upward dependencies that violated Self-containment~(S) and Modularity~(M), which broke Portability~(P).
 Following YODA principles, the BIDS community reversed this relationship so that derivative datasets now exist independently and reference raw data as subdatasets, not vice versa.
 
@@ -524,12 +521,12 @@ This convergence is evidence not of influence but of shared need, and maps most 
 A complementary convergence emerged in platforms and metadata standards.
 Though not an exhaustive list: Galaxy\cite{afgan_galaxy_2018} (first released 2005), Code~Ocean\cite{cheifet_promoting_2021} (2017), and brainlife.io\cite{hayashi_brainlifeio_2024} each provided turnkey reproducibility services, each implementing separation of code, data, and environment as a first-class abstraction---reflecting Self-containment~(S), Actionability~(A), and Portability~(P).
 On the standards side, the W3C~PROV data model (2013), Frictionless Data\cite{fowler_frictionless_2018} (2007), RO-Crate\cite{peroni_packaging_2022}, and BioComputeObject\cite{ferrer_biocompute_2017} (IEEE~2791-2020, \httpsurl{biocomputeobject.org}) each addressed interoperable packaging and provenance recording.
-The facts that FAIR required elaboration to accommodate software\cite{barker_introducing_2022} and workflows\cite{goble_fair_2020,wilkinson_applying_2025}, and that independent standards converged on provenance and packaging, confirms that these dimensions are recurrently demanded by research practice.
+The facts that FAIR required elaboration to accommodate software\cite{barker_introducing_2022} and workflows\cite{goble_fair_2020,wilkinson_applying_2025}, and that independent standards converged on provenance and packaging, confirm that these dimensions are recurrently demanded by research practice.
 
 Preregistration is the practice of committing to a study plan before outcomes are observed, which extends Tracking~(T) to the intent behind a study.
 It was established in clinical trials by the early 2000s and gradually expanded into behavioral, social, and computational research\cite{nosek_preregistration_2018}.
 The Open Science Framework\cite{foster_open_2017} (2013) combined that practice with a ``hub'' for collaboration and storage, producing read-only snapshots of a study's plan, data, code, and manuscripts under a single DOI, reflecting Self-containment~(S) and Distributability~(D).
-In some cases, pre-registration can also be considered a precursor to the Ephemerality~(E) of the actual scientific pipeline where work is concentrated on formulating hypothesis, planing and potentially simulations, thus making actual later implementation of it replaceable. 
+In some cases, pre-registration can also be considered a precursor to the Ephemerality~(E) of the actual scientific pipeline where work is concentrated on formulating hypotheses, planning, and potentially simulations, thus making actual later implementation of it replaceable.
 
 Framework tooling and domain standards reveal the same pattern at the project-layout level.
 Cookiecutter Data Science (2016), BIDS\cite{gorgolewski_brain_2016} (2016), Kedro (2019), nipoppy\cite{wang_open_2026} (2023), and others, all imposed opinionated directory structures and modular separation (independently motivated by the costs of ad-hoc layouts)---reflecting Modularity~(M) and Self-containment~(S).
@@ -541,7 +538,7 @@ Tracking~(T) wherever content-addressed storage or version control records the h
 Actionability~(A) wherever Makefiles, workflow managers, or platform APIs make re-execution or acquisition a single command;
 Modularity~(M) wherever directory conventions or subproject composition enforce a separation of concerns;
 Portability~(P) wherever good coding practice, containers or environment specifications decouple a research object from a particular machine;
-Ephemerality~(E) wherever composition brings together computation on data which is treated as disposable and regenerable;
+Ephemerality~(E) wherever computational environments are treated as disposable and regenerable from specification;
 and Distributability~(D) wherever licensing, packaging standards, or data logistic mechanisms enable sharing.
 
 The formalization presented here provides a shared vocabulary for what these practices have in common, enabling researchers to evaluate and incrementally improve their workflows regardless of the specific tools they employ.
@@ -561,7 +558,7 @@ The milestones shown are illustrative rather than exhaustive; many other influen
 
 
 
-\anchoredsubsection{future-directions}{Future Directions}
+\anchoredsubsection{future-directions}{Future directions}
 
 STAMPED principles provide a vocabulary rather than a closed specification, which is rooted in practices that continue to evolve with tooling, policy, and scientific convention.
 The directions below identify open fronts where the framework's vocabulary will need to stretch, and where complementary work by adjacent communities will shape how STAMPED assists researchers in the coming decade.
@@ -580,7 +577,7 @@ The connection to pre-registration is direct and generalizes Ephemerality~(E) ev
 A well-formulated study specification is a commitment that survives any particular implementation, and what is Ephemeral~(E) expands from the compute environment to the full ``scientific middleware'' (data acquisition,
 harmonization, preprocessing, analytics), with each stage reduced to a specification from which implementations can be derived.
 OSF Registrations\cite{foster_open_2017} already operate this way for preregistered plans, fixing a study's specification under a DOI before any implementation begins.
-That is where concentration on formalization and standardization of overall study specifications becomes the target to apply STAMPED principles, so that the middleware steps could also be automatically carried out in an Ephemeral~(E) fashion and potentially while exploring various possible implementations.
+The target for STAMPED principles thus shifts to the study specification itself: once formalized and standardized, its middleware steps can run automatically in an Ephemeral~(E) fashion, even exploring alternative implementations.
 The cost of under-specified middleware is already visible in practice; the NARPS study showed that 70 independent teams analyzing the same fMRI dataset with nominally similar hypotheses produced substantially divergent results\cite{botvinik-nezer_variability_2020}, precisely because the study specification left most of the middleware up to each team.
 
 \anchoredsubsubsection{provenance-standards}{Provenance standards convergence}
@@ -597,7 +594,7 @@ STAMPED compliance today is self-assessed against the checklist fulfilling a sim
 That Web UI provides Self-contained~(S) stateful permalinks to render any particular state of the filled out checklist, so they could be shared easily.
 Broader adoption will depend on promotion and external incentives, including funder mandates (e.g.,\ NIH Data Management and Sharing policies), journal reproducibility badges\cite{center_for_open_science_open_2023}, and venue-level review checklists that converge toward automated scoring. 
 Such a trajectory would parallel that of FAIR, which has moved from principles to machine-assessable indicators with tools such as F-UJI\cite{devaraju_automated_2021}.
-No automated tool yet available as of now certifies STAMPED compliance.
+No currently available automated tool certifies STAMPED compliance.
 A community-maintained benchmark suite, seeded by the satellite examples project associated with this paper (\httpsurl{examples.stamped-principles.org}), is a natural precursor.
 
 
@@ -612,9 +609,9 @@ YODA principles have already entered the curricula of several such programs, and
 Continued community outreach, including a recent introduction to STAMPED\cite{baker_guidelines_2026} delivered to the BRAIN BBQS program, supports that transition.
 
 
-\anchoredsubsubsection{ai-era}{Research in an AI Era}
+\anchoredsubsubsection{ai-era}{Research in an AI era}
 
-AI agents are now generating analysis code, selecting methods, and in some systems running entire research cycles end-to-end\cite{boiko_autonomous_2023, lu_ai_2024, mitchener_kosmos_2025}.
+AI agents are now generating analysis code, selecting methods, and in some systems running entire research cycles end-to-end as ``AI scientists''\cite{boiko_autonomous_2023, lu_ai_2024, mitchener_kosmos_2025}.
 Without explicit structure, this automation can produce results whose provenance and reasoning are irrecoverable\cite{messeri_artificial_2024}.
 The STAMPED principles already carry most of what is needed.
 Self-contained~(S) workspaces alone give agents a well-defined boundary; Tracked~(T) histories make agent contributions auditable and contribute to their ``memory''; Actionable~(A) documentation serves humans and machines alike.
@@ -641,7 +638,7 @@ Instead, what the record must preserve is the hypothesis, the method specificati
 Self-contained~(S) models (above) strengthen this chain---when the model itself is Tracked~(T), the provenance record is more complete.
 
 \paragraph{Machine-actionable instructions.}
-Actionability~(A) was defined with human operators in mind, including entry-point commands documented in READMEs, frequently incomplete or out of sync with the underlying workflow.
+Actionability~(A) was defined with human operators in mind, including entry-point commands documented in READMEs that are frequently incomplete or out of sync with the underlying workflow.
 AI agents are a second consumer of the same prose, one that can parse, follow, and correct instructions on the fly, and plain Markdown has effectively become the interface language: \texttt{AGENTS.md} files, README-driven agent workflows, and spec-kit\cite{github_spec_2025} collections now function as machine-actionable interfaces, making Self-contained~(S) and Tracked~(T) research objects more Actionable~(A).
 Where prose instructions fail, the failure is legible (an audit mechanism that did not exist before) even if agent-driven execution remains less reliable than deterministic tooling.
 
@@ -649,17 +646,17 @@ Where prose instructions fail, the failure is legible (an audit mechanism that d
 Specification-centric research objects (above) depend on the cost of regenerating an implementation from a specification being low enough to be routine.
 AI coding assistants and specification-driven toolkits such as spec-kit move this cost toward zero, making the spec-centric view practical rather than aspirational.
 This holds provided the preceding extensions for models, provenance, and machine-actionable instructions are in place.
-This closes a loop with the end-to-end ``AI scientist'' systems that opened this section\cite{boiko_autonomous_2023, lu_ai_2024, mitchener_kosmos_2025}.
+Such acceleration is what the end-to-end ``AI scientist'' systems that opened this section already attempt at full scale.
 As soon as an agentic pipeline takes a study specification and returns data, code, figures, and a draft manuscript, the specification and every downstream artifact must together satisfy STAMPED, not only to keep such pipelines efficient to re-run at lower cost but to make their outputs introspectable.
-Tracked~(T) and Self-contained~(S) research objects let a researcher inspect which model, prompt, and decision led to a particular result, implement ``hand over'' between humans and agents alike and let subsequent actor re-enter any prior state and continue from it without rediscovering context.
+Tracked~(T) and Self-contained~(S) research objects let a researcher inspect which model, prompt, and decision led to a particular result, implement ``hand-off'' between humans and agents alike, and let subsequent actors re-enter any prior state and continue from it without rediscovering context.
 At the end, human scientists authoring and iterating over the specification of a STAMPED research object would see how their edits propagate through the generated implementation.
 Without the STAMPED principles, the acceleration might be real but the accountability would be lost.
 Instead, spec-driven agentic research becomes a collaborative, transparent artifact between scientists and the AI systems that support them.
 
 
-\anchoredsection{data-availability}{Data Availability}
+\anchoredsection{data-availability}{Data availability}
 
-All materials, data and code alike, are shared as part of the \ghurl{stamped-principles} GitHub organization, and released under OSI-approved licenses, with per-file licensing metadata maintained via the REUSE specification.
+All materials, data and code alike, are shared as part of the \ghurl{stamped-principles} GitHub organization, and released under open licenses (OSI-approved licenses for code, CC BY 4.0 for text and figures), with per-file licensing metadata maintained via the REUSE specification.
 
 The STAMPED principles\cite{cody_baker_stamped-principlesstamped-principles-schema_2026} (\ghurl{stamped-principles/stamped-principles-schema}) and their accompanying compliance checklist\cite{cody_baker_stamped-principlesstamped-checklist-schema_2026} (\ghurl{stamped-principles/stamped-checklist-schema}) are formally encoded as LinkML schemas with corresponding JSON instances, separating the data model from the principle content so that each can evolve independently.
 All sources for this manuscript (e.g., LaTeX file, figures; \ghurl{stamped-principles/stamped-paper}) have a rendered version at \httpsurl{paper.stamped-principles.org}.
@@ -668,7 +665,7 @@ Examples in that repository are metadata-tagged to allow classification and filt
 Visual identity materials (e.g., logos, favicons, etc) are maintained at \ghurl{stamped-principles/stamped-branding}, and organization-level landing content is served from \ghurl{stamped-principles/.github} at \httpsurl{stamped-principles.org}.
 The bibliography for this work is curated in the Center for Open Neuroscience public Zotero group library at \httpsurl{www.zotero.org/groups/6197458/centerforopenneuroscience/library}, which is openly reusable.
 
-\anchoredsection{code-availability}{Code Availability}
+\anchoredsection{code-availability}{Code availability}
 
 This work is a documentation and formalization project, and the production of scientific software is not its primary aim.
 The auxiliary code that supports it is distributed across the organization's repositories and includes tooling around the LinkML schemas in \texttt{stamped-principles-schema} and \texttt{stamped-checklist-schema}; the front-end JavaScript that powers the interactive compliance checklist deployed at \httpsurl{checklist.stamped-principles.org}; the Hugo-based site that renders worked examples in \texttt{stamped-examples}; and continuous-integration workflows in \texttt{stamped-paper} that build the manuscript PDF and post diff previews on pull requests.
@@ -677,7 +674,7 @@ The auxiliary code that supports it is distributed across the organization's rep
 \bibliographystyle{unsrtnat}
 \bibliography{references}
 
-\anchoredsection{author-contributions}{Author Contributions}
+\anchoredsection{author-contributions}{Author contributions}
 
 % Contributions follow the CRediT taxonomy (https://credit.niso.org/,
 % ANSI/NISO Z39.104-2022). Single source of truth: .tributors.credit.yaml
@@ -685,7 +682,7 @@ The auxiliary code that supports it is distributed across the organization's rep
 % Regenerate via `make author-contributions` (renderer: code/render_credit.py).
 \input{author-contributions}
 
-\anchoredsection{competing-interests}{Competing Interests}
+\anchoredsection{competing-interests}{Competing interests}
 The authors declare no competing interests.
 
 \anchoredsection{acknowledgments}{Acknowledgments}
