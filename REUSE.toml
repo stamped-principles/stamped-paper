@@ -51,6 +51,7 @@ path = [
     "author-contributions.tex",
     "author-contributions.jats.xml",
     "references.bib",
+    "scidata-cover-letter.md",
     "outline.md",
     "README.md",
     "CONTRIBUTING.md",
