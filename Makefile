@@ -5,7 +5,8 @@ AUTHOR_TARGETS := authors author-contributions author-contributions-jats \
                   credit-validate
 CONTAINER_AUTHOR_TARGETS := $(addprefix container-,$(AUTHOR_TARGETS))
 NON_LATEX_GOALS := $(AUTHOR_TARGETS) $(CONTAINER_AUTHOR_TARGETS) \
-                   container-author-image
+                   container-author-image container-build-image \
+                   container-pdf container-snapp-zip
 
 # Author metadata targets do not need LaTeX.mk. Skipping the include lets
 # their container-prefixed variants run on hosts without a LaTeX installation.
@@ -18,7 +19,12 @@ endif
 ifndef SKIP_LATEX_MK
 # https://gitlab.inria.fr/latex-utils/latex-make
 # sudo apt install latex-make   on Debian systems
+# Also provided by the build container (containers/build-latex.Dockerfile).
+# When absent, the default target runs the same build there (container-pdf).
+HAVE_LATEX_MK := $(wildcard /usr/include/LaTeX.mk)
+ifneq ($(HAVE_LATEX_MK),)
 include /usr/include/LaTeX.mk
+endif
 endif
 
 main.pdf: references.bib authors.tex author-contributions.tex | author-contributions.jats.xml
@@ -98,15 +104,73 @@ fetch-credit-renderer:
 fetch-authors-renderer:
 	$(call _fetch_renderer,render_authors.py)
 
-# Override default goal so bare "make" builds PDF then checks for problems
+# Override default goal so bare "make" builds PDF then checks for problems.
+# Without latex-make installed, delegate the build to the container instead.
 .DEFAULT_GOAL := default
 .PHONY: default
+ifneq ($(HAVE_LATEX_MK),)
 default: pdf
 	@if grep -sq -E 'There were undefined (citations|references)' main.log; then \
 	  echo "ERROR: Undefined references remain after build:"; \
 	  grep 'Citation.*undefined' main.log; \
 	  false; \
 	fi
+else
+default: container-pdf
+endif
+
+# Containerized full PDF build: the same image CI uses (see the
+# build-container workflow). Unlike the author metadata image, it is
+# published to GHCR because building TeX Live locally is slow.
+BUILD_CONTAINER_IMAGE ?= ghcr.io/stamped-principles/build-latex:latest
+
+# Fallback for machines that cannot pull the image (not yet published, or
+# the GHCR package is private): build it locally under the same name so the
+# pull-first targets resolve it. Slow — installs TeX Live.
+.PHONY: container-build-image
+container-build-image:
+	@command -v podman >/dev/null 2>&1 || { \
+	  echo "ERROR: Podman is required for container-* targets."; \
+	  exit 1; \
+	}
+	podman build --file containers/build-latex.Dockerfile \
+	  --tag $(BUILD_CONTAINER_IMAGE) containers
+
+.PHONY: container-pdf
+container-pdf:
+	@command -v podman >/dev/null 2>&1 || { \
+	  echo "ERROR: Podman is required for container-* targets."; \
+	  exit 1; \
+	}
+	podman run --rm --userns=keep-id \
+	  --security-opt label=disable \
+	  --env HOME=/tmp \
+	  --volume "$(CURDIR):/work" \
+	  --workdir /work \
+	  $(BUILD_CONTAINER_IMAGE) make
+
+# --- SciData submission bundle ---------------------------------------------
+# One self-contained zip of the manuscript sources for upload to the
+# submission system (SNAPP), which compiles them into the peer-review PDF:
+# LaTeX sources, bibliography (.bib plus the built .bbl), and the referenced
+# figures with their figures/ paths preserved.
+SNAPP_ZIP   := stamped-paper-snapp.zip
+SNAPP_FILES := main.tex authors.tex author-contributions.tex references.bib \
+               main.bbl figures/fig1.pdf figures/checklist-figure.pdf \
+               figures/convergent-evolution-gantt.pdf
+
+.PHONY: snapp-zip container-snapp-zip
+snapp-zip: main.pdf
+	rm -f $(SNAPP_ZIP)
+	zip $(SNAPP_ZIP) $(SNAPP_FILES)
+
+container-snapp-zip:
+	podman run --rm --userns=keep-id \
+	  --security-opt label=disable \
+	  --env HOME=/tmp \
+	  --volume "$(CURDIR):/work" \
+	  --workdir /work \
+	  $(BUILD_CONTAINER_IMAGE) make snapp-zip
 
 # Mermaid diagrams — render .mmd to .svg and .pdf via mermaid-cli
 MMD_SRCS := $(wildcard figures/*.mmd)
