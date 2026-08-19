@@ -5,7 +5,7 @@ AUTHOR_TARGETS := authors author-contributions author-contributions-jats \
                   credit-validate
 CONTAINER_AUTHOR_TARGETS := $(addprefix container-,$(AUTHOR_TARGETS))
 NON_LATEX_GOALS := $(AUTHOR_TARGETS) $(CONTAINER_AUTHOR_TARGETS) \
-                   container-author-image container-pdf
+                   container-author-image container-pdf container-snapp-zip
 
 # Author metadata targets do not need LaTeX.mk. Skipping the include lets
 # their container-prefixed variants run on hosts without a LaTeX installation.
@@ -135,6 +135,29 @@ container-pdf:
 	  --volume "$(CURDIR):/work" \
 	  --workdir /work \
 	  $(BUILD_CONTAINER_IMAGE) make
+
+# --- SciData submission bundle ---------------------------------------------
+# One self-contained zip of the manuscript sources for upload to the
+# submission system (SNAPP), which compiles them into the peer-review PDF:
+# LaTeX sources, bibliography (.bib plus the built .bbl), and the referenced
+# figures with their figures/ paths preserved.
+SNAPP_ZIP   := stamped-paper-snapp.zip
+SNAPP_FILES := main.tex authors.tex author-contributions.tex references.bib \
+               main.bbl figures/fig1.pdf figures/checklist-figure.pdf \
+               figures/convergent-evolution-gantt.pdf
+
+.PHONY: snapp-zip container-snapp-zip
+snapp-zip: main.pdf
+	rm -f $(SNAPP_ZIP)
+	zip $(SNAPP_ZIP) $(SNAPP_FILES)
+
+container-snapp-zip:
+	podman run --rm --userns=keep-id \
+	  --security-opt label=disable \
+	  --env HOME=/tmp \
+	  --volume "$(CURDIR):/work" \
+	  --workdir /work \
+	  $(BUILD_CONTAINER_IMAGE) make snapp-zip
 
 # Mermaid diagrams — render .mmd to .svg and .pdf via mermaid-cli
 MMD_SRCS := $(wildcard figures/*.mmd)

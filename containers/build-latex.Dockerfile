@@ -14,6 +14,7 @@ RUN apt-get update \
       texlive-bibtex-extra \
       python3 \
       python3-yaml \
+      zip \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /work
