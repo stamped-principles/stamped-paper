@@ -5,7 +5,8 @@ AUTHOR_TARGETS := authors author-contributions author-contributions-jats \
                   credit-validate
 CONTAINER_AUTHOR_TARGETS := $(addprefix container-,$(AUTHOR_TARGETS))
 NON_LATEX_GOALS := $(AUTHOR_TARGETS) $(CONTAINER_AUTHOR_TARGETS) \
-                   container-author-image container-pdf container-snapp-zip
+                   container-author-image container-build-image \
+                   container-pdf container-snapp-zip
 
 # Author metadata targets do not need LaTeX.mk. Skipping the include lets
 # their container-prefixed variants run on hosts without a LaTeX installation.
@@ -122,6 +123,18 @@ endif
 # build-container workflow). Unlike the author metadata image, it is
 # published to GHCR because building TeX Live locally is slow.
 BUILD_CONTAINER_IMAGE ?= ghcr.io/stamped-principles/build-latex:latest
+
+# Fallback for machines that cannot pull the image (not yet published, or
+# the GHCR package is private): build it locally under the same name so the
+# pull-first targets resolve it. Slow — installs TeX Live.
+.PHONY: container-build-image
+container-build-image:
+	@command -v podman >/dev/null 2>&1 || { \
+	  echo "ERROR: Podman is required for container-* targets."; \
+	  exit 1; \
+	}
+	podman build --file containers/build-latex.Dockerfile \
+	  --tag $(BUILD_CONTAINER_IMAGE) containers
 
 .PHONY: container-pdf
 container-pdf:
