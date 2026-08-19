@@ -21,6 +21,10 @@ Per-author ``.tributors`` schema for affiliation:
 
 Authors without an ``affiliation`` field are rendered without a superscript;
 no affiliation footer is emitted if no author has one.
+
+The first byline author is rendered as the corresponding author: ``*`` is
+added to their superscript markers and a ``Corresponding author: <name>``
+line is appended below the affiliations.
 """
 
 from __future__ import annotations
@@ -139,6 +143,7 @@ def render(credit: dict, tributors: dict[str, dict]) -> str:
 
     aff_id: dict[str, int] = {}
     rendered_authors: list[str] = []
+    corresponding_line: str | None = None
 
     for handle in byline:
         entry = tributors.get(handle, {})
@@ -158,6 +163,13 @@ def render(credit: dict, tributors: dict[str, dict]) -> str:
         #   none      — no ORCID marker rendered.
         orcid = entry.get("orcid")
         sup_parts: list[str] = [",".join(str(i) for i in ids)] if ids else []
+        # First byline author is the corresponding author: "*" in the
+        # superscript plus a footer line below the affiliations.
+        if handle == byline[0] and corresponding_line is None:
+            sup_parts.append("*")
+            corresponding_line = (
+                f"\\textsuperscript{{*}}Corresponding author: {name}"
+            )
         trailing = ""
         if orcid and orcid_marker == "text-id":
             sup_parts.append(f"\\href{{{_orcid_url(orcid)}}}{{iD}}")
@@ -175,16 +187,21 @@ def render(credit: dict, tributors: dict[str, dict]) -> str:
         sep = "," if i < len(rendered_authors) - 1 else ""
         lines.append(f"  {author}{sep}")
 
-    if aff_id:
+    if aff_id or corresponding_line:
         lines.append("  \\\\[0.5ex]")
         lines.append(
             f"  \\begin{{minipage}}{{{aff_width}\\textwidth}}\\centering\\{aff_size}"
         )
         sorted_affs = sorted(aff_id.items(), key=lambda kv: kv[1])
-        for aff, idx in sorted_affs:
-            sep = " \\\\" if idx < len(sorted_affs) else ""
-            aff_rendered = _linkify(aff, aff_links)
-            lines.append(f"    \\textsuperscript{{{idx}}}{aff_rendered}{sep}")
+        rows = [
+            f"    \\textsuperscript{{{idx}}}{_linkify(aff, aff_links)}"
+            for aff, idx in sorted_affs
+        ]
+        if corresponding_line:
+            rows.append(f"    {corresponding_line}")
+        for i, row in enumerate(rows):
+            sep = " \\\\" if i < len(rows) - 1 else ""
+            lines.append(f"{row}{sep}")
         lines.append("  \\end{minipage}")
 
     lines.append("}")
