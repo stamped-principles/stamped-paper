@@ -22,9 +22,18 @@ Per-author ``.tributors`` schema for affiliation:
 Authors without an ``affiliation`` field are rendered without a superscript;
 no affiliation footer is emitted if no author has one.
 
-The first byline author is rendered as the corresponding author: ``*`` is
-added to their superscript markers and a ``Corresponding author: <name>``
-line is appended below the affiliations.
+Corresponding authors are declared in ``.tributors.credit.yaml`` with a
+per-contributor ``corresponding: true`` flag:
+
+  contributors:
+    asmacdo:
+      corresponding: true
+      roles: [...]
+
+Every flagged author gets ``*`` appended to their superscript markers, and a
+``Corresponding author(s): <names>`` line, listing them in byline order, is
+appended below the affiliations. When no author carries the flag, the first
+byline author is treated as corresponding (the historical behaviour).
 """
 
 from __future__ import annotations
@@ -94,6 +103,31 @@ def _linkify(text: str, links: dict[str, str]) -> str:
     return pattern.sub(_sub, text)
 
 
+def _corresponding_handles(credit: dict, byline: list[str]) -> list[str]:
+    """Return the handles flagged ``corresponding: true``, in byline order.
+
+    The flag lives in the ``contributors:`` map of the credit overlay, next
+    to the CRediT roles, because being a corresponding author is a property
+    of this manuscript rather than of the person's identity (``.tributors``).
+    With no flag anywhere, the first byline author is returned so that
+    projects predating the flag keep their previous rendering.
+    """
+    contributors = credit.get("contributors") or {}
+    flagged = {
+        handle
+        for handle, entry in contributors.items()
+        if (entry or {}).get("corresponding")
+    }
+    unknown = flagged - set(byline)
+    if unknown:
+        raise ValueError(
+            "corresponding author(s) not in the byline: "
+            + ", ".join(sorted(unknown))
+        )
+    ordered = [handle for handle in byline if handle in flagged]
+    return ordered or byline[:1]
+
+
 def _orcid_url(orcid: str) -> str:
     return orcid if orcid.startswith("http") else f"https://orcid.org/{orcid}"
 
@@ -141,9 +175,11 @@ def render(credit: dict, tributors: dict[str, dict]) -> str:
     # via render_authors._linkify (longest-key-first).
     aff_links: dict[str, str] = dict(credit.get("affiliation_links") or {})
 
+    corresponding = set(_corresponding_handles(credit, byline))
+
     aff_id: dict[str, int] = {}
     rendered_authors: list[str] = []
-    corresponding_line: str | None = None
+    corresponding_names: list[str] = []
 
     for handle in byline:
         entry = tributors.get(handle, {})
@@ -163,13 +199,11 @@ def render(credit: dict, tributors: dict[str, dict]) -> str:
         #   none      — no ORCID marker rendered.
         orcid = entry.get("orcid")
         sup_parts: list[str] = [",".join(str(i) for i in ids)] if ids else []
-        # First byline author is the corresponding author: "*" in the
-        # superscript plus a footer line below the affiliations.
-        if handle == byline[0] and corresponding_line is None:
+        # Corresponding authors get "*" in the superscript; their names are
+        # collected for the footer line below the affiliations.
+        if handle in corresponding:
             sup_parts.append("*")
-            corresponding_line = (
-                f"\\textsuperscript{{*}}Corresponding author: {name}"
-            )
+            corresponding_names.append(name)
         trailing = ""
         if orcid and orcid_marker == "text-id":
             sup_parts.append(f"\\href{{{_orcid_url(orcid)}}}{{iD}}")
@@ -177,6 +211,14 @@ def render(credit: dict, tributors: dict[str, dict]) -> str:
             trailing = f"~\\orcidlink{{{_orcid_id(orcid)}}}"
         sup = f"\\textsuperscript{{{','.join(sup_parts)}}}" if sup_parts else ""
         rendered_authors.append(f"{name}{sup}{trailing}")
+
+    corresponding_line: str | None = None
+    if corresponding_names:
+        label = "Corresponding author"
+        if len(corresponding_names) > 1:
+            label += "s"
+        joined = ", ".join(corresponding_names)
+        corresponding_line = f"\\textsuperscript{{*}}{label}: {joined}"
 
     lines: list[str] = [
         "% AUTO-GENERATED from .tributors{,.credit.yaml} by render_authors.py — do not hand-edit.",

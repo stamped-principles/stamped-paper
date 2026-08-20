@@ -14,6 +14,13 @@
 # https://github.com/con/tributors gains native CRediT support, this
 # overlay can fold back in.
 #
+# Corresponding authors are declared here too, with `corresponding: true`
+# on the contributor: being corresponding is a property of this manuscript
+# rather than of the person, so it does not belong in .tributors.
+# render_authors.py stars every flagged author in the byline and lists them
+# under the affiliations; render_credit.py marks their JATS <contrib> with
+# corresp="yes" and adds their <email> when .tributors has one.
+#
 # Inferred role assignments — those marked with `# DRAFT` — were
 # derived from git activity across stamped-* sibling repos (the
 # stamped-principles GitHub organisation: paper, branding, checklist,
@@ -36,6 +43,7 @@ contributors:
 
   asmacdo:
     # initials A.M. auto-derived
+    corresponding: true
     roles:
       - Conceptualization             # Initial drafts, initial formalized requirements
       - Methodology                   # stamped-examples reference implementations of the principles
@@ -46,6 +54,7 @@ contributors:
 
   CodyCBakerPhD:
     # initials C.C.B. auto-derived
+    corresponding: true
     roles:
       - Conceptualization             # proposals/stamped-acronym.md (the normative spec)
       - Methodology                   # stamped-checklist, stamped-checklist-schema, stamped-principles-schema
@@ -67,6 +76,7 @@ contributors:
 
   yarikoptic:
     # initials Y.O.H. auto-derived
+    corresponding: true
     roles:
       - Conceptualization                                # confirmed by author
       - Funding acquisition                              # confirmed by author (ReproNim, OpenNeuro, DANDI, EMBER grants)

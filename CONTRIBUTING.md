@@ -150,6 +150,7 @@ Each STAMPED principle subsection follows this pattern:
 The byline and the Author Contributions section are **generated from a single source of truth**; do not hand-edit the rendered files.
 
 - Edit `.tributors` (identity cache, con/tributors convention; ORCIDs sourced from <https://centerforopenneuroscience.org/whoweare>) and `.tributors.credit.yaml` (byline order, per-author CRediT roles from the 14 NISO Z39.104-2022 terms, affiliation links).
+- Mark corresponding authors with `corresponding: true` on their entry in `.tributors.credit.yaml`; each is starred in the byline and listed under the affiliations, and their JATS `<contrib>` gets `corresp="yes"` plus the `<email>` from `.tributors`.
 - Regenerate with `make authors` and `make author-contributions` (and `make author-contributions-jats`).
 - `authors.tex`, `author-contributions.tex`, and `author-contributions.jats.xml` are build products: never edit them directly.
 - The renderers `code/render_authors.py` and `code/render_credit.py` are vendored from the upstream `credit-contributions` skill so the build is Self-contained; refresh them with `make fetch-authors-renderer` / `make fetch-credit-renderer`.
