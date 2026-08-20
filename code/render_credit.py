@@ -19,6 +19,8 @@ present, merges identity fields from a sibling `.tributors` JSON cache
   --format latex      LaTeX prose, initials- or fullname-style (default)
   --format markdown   Markdown prose
   --format jats       JATS V1.2 <contrib-group> per jats4r.niso.org
+                      (corresponding authors carry corresp="yes" and,
+                      when known, an <email>)
   --format text       Plain text prose
   --format matrix-md  Markdown contribution matrix (authors x 14 roles)
   --format matrix-tex LaTeX contribution matrix (authors x 14 roles)
@@ -115,6 +117,8 @@ class Contributor:
     initials: str
     orcid: str | None = None
     affiliation: str | None = None
+    email: str | None = None
+    corresponding: bool = False
     roles: list[Role] = field(default_factory=list)
 
 
@@ -155,6 +159,18 @@ def build_contributors(
         # Fall back to insertion order of contributors map
         byline = list(contribs_raw.keys())
 
+    # Corresponding authorship is declared per contributor in the overlay
+    # (``corresponding: true``); a flag on a non-byline handle is a typo.
+    stray = sorted(
+        handle
+        for handle, entry in contribs_raw.items()
+        if (entry or {}).get("corresponding") and handle not in byline
+    )
+    if stray:
+        raise ValueError(
+            "corresponding author(s) not in the byline: " + ", ".join(stray)
+        )
+
     out: list[Contributor] = []
     for handle in byline:
         entry = contribs_raw.get(handle, {}) or {}
@@ -163,6 +179,8 @@ def build_contributors(
         initials = entry.get("initials") or derive_initials(name)
         orcid = entry.get("orcid") or identity.get("orcid")
         affiliation = entry.get("affiliation") or identity.get("affiliation")
+        email = entry.get("email") or identity.get("email")
+        corresponding = bool(entry.get("corresponding"))
 
         roles_raw = entry.get("roles") or []
         roles: list[Role] = []
@@ -187,6 +205,8 @@ def build_contributors(
                 initials=initials,
                 orcid=orcid,
                 affiliation=affiliation,
+                email=email,
+                corresponding=corresponding,
                 roles=roles,
             )
         )
@@ -282,12 +302,21 @@ def render_markdown_section(
 
 
 def render_jats(contribs: list[Contributor]) -> str:
-    """Emit a JATS V1.2 <contrib-group> per jats4r.niso.org/credit-taxonomy/."""
+    """Emit a JATS V1.2 <contrib-group> per jats4r.niso.org/credit-taxonomy/.
+
+    Corresponding authors are only those explicitly flagged in the overlay:
+    unlike the LaTeX byline, which falls back to the first byline author,
+    submission metadata never guesses who to write to.
+    """
     lines: list[str] = []
     lines.append("<!-- AUTO-GENERATED from .tributors.credit.yaml by render_credit.py -->")
     lines.append("<contrib-group>")
     for c in contribs:
-        lines.append("  <contrib contrib-type=\"author\">")
+        # corresp="yes" marks a corresponding author; the address itself
+        # goes in a sibling <email>, keeping the fragment single-rooted
+        # (an <author-notes><corresp> block belongs to <article-meta>).
+        corresp_attr = ' corresp="yes"' if c.corresponding else ""
+        lines.append(f"  <contrib contrib-type=\"author\"{corresp_attr}>")
         # Decompose name into given/surname when possible.
         parts = c.name.rsplit(" ", 1)
         given, surname = (parts[0], parts[1]) if len(parts) == 2 else ("", c.name)
@@ -301,6 +330,11 @@ def render_jats(contribs: list[Contributor]) -> str:
             lines.append(
                 f"    <contrib-id contrib-id-type=\"orcid\">{xml_escape(orcid_url)}</contrib-id>"
             )
+        # Only corresponding authors get an address: it is the one JATS needs
+        # for correspondence, and it keeps the other authors' emails out of
+        # the submitted metadata.
+        if c.corresponding and c.email:
+            lines.append(f"    <email>{xml_escape(c.email)}</email>")
         for r in c.roles:
             attrs = (
                 'vocab="credit" '
@@ -398,9 +432,11 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     if args.validate_only:
+        n_corresp = sum(1 for c in contribs if c.corresponding)
         sys.stderr.write(
             f"ok: validated {len(contribs)} contributor(s) with "
-            f"{sum(len(c.roles) for c in contribs)} role assignment(s)\n"
+            f"{sum(len(c.roles) for c in contribs)} role assignment(s) "
+            f"and {n_corresp} corresponding author(s)\n"
         )
         return 0
 
