@@ -83,7 +83,7 @@ FAIR emphasizes discovery and interoperability across repositories, while STAMPE
 
 Many researchers already employ practices that address these operational properties, such as version control, containerized environments, structured project directories, and documented analysis steps.
 Yet the community lacks a shared vocabulary for referring to these ideas, evaluating how thoroughly they are applied, and communicating that evaluation to collaborators and reviewers.
-Here we provide that vocabulary by introducing seven principles which articulate how Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable (STAMPED) a research object is, thus describing its operational maturity.
+Here we provide that vocabulary~(Figure~\ref{fig:stamped}) by introducing seven principles which articulate how Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable (STAMPED) a research object is, thus describing its operational maturity.
 These originate from both the YODA principles\cite{hanke_yoda_2018} and VAMP\cite{hanke_what_2023}.
 Rather than a compliance threshold, each STAMPED principle is a spectrum from a practical minimum---often what researchers are already doing---to an aspirational ideal.
 A researcher who stores everything under one project directory, version-controls analysis scripts, and documents how to run them is already meeting the practical minimum for Self-containment, Tracking, and Actionability.
@@ -375,14 +375,14 @@ This becomes important when distributed artifacts will execute in environments e
 
 We hope that the preceding sections have provided a clear understanding of the STAMPED principles and their rationale.
 While this understanding is essential, researchers may also benefit from a practical checklist to assess their research objects against these principles.
-Similar to the living examples repository, an interactive checklist has been provided at the \httpsurl{checklist.stamped-principles.org} webpage to guide assessments of compliance with STAMPED principles, ordered by the strength of the requirement (MUST, SHOULD, MAY).
+Similar to the living examples repository, an interactive checklist has been provided at the \httpsurl{checklist.stamped-principles.org} webpage (see~Figure~\ref{fig:stamped-checklist-screenshot}) to guide assessments of compliance with STAMPED principles, ordered by the strength of the requirement (MUST, SHOULD, MAY).
 The schema for this checklist is itself a living, version-tracked entity\cite{cody_baker_stamped-principlesstamped-checklist-schema_2026} that is likely to grow over time as more common violations of the principles are discovered in practice.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figures/checklist-figure.pdf}
 \caption{Screenshot of the interactive checklist for helping guide a workflow developer through common cases.}
-\label{fig:stamped-screenshot}
+\label{fig:stamped-checklist-screenshot}
 \end{figure}
 
 
