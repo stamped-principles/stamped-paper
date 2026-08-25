@@ -188,12 +188,17 @@ figures/%.pdf: figures/%.mmd
 	npx @mermaid-js/mermaid-cli -i $< -o $@ --pdfFit \
 		$(if $(wildcard figures/$*.css),-C figures/$*.css)
 
-# Cover letter — render the submission cover letter to PDF via the
-# official pandoc container (pandoc + minimal TeXLive; pinned version).
-.PHONY: cover-letter
-cover-letter: scidata-coverletter.pdf
+# Correspondence — render every Markdown letter in correspondence/ to a
+# sibling PDF via the official pandoc container (pandoc + minimal
+# TeXLive; pinned version). Dropping a new letter in the directory is
+# enough; no Makefile edit is needed.
+CORRESPONDENCE_MD  := $(wildcard correspondence/*.md)
+CORRESPONDENCE_PDF := $(CORRESPONDENCE_MD:.md=.pdf)
 
-scidata-coverletter.pdf: scidata-cover-letter.md
+.PHONY: correspondence
+correspondence: $(CORRESPONDENCE_PDF)
+
+correspondence/%.pdf: correspondence/%.md
 	podman run --rm -v "$$PWD:/work:z" -w /work docker.io/pandoc/latex:3.7 \
 		$< -V geometry:margin=1in -V fontsize=11pt -o $@
 

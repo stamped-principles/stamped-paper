@@ -185,6 +185,7 @@ The project follows the [REUSE specification](https://reuse.software/) so copyri
   `make container-credit-validate`.
 - `make reuse-lint` checks licensing compliance.
 - `make diagrams` renders Mermaid sources (`figures/*.mmd`) to SVG and PDF via `mermaid-cli`.
+- `make correspondence` renders every Markdown letter in `correspondence/` (the submission cover letter, editorial responses) to a sibling PDF via the pinned pandoc container.
 - `references.bib` is fetched from Zotero (see Bibliography).
 - The PDF build, REUSE lint, and diff preview also run in CI on every PR.
   CI runs in disposable runners, exercising the repository's own Ephemerality and Portability.

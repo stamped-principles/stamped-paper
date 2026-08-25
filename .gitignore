@@ -1,7 +1,7 @@
 local-notes/
 *.idea
 # build artifacts
-scidata-coverletter.pdf
+correspondence/*.pdf
 main.aux
 main.log
 main.pdf
