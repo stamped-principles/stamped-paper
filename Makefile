@@ -81,7 +81,9 @@ $(CONTAINER_AUTHOR_TARGETS): container-%: container-author-image
 	  $(AUTHOR_CONTAINER_IMAGE) $*
 
 # Refresh a vendored renderer from the user's installed skill.
-# Compares first; only copies (and reports) when the upstream differs.
+# Checks the "@ <version>" tag already in the vendored file against the
+# current skill-repo version (git describe --always); copies and re-stamps
+# only when they differ.
 # $(1) = filename under code/ and under the skill dir.
 define _fetch_renderer
 	@if [ ! -f $(SKILL_DIR)/$(1) ]; then \
@@ -89,12 +91,15 @@ define _fetch_renderer
 	  echo "Install the credit-contributions skill first."; \
 	  exit 1; \
 	fi
-	@if cmp -s $(SKILL_DIR)/$(1) code/$(1); then \
-	  echo "code/$(1) is up to date with skill."; \
+	@SKILL_VER=$$(git -C $(SKILL_DIR) describe --always 2>/dev/null || echo "unknown"); \
+	 LOCAL_VER=$$(grep -o '@ [^ ]*' code/$(1) 2>/dev/null | head -1 | awk '{print $$2}'); \
+	 if [ "$$LOCAL_VER" = "$$SKILL_VER" ]; then \
+	  echo "code/$(1) is up to date with skill ($$SKILL_VER)."; \
 	else \
-	  echo "Updating code/$(1) from $(SKILL_DIR)/$(1)"; \
+	  echo "Updating code/$(1) from $(SKILL_DIR)/$(1) @ $$SKILL_VER"; \
 	  cp $(SKILL_DIR)/$(1) code/$(1); \
 	  chmod +x code/$(1); \
+	  sed -i "s|^\(#   ~/.claude/skills/[^ ]*\)|\1 @ $$SKILL_VER|" code/$(1); \
 	fi
 endef
 
