@@ -3,6 +3,12 @@
 # SPDX-License-Identifier: MIT
 #
 # Generated with Claude Code 2.1.143 / Claude Opus 4.7
+#
+# Vendored from the credit-contributions skill:
+#   ~/.claude/skills/credit-contributions/render_authors.py @ 7863a92
+# Vendored so the stamped-paper build is self-contained (S in STAMPED).
+# To refresh from upstream:  make fetch-authors-renderer
+# License is kept as MIT (matches upstream) so refresh is a clean copy.
 
 """Render the LaTeX ``\\author{}`` block (with affiliation references) from
 ``.tributors`` + ``.tributors.credit.yaml``.
