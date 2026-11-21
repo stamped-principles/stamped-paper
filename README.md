@@ -25,7 +25,7 @@ Originating from the [YODA Principles](https://github.com/stamped-principles/pos
 
 Associated examples: [stamped-principles.github.io/stamped-examples](https://stamped-principles.github.io/stamped-examples)
 
-Target venue: **Nature Scientific Data** (Article format).
+Original target venue: **Nature Scientific Data** (Article format).
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for project conventions (writing style,
 terminology, build, licensing, and workflow). AI agents should also read
